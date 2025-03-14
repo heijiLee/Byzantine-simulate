@@ -54,18 +54,25 @@ func NewHotStuff(
 func (hs *HotStuff) ProcessBlock(block *blockchain.Block) error {
 	log.Debugf("[%v] is processing block from %v, view: %v, id: %x", hs.ID(), block.Proposer.Node(), block.View, block.ID)
 	curView := hs.pm.GetCurView()
+	/*
+		PREPARE PHASE
+		1. verify the block
+		For replica, block verification (Signature verification)
+	*/
 	if block.Proposer != hs.ID() {
 		blockIsVerified, _ := crypto.PubVerify(block.Sig, crypto.IDToByte(block.ID), block.Proposer)
 		if !blockIsVerified {
 			log.Warningf("[%v] received a block with an invalid signature", hs.ID())
 		}
 	}
+	// 2. if block's view is higher than the current view, buffer the block
 	if block.View > curView+1 {
 		//	buffer the block
 		hs.bufferedBlocks[block.View-1] = block
 		log.Debugf("[%v] the block is buffered, id: %x", hs.ID(), block.ID)
 		return nil
 	}
+	// 3. Update the genericQC
 	if block.QC != nil {
 		hs.updateHighQC(block.QC)
 	} else {
@@ -227,13 +234,17 @@ func (hs *HotStuff) processCertificate(qc *blockchain.QC) {
 	if qc.View < hs.pm.GetCurView() {
 		return
 	}
+	// QC signauture verification
 	if qc.Leader != hs.ID() {
+		// VerifyQuorumSignature verifies the all the signatures in the quorum
 		quorumIsVerified, _ := crypto.VerifyQuorumSignature(qc.AggSig, qc.BlockID, qc.Signers)
 		if quorumIsVerified == false {
 			log.Warningf("[%v] received a quorum with invalid signatures", hs.ID())
 			return
 		}
 	}
+	// FORK attack
+	// If next leader is byzantine node, the leader would advance view without processing the QC
 	if hs.IsByz() && config.GetConfig().Strategy == FORK && hs.IsLeader(hs.ID(), qc.View+1) {
 		hs.pm.AdvanceView(qc.View)
 		return
@@ -304,6 +315,11 @@ func (hs *HotStuff) updateLastVotedView(targetView types.View) error {
 	return nil
 }
 
+/*
+Preferred view is the view of the grandparent block of the QC
+-block verification
+-grandparent
+*/
 func (hs *HotStuff) updatePreferredView(qc *blockchain.QC) error {
 	if qc.View <= 2 {
 		return nil
