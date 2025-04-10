@@ -80,7 +80,7 @@ func (hs *HotStuff) ProcessBlock(block *blockchain.Block) error {
 	}
 	// does not have to process the QC if the replica is the proposer
 	if block.Proposer != hs.ID() {
-		hs.processCertificate(block.QC)
+		hs.processCertificate(block.QC) // View is advanced if the QC is valid & commit
 	}
 	curView = hs.pm.GetCurView()
 	if block.View < curView {
@@ -249,17 +249,21 @@ func (hs *HotStuff) processCertificate(qc *blockchain.QC) {
 		hs.pm.AdvanceView(qc.View)
 		return
 	}
+	// block not existed or parent block not existed
+	// buffer the QC
 	err := hs.updatePreferredView(qc)
 	if err != nil {
 		hs.bufferedQCs[qc.BlockID] = qc
 		log.Debugf("[%v] a qc is buffered, view: %v, id: %x", hs.ID(), qc.View, qc.BlockID)
 		return
 	}
+	// View is advanced if the QC is valid & update the highQC
 	hs.pm.AdvanceView(qc.View)
 	hs.updateHighQC(qc)
 	if qc.View < 3 {
 		return
 	}
+	// commit rule: two chain rule satisfy?
 	ok, block, _ := hs.commitRule(qc)
 	if !ok {
 		return
@@ -301,6 +305,7 @@ func (hs *HotStuff) commitRule(qc *blockchain.QC) (bool, *blockchain.Block, erro
 	if err != nil {
 		return false, nil, fmt.Errorf("cannot commit any block: %w", err)
 	}
+	// two chain rule
 	if ((grandParentBlock.View + 1) == parentBlock.View) && ((parentBlock.View + 1) == qc.View) {
 		return true, grandParentBlock, nil
 	}
@@ -318,7 +323,6 @@ func (hs *HotStuff) updateLastVotedView(targetView types.View) error {
 /*
 Preferred view is the view of the grandparent block of the QC
 -block verification
--grandparent
 */
 func (hs *HotStuff) updatePreferredView(qc *blockchain.QC) error {
 	if qc.View <= 2 {

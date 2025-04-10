@@ -2,6 +2,7 @@ package blockchain
 
 import (
 	"fmt"
+
 	"github.com/gitferry/bamboo/crypto"
 	"github.com/gitferry/bamboo/types"
 )
@@ -68,12 +69,15 @@ func (bc *BlockChain) GetGrandParentBlock(id crypto.Identifier) (*Block, error) 
 
 // CommitBlock prunes blocks and returns committed blocks up to the last committed one and prunedBlocks
 func (bc *BlockChain) CommitBlock(id crypto.Identifier, view types.View) ([]*Block, []*Block, error) {
+	// find the block
 	vertex, ok := bc.forrest.GetVertex(id)
 	if !ok {
 		return nil, nil, fmt.Errorf("cannot find the block, id: %x", id)
 	}
+	// configure the committed view
 	committedView := vertex.GetBlock().View
 	bc.highestComitted = int(vertex.GetBlock().View)
+	// collect committed blocks
 	var committedBlocks []*Block
 	for block := vertex.GetBlock(); uint64(block.View) > bc.forrest.LowestLevel; {
 		committedBlocks = append(committedBlocks, block)

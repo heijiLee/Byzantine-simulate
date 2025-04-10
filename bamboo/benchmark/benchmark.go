@@ -21,7 +21,7 @@ type DB interface {
 // DefaultBConfig returns a default benchmark config
 func DefaultBConfig() config.Bconfig {
 	return config.Bconfig{
-		T:           60,
+		T:           60, // execution time(sec)
 		N:           0,
 		Throttle:    0,
 		Concurrency: 1,
@@ -34,7 +34,7 @@ type Benchmark struct {
 	config.Bconfig
 	*History
 
-	rate      *Limiter
+	rate      *Limiter        // rate limiter
 	latency   []time.Duration // latency per operation
 	startTime time.Time
 	counter   int

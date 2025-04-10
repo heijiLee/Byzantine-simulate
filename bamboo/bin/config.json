@@ -24,8 +24,8 @@
   "pprof": false,
   "maxRound": 5000,
   "master": "0",
-  "delay": 0,
-  "derr": 0,
+  "delay": 15,
+  "derr": 10,
   "slow": 300,
   "crash": 20000,
   "benchmark": {

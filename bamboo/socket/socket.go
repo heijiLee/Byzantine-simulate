@@ -5,6 +5,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/gitferry/bamboo/config"
 	"github.com/gitferry/bamboo/identity"
 	"github.com/gitferry/bamboo/log"
 	"github.com/gitferry/bamboo/transport"
@@ -104,30 +105,30 @@ func (s *socket) Send(to identity.NodeID, m interface{}) {
 		s.lock.Unlock()
 	}
 
-	// add simulated transmission delay
-	//if config.GetConfig().Delay != 0 {
-	//	delay := config.GetConfig().Delay
-	//	err := config.GetConfig().DErr
-	//	rand.Seed(time.Now().UnixNano())
-	//	max := delay + err
-	//	min := delay - err
-	//	randDelay := time.Duration(rand.Intn(max-min+1)+min) * time.Millisecond
-	//	timer := time.NewTimer(randDelay)
-	//	go func() {
-	//		<-timer.C
-	//		t.Send(m)
-	//	}()
-	//	return
-	//
-	//}
-	if delay, ok := s.slow[to]; ok && delay > 0 {
-		timer := time.NewTimer(time.Duration(delay) * time.Millisecond)
+	//add simulated transmission delay
+	if config.GetConfig().Delay != 0 {
+		delay := config.GetConfig().Delay
+		err := config.GetConfig().DErr
+		rand.Seed(time.Now().UnixNano())
+		max := delay + err
+		min := delay - err
+		randDelay := time.Duration(rand.Intn(max-min+1)+min) * time.Millisecond
+		timer := time.NewTimer(randDelay)
 		go func() {
 			<-timer.C
 			t.Send(m)
 		}()
 		return
+
 	}
+	// if delay, ok := s.slow[to]; ok && delay > 0 {
+	// 	timer := time.NewTimer(time.Duration(delay) * time.Millisecond)
+	// 	go func() {
+	// 		<-timer.C
+	// 		t.Send(m)
+	// 	}()
+	// 	return
+	// }
 
 	t.Send(m)
 	//log.Debugf("[%v] message %v is sent to %v", s.id, m, to)

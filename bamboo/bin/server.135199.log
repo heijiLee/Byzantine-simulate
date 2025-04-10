@@ -1,0 +1,16 @@
+[INFO] 2025/04/10 19:59:10.136645 server.go:21: node 4 starting...
+[INFO] 2025/04/10 19:59:10.136647 server.go:21: node 3 starting...
+[INFO] 2025/04/10 19:59:10.136660 server.go:21: node 2 starting...
+[DEBUG] 2025/04/10 19:59:10.136734 transport.go:129: start listening 3738
+[DEBUG] 2025/04/10 19:59:10.136967 transport.go:129: start listening 3736
+[DEBUG] 2025/04/10 19:59:10.136857 transport.go:129: start listening 3737
+[INFO] 2025/04/10 19:59:10.136667 server.go:21: node 1 starting...
+[DEBUG] 2025/04/10 19:59:10.137023 transport.go:129: start listening 3735
+[INFO] 2025/04/10 19:59:10.139238 node.go:93: node 4 start running
+[INFO] 2025/04/10 19:59:10.139955 http.go:47: http server starting on :8073
+[INFO] 2025/04/10 19:59:10.140002 node.go:93: node 3 start running
+[INFO] 2025/04/10 19:59:10.139959 node.go:93: node 1 start running
+[INFO] 2025/04/10 19:59:10.140018 http.go:47: http server starting on :8072
+[INFO] 2025/04/10 19:59:10.140026 http.go:47: http server starting on :8070
+[INFO] 2025/04/10 19:59:10.140064 node.go:93: node 2 start running
+[INFO] 2025/04/10 19:59:10.140081 http.go:47: http server starting on :8071
