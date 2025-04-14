@@ -3,9 +3,10 @@ package replica
 import (
 	"encoding/gob"
 	"fmt"
+	"time"
+
 	fhs "github.com/gitferry/bamboo/fasthostuff"
 	"github.com/gitferry/bamboo/lbft"
-	"time"
 
 	"go.uber.org/atomic"
 
@@ -177,7 +178,8 @@ func (r *Replica) processCommittedBlock(block *blockchain.Block) {
 	}
 	r.committedNo++
 	r.totalCommittedTx += len(block.Payload)
-	log.Infof("[%v] the block is committed, No. of transactions: %v, view: %v, current view: %v, id: %x", r.ID(), len(block.Payload), block.View, r.pm.GetCurView(), block.ID)
+	log.Infof("[%v] the %vth block is committed, No. of transactions: %v, view: %v, current view: %v, id: %x", r.ID(), r.committedNo, len(block.Payload), block.View, r.pm.GetCurView(), block.ID)
+
 }
 
 func (r *Replica) processForkedBlock(block *blockchain.Block) {
@@ -195,10 +197,28 @@ func (r *Replica) processNewView(newView types.View) {
 	if !r.IsLeader(r.ID(), newView) {
 		return
 	}
-	r.proposeBlock(newView)
+	if r.isByz && config.GetConfig().Strategy == EQUIV {
+		log.Debugf("[%v] is a byzantine node, so it will propose a block Equivocate", r.ID())
+		return
+	}
+	r.proposeBlockByz(newView)
 }
 
 func (r *Replica) proposeBlock(view types.View) {
+	createStart := time.Now()
+	block := r.Safety.MakeProposal(view, r.pd.GeneratePayload())
+	r.totalBlockSize += len(block.Payload)
+	r.proposedNo++
+	createEnd := time.Now()
+	createDuration := createEnd.Sub(createStart)
+	block.Timestamp = time.Now()
+	r.totalCreateDuration += createDuration
+	r.Broadcast(block)
+	_ = r.Safety.ProcessBlock(block)
+	r.voteStart = time.Now()
+}
+
+func (r *Replica) proposeBlockByz(view types.View) {
 	createStart := time.Now()
 	block := r.Safety.MakeProposal(view, r.pd.GeneratePayload())
 	r.totalBlockSize += len(block.Payload)

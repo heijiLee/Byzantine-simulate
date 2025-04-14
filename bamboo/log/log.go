@@ -123,6 +123,8 @@ func Setup() {
 	multi := io.MultiWriter(f, os.Stderr)
 	log.warning = stdlog.New(multi, "[WARNING] ", format)
 	log.err = stdlog.New(multi, "[ERROR] ", format)
+	// log.warning = stdlog.New(f, "[WARNING] ", format)
+	// log.err = stdlog.New(f, "[ERROR] ", format)
 }
 
 func Debug(v ...interface{}) {
