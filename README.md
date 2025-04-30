@@ -1,9 +1,10 @@
 
 ---
 
-# Byzantine Behavior Simulation in Bamboo
+# Byzantine Behavior Simulation
 
 This project extends the [Bamboo](https://github.com/gitferry/bamboo) consensus framework to simulate and benchmark various **Byzantine faults** in HotStuff-based BFT protocols. It also aims to abstract Byzantine behaviors for use in other blockchain systems and developer networks.
+In future works, extend to DevNet in real blockchain world!
 
 ---
 
