@@ -2,7 +2,7 @@ import statistics
 import os
 path = "."
 durations = []
-f = open("server.12679.log")
+f = open("server.32769.log")
 counter = 0
 for line in iter(f):
     if "processing" in line:

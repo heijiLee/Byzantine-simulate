@@ -30,10 +30,13 @@ type Socket interface {
 	Close()
 
 	// Fault injection
-	Drop(id identity.NodeID, t int)             // drops every message send to NodeID last for t seconds
-	Slow(id identity.NodeID, d int, t int)      // delays every message send to NodeID for d ms and last for t seconds
-	Flaky(id identity.NodeID, p float64, t int) // drop message by chance p for t seconds
-	Crash(t int)                                // node crash for t seconds
+	Drop(id identity.NodeID, t int)                       // drops every message send to NodeID last for t seconds
+	Slow(id identity.NodeID, d int, t int)                // delays every message send to NodeID for d ms and last for t seconds
+	Flaky(id identity.NodeID, p float64, t int)           // drop message by chance p for t seconds
+	Crash(t int)                                          // node crash for t seconds
+	ByzBroadcast(n int, m interface{}, dummy interface{}) // Byzantine broadcast to n nodes
+	ByzSend(to identity.NodeID, m interface{})            // Byzantine send to a node
+	ByzRecv() interface{}                                 // Byzantine receive a message
 }
 
 type socket struct {
@@ -213,4 +216,28 @@ func (s *socket) Crash(t int) {
 			s.crash = false
 		}()
 	}
+}
+
+func (s *socket) ByzBroadcast(n int, m interface{}, dummy interface{}) { // Byzantine broadcast to n nodes m & others to dummy
+	i := 0
+	for id := range s.addresses {
+		i++
+		if id == s.id {
+			continue
+		}
+		if i > n {
+			s.Send(id, dummy)
+			continue
+		}
+		s.Send(id, m)
+
+	}
+}
+
+func (s *socket) ByzSend(to identity.NodeID, m interface{}) { // Byzantine send to a node
+
+}
+
+func (s *socket) ByzRecv() interface{} { // Byzantine receive a message
+	return nil
 }

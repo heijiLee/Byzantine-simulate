@@ -25,6 +25,8 @@ import (
 	"github.com/gitferry/bamboo/types"
 )
 
+const EQUIV = "equivocation"
+
 type Replica struct {
 	node.Node
 	Safety
@@ -197,11 +199,13 @@ func (r *Replica) processNewView(newView types.View) {
 	if !r.IsLeader(r.ID(), newView) {
 		return
 	}
+
 	if r.isByz && config.GetConfig().Strategy == EQUIV {
 		log.Debugf("[%v] is a byzantine node, so it will propose a block Equivocate", r.ID())
+		r.proposeBlockByz(newView)
 		return
 	}
-	r.proposeBlockByz(newView)
+	r.proposeBlock(newView)
 }
 
 func (r *Replica) proposeBlock(view types.View) {
@@ -221,14 +225,16 @@ func (r *Replica) proposeBlock(view types.View) {
 func (r *Replica) proposeBlockByz(view types.View) {
 	createStart := time.Now()
 	block := r.Safety.MakeProposal(view, r.pd.GeneratePayload())
+	dummy := r.Safety.MakeProposal(view+1, r.pd.GeneratePayload())
 	r.totalBlockSize += len(block.Payload)
 	r.proposedNo++
 	createEnd := time.Now()
 	createDuration := createEnd.Sub(createStart)
 	block.Timestamp = time.Now()
 	r.totalCreateDuration += createDuration
-	r.Broadcast(block)
-	_ = r.Safety.ProcessBlock(block)
+
+	r.ByzBroadcast(1, block, dummy)
+	_ = r.Safety.ProcessBlock(dummy)
 	r.voteStart = time.Now()
 }
 

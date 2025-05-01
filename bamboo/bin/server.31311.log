@@ -1,0 +1,1137 @@
+[INFO] 2025/04/15 12:54:53.434526 server.go:21: node 1 starting...
+[INFO] 2025/04/15 12:54:53.434590 server.go:23: node 1 is Byzantine
+[DEBUG] 2025/04/15 12:54:53.434625 transport.go:129: start listening 3735
+[INFO] 2025/04/15 12:54:53.434538 server.go:21: node 3 starting...
+[INFO] 2025/04/15 12:54:53.434547 server.go:21: node 4 starting...
+[DEBUG] 2025/04/15 12:54:53.434740 transport.go:129: start listening 3737
+[DEBUG] 2025/04/15 12:54:53.434755 transport.go:129: start listening 3738
+[INFO] 2025/04/15 12:54:53.434848 replica.go:72: [1] is Byzantine
+[INFO] 2025/04/15 12:54:53.434544 server.go:21: node 2 starting...
+[INFO] 2025/04/15 12:54:53.436683 node.go:93: node 1 start running
+[INFO] 2025/04/15 12:54:53.436874 http.go:47: http server starting on :8070
+[DEBUG] 2025/04/15 12:54:53.437035 transport.go:129: start listening 3736
+[INFO] 2025/04/15 12:54:53.437050 node.go:93: node 3 start running
+[INFO] 2025/04/15 12:54:53.437121 http.go:47: http server starting on :8072
+[INFO] 2025/04/15 12:54:53.437556 node.go:93: node 2 start running
+[INFO] 2025/04/15 12:54:53.437592 http.go:47: http server starting on :8071
+[INFO] 2025/04/15 12:54:53.437686 node.go:93: node 4 start running
+[INFO] 2025/04/15 12:54:53.437719 http.go:47: http server starting on :8073
+[DEBUG] 2025/04/15 12:54:54.628475 replica.go:287: [2] is boosting
+[DEBUG] 2025/04/15 12:54:54.628528 replica.go:287: [3] is boosting
+[DEBUG] 2025/04/15 12:54:54.628554 replica.go:287: [1] is boosting
+[DEBUG] 2025/04/15 12:54:54.628851 replica.go:287: [4] is boosting
+[DEBUG] 2025/04/15 12:54:54.628877 replica.go:165: [4] is going to kick off the protocol
+[DEBUG] 2025/04/15 12:54:54.628895 replica.go:261: [4] the last view lasts 0 milliseconds, current view: 1
+[DEBUG] 2025/04/15 12:54:54.628902 replica.go:198: [4] is processing new view: 1, leader is 4
+[DEBUG] 2025/04/15 12:54:54.629362 hotstuff.go:55: [4] is processing block from 4, view: 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.629408 hotstuff.go:114: [4] vote is sent to itself, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.629414 hotstuff.go:129: [4] is processing the vote, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.629420 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.644712 replica.go:119: [2] received a block from 4, view is 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e, prevID: 0000000000000000000000000000000000000000000000000000000000000000
+[DEBUG] 2025/04/15 12:54:54.644765 hotstuff.go:55: [2] is processing block from 4, view: 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.644857 hotstuff.go:233: [2] is processing a QC, block id: 0000000000000000000000000000000000000000000000000000000000000000
+[DEBUG] 2025/04/15 12:54:54.644930 hotstuff.go:117: [2] vote is sent to 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.645138 replica.go:198: [2] is processing new view: 1, leader is 4
+[DEBUG] 2025/04/15 12:54:54.645160 replica.go:261: [2] the last view lasts 16 milliseconds, current view: 1
+[DEBUG] 2025/04/15 12:54:54.648757 replica.go:119: [3] received a block from 4, view is 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e, prevID: 0000000000000000000000000000000000000000000000000000000000000000
+[DEBUG] 2025/04/15 12:54:54.648789 hotstuff.go:55: [3] is processing block from 4, view: 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.648857 hotstuff.go:233: [3] is processing a QC, block id: 0000000000000000000000000000000000000000000000000000000000000000
+[DEBUG] 2025/04/15 12:54:54.648919 hotstuff.go:117: [3] vote is sent to 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.649058 replica.go:198: [3] is processing new view: 1, leader is 4
+[DEBUG] 2025/04/15 12:54:54.649081 replica.go:261: [3] the last view lasts 20 milliseconds, current view: 1
+[DEBUG] 2025/04/15 12:54:54.649338 replica.go:119: [1] received a block from 4, view is 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e, prevID: 0000000000000000000000000000000000000000000000000000000000000000
+[DEBUG] 2025/04/15 12:54:54.649372 hotstuff.go:55: [1] is processing block from 4, view: 1, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.649467 hotstuff.go:233: [1] is processing a QC, block id: 0000000000000000000000000000000000000000000000000000000000000000
+[DEBUG] 2025/04/15 12:54:54.649527 hotstuff.go:117: [1] vote is sent to 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.649662 replica.go:198: [1] is processing new view: 1, leader is 4
+[DEBUG] 2025/04/15 12:54:54.649681 replica.go:261: [1] the last view lasts 21 milliseconds, current view: 1
+[DEBUG] 2025/04/15 12:54:54.659221 replica.go:128: [4] received a vote frm 2, blockID is 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.659260 hotstuff.go:129: [4] is processing the vote, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.659348 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.663013 replica.go:128: [4] received a vote frm 1, blockID is 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.663044 hotstuff.go:129: [4] is processing the vote, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.663113 hotstuff.go:233: [4] is processing a QC, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.663132 replica.go:261: [4] the last view lasts 34 milliseconds, current view: 2
+[DEBUG] 2025/04/15 12:54:54.663147 replica.go:198: [4] is processing new view: 2, leader is 4
+[DEBUG] 2025/04/15 12:54:54.663304 hotstuff.go:55: [4] is processing block from 4, view: 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.663367 hotstuff.go:114: [4] vote is sent to itself, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.663389 hotstuff.go:129: [4] is processing the vote, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.663397 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.680087 replica.go:119: [2] received a block from 4, view is 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9, prevID: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.680113 hotstuff.go:55: [2] is processing block from 4, view: 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.680183 hotstuff.go:233: [2] is processing a QC, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.680401 hotstuff.go:117: [2] vote is sent to 4, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.680428 replica.go:261: [2] the last view lasts 35 milliseconds, current view: 2
+[DEBUG] 2025/04/15 12:54:54.680435 replica.go:198: [2] is processing new view: 2, leader is 4
+[DEBUG] 2025/04/15 12:54:54.686447 replica.go:119: [3] received a block from 4, view is 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9, prevID: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.686474 hotstuff.go:55: [3] is processing block from 4, view: 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.686546 hotstuff.go:233: [3] is processing a QC, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.686897 hotstuff.go:117: [3] vote is sent to 4, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.686933 replica.go:198: [3] is processing new view: 2, leader is 4
+[DEBUG] 2025/04/15 12:54:54.686939 replica.go:261: [3] the last view lasts 37 milliseconds, current view: 2
+[DEBUG] 2025/04/15 12:54:54.689030 replica.go:119: [1] received a block from 4, view is 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9, prevID: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.689058 hotstuff.go:55: [1] is processing block from 4, view: 2, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.689122 hotstuff.go:233: [1] is processing a QC, block id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.689330 hotstuff.go:117: [1] vote is sent to 4, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.689353 replica.go:261: [1] the last view lasts 39 milliseconds, current view: 2
+[DEBUG] 2025/04/15 12:54:54.689358 replica.go:198: [1] is processing new view: 2, leader is 4
+[DEBUG] 2025/04/15 12:54:54.703110 replica.go:128: [4] received a vote frm 3, blockID is 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.703140 hotstuff.go:129: [4] is processing the vote, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.703210 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.704376 replica.go:128: [4] received a vote frm 2, blockID is 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.704405 hotstuff.go:129: [4] is processing the vote, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.704474 hotstuff.go:233: [4] is processing a QC, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.704500 replica.go:261: [4] the last view lasts 41 milliseconds, current view: 3
+[DEBUG] 2025/04/15 12:54:54.704508 replica.go:198: [4] is processing new view: 3, leader is 4
+[DEBUG] 2025/04/15 12:54:54.704588 hotstuff.go:55: [4] is processing block from 4, view: 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.704629 hotstuff.go:117: [4] vote is sent to 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.727925 replica.go:119: [3] received a block from 4, view is 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447, prevID: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.727962 hotstuff.go:55: [3] is processing block from 4, view: 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.727929 replica.go:119: [2] received a block from 4, view is 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447, prevID: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.727999 hotstuff.go:55: [2] is processing block from 4, view: 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.728053 hotstuff.go:233: [3] is processing a QC, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.728085 hotstuff.go:233: [2] is processing a QC, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.728347 hotstuff.go:117: [2] vote is sent to 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.728348 hotstuff.go:114: [3] vote is sent to itself, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.728529 replica.go:198: [2] is processing new view: 3, leader is 4
+[DEBUG] 2025/04/15 12:54:54.728530 hotstuff.go:129: [3] is processing the vote, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.728551 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.728549 replica.go:261: [2] the last view lasts 47 milliseconds, current view: 3
+[DEBUG] 2025/04/15 12:54:54.728558 replica.go:198: [3] is processing new view: 3, leader is 4
+[DEBUG] 2025/04/15 12:54:54.728559 replica.go:261: [3] the last view lasts 41 milliseconds, current view: 3
+[DEBUG] 2025/04/15 12:54:54.730454 replica.go:128: [3] received a vote frm 4, blockID is 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.730475 hotstuff.go:129: [3] is processing the vote, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.730490 replica.go:119: [1] received a block from 4, view is 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447, prevID: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.730504 hotstuff.go:55: [1] is processing block from 4, view: 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.730541 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.730593 hotstuff.go:233: [1] is processing a QC, block id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.730860 hotstuff.go:117: [1] vote is sent to 3, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.730995 replica.go:198: [1] is processing new view: 3, leader is 4
+[DEBUG] 2025/04/15 12:54:54.731010 replica.go:261: [1] the last view lasts 41 milliseconds, current view: 3
+[DEBUG] 2025/04/15 12:54:54.736932 replica.go:128: [3] received a vote frm 2, blockID is 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.736968 hotstuff.go:129: [3] is processing the vote, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.737066 hotstuff.go:233: [3] is processing a QC, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[INFO] 2025/04/15 12:54:54.737108 replica.go:183: [3] the 1th block is committed, No. of transactions: 1, view: 1, current view: 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.737123 replica.go:261: [3] the last view lasts 8 milliseconds, current view: 4
+[DEBUG] 2025/04/15 12:54:54.737136 replica.go:198: [3] is processing new view: 4, leader is 3
+[DEBUG] 2025/04/15 12:54:54.737434 hotstuff.go:55: [3] is processing block from 3, view: 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.737476 hotstuff.go:114: [3] vote is sent to itself, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.737482 hotstuff.go:129: [3] is processing the vote, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.737487 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.747625 replica.go:119: [1] received a block from 3, view is 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35, prevID: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.747659 hotstuff.go:55: [1] is processing block from 3, view: 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.747731 hotstuff.go:233: [1] is processing a QC, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.747948 hotstuff.go:117: [1] vote is sent to 3, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.747972 replica.go:198: [1] is processing new view: 4, leader is 3
+[DEBUG] 2025/04/15 12:54:54.747978 replica.go:261: [1] the last view lasts 17 milliseconds, current view: 4
+[INFO] 2025/04/15 12:54:54.747993 replica.go:183: [1] the 1th block is committed, No. of transactions: 1, view: 1, current view: 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.756501 replica.go:119: [4] received a block from 3, view is 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35, prevID: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.756531 hotstuff.go:55: [4] is processing block from 3, view: 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.756601 hotstuff.go:233: [4] is processing a QC, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.756675 replica.go:119: [2] received a block from 3, view is 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35, prevID: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.756704 hotstuff.go:55: [2] is processing block from 3, view: 4, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.756770 hotstuff.go:233: [2] is processing a QC, block id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.756823 hotstuff.go:117: [4] vote is sent to 3, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.756858 replica.go:198: [4] is processing new view: 4, leader is 3
+[DEBUG] 2025/04/15 12:54:54.756864 replica.go:261: [4] the last view lasts 52 milliseconds, current view: 4
+[INFO] 2025/04/15 12:54:54.756886 replica.go:183: [4] the 1th block is committed, No. of transactions: 1, view: 1, current view: 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.756986 hotstuff.go:117: [2] vote is sent to 3, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.757010 replica.go:198: [2] is processing new view: 4, leader is 3
+[DEBUG] 2025/04/15 12:54:54.757016 replica.go:261: [2] the last view lasts 28 milliseconds, current view: 4
+[INFO] 2025/04/15 12:54:54.757027 replica.go:183: [2] the 1th block is committed, No. of transactions: 1, view: 1, current view: 4, id: 64a7374cc4631ac05187d7c19b80e566baecb891adc866e71875e22fb671965e
+[DEBUG] 2025/04/15 12:54:54.763467 replica.go:128: [3] received a vote frm 4, blockID is 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.763503 hotstuff.go:129: [3] is processing the vote, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.763575 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.765634 replica.go:128: [3] received a vote frm 1, blockID is 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.765665 hotstuff.go:129: [3] is processing the vote, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.765733 hotstuff.go:233: [3] is processing a QC, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[INFO] 2025/04/15 12:54:54.765755 replica.go:183: [3] the 2th block is committed, No. of transactions: 35, view: 2, current view: 5, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.765761 replica.go:261: [3] the last view lasts 28 milliseconds, current view: 5
+[DEBUG] 2025/04/15 12:54:54.765774 replica.go:198: [3] is processing new view: 5, leader is 3
+[DEBUG] 2025/04/15 12:54:54.765866 hotstuff.go:55: [3] is processing block from 3, view: 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.765904 hotstuff.go:117: [3] vote is sent to 2, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.781474 replica.go:119: [2] received a block from 3, view is 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4, prevID: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.781511 hotstuff.go:55: [2] is processing block from 3, view: 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.781584 hotstuff.go:233: [2] is processing a QC, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.781811 hotstuff.go:114: [2] vote is sent to itself, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.781828 hotstuff.go:129: [2] is processing the vote, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.781834 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.781840 replica.go:198: [2] is processing new view: 5, leader is 3
+[DEBUG] 2025/04/15 12:54:54.781845 replica.go:261: [2] the last view lasts 24 milliseconds, current view: 5
+[INFO] 2025/04/15 12:54:54.781851 replica.go:183: [2] the 2th block is committed, No. of transactions: 35, view: 2, current view: 5, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.782840 replica.go:119: [1] received a block from 3, view is 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4, prevID: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.782866 hotstuff.go:55: [1] is processing block from 3, view: 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.782932 hotstuff.go:233: [1] is processing a QC, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.783185 hotstuff.go:117: [1] vote is sent to 2, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[INFO] 2025/04/15 12:54:54.783255 replica.go:183: [1] the 2th block is committed, No. of transactions: 35, view: 2, current view: 5, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.783361 replica.go:198: [1] is processing new view: 5, leader is 3
+[DEBUG] 2025/04/15 12:54:54.783378 replica.go:261: [1] the last view lasts 35 milliseconds, current view: 5
+[DEBUG] 2025/04/15 12:54:54.787871 replica.go:119: [4] received a block from 3, view is 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4, prevID: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.787906 hotstuff.go:55: [4] is processing block from 3, view: 5, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.787988 hotstuff.go:233: [4] is processing a QC, block id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.788035 replica.go:128: [2] received a vote frm 3, blockID is 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.788086 hotstuff.go:129: [2] is processing the vote, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.788195 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.788241 hotstuff.go:117: [4] vote is sent to 2, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.788272 replica.go:198: [4] is processing new view: 5, leader is 3
+[DEBUG] 2025/04/15 12:54:54.788279 replica.go:261: [4] the last view lasts 31 milliseconds, current view: 5
+[INFO] 2025/04/15 12:54:54.788293 replica.go:183: [4] the 2th block is committed, No. of transactions: 35, view: 2, current view: 5, id: 5a838115e812f36831601c9690695ff04aa4f30ddd9ed1f7f59c68698a608bb9
+[DEBUG] 2025/04/15 12:54:54.797582 replica.go:128: [2] received a vote frm 1, blockID is 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.797611 hotstuff.go:129: [2] is processing the vote, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.797683 hotstuff.go:233: [2] is processing a QC, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[INFO] 2025/04/15 12:54:54.797713 replica.go:183: [2] the 3th block is committed, No. of transactions: 40, view: 3, current view: 6, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.797737 replica.go:261: [2] the last view lasts 15 milliseconds, current view: 6
+[DEBUG] 2025/04/15 12:54:54.797751 replica.go:198: [2] is processing new view: 6, leader is 2
+[DEBUG] 2025/04/15 12:54:54.798461 hotstuff.go:55: [2] is processing block from 2, view: 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.798518 hotstuff.go:114: [2] vote is sent to itself, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.798527 hotstuff.go:129: [2] is processing the vote, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.798534 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.805416 replica.go:119: [3] received a block from 2, view is 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e, prevID: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.805448 hotstuff.go:55: [3] is processing block from 2, view: 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.805485 replica.go:119: [1] received a block from 2, view is 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e, prevID: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.805513 hotstuff.go:55: [1] is processing block from 2, view: 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.805521 hotstuff.go:233: [3] is processing a QC, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.805582 hotstuff.go:233: [1] is processing a QC, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.805743 hotstuff.go:117: [3] vote is sent to 2, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.805768 replica.go:198: [3] is processing new view: 6, leader is 2
+[DEBUG] 2025/04/15 12:54:54.805774 replica.go:261: [3] the last view lasts 39 milliseconds, current view: 6
+[INFO] 2025/04/15 12:54:54.805781 replica.go:183: [3] the 3th block is committed, No. of transactions: 40, view: 3, current view: 6, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.805791 hotstuff.go:117: [1] vote is sent to 2, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.805806 replica.go:198: [1] is processing new view: 6, leader is 2
+[DEBUG] 2025/04/15 12:54:54.805812 replica.go:261: [1] the last view lasts 22 milliseconds, current view: 6
+[INFO] 2025/04/15 12:54:54.805819 replica.go:183: [1] the 3th block is committed, No. of transactions: 40, view: 3, current view: 6, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.817410 replica.go:119: [4] received a block from 2, view is 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e, prevID: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.817432 hotstuff.go:55: [4] is processing block from 2, view: 6, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.817497 hotstuff.go:233: [4] is processing a QC, block id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.817719 hotstuff.go:117: [4] vote is sent to 2, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.817744 replica.go:198: [4] is processing new view: 6, leader is 2
+[DEBUG] 2025/04/15 12:54:54.817750 replica.go:261: [4] the last view lasts 29 milliseconds, current view: 6
+[INFO] 2025/04/15 12:54:54.817760 replica.go:183: [4] the 3th block is committed, No. of transactions: 40, view: 3, current view: 6, id: 03e16820690077e7b3802553103673f5fd7ad4713c55e99f24a38c193f70c447
+[DEBUG] 2025/04/15 12:54:54.818874 replica.go:128: [2] received a vote frm 1, blockID is 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.818899 hotstuff.go:129: [2] is processing the vote, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.818968 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.826638 replica.go:128: [2] received a vote frm 3, blockID is 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.826667 hotstuff.go:129: [2] is processing the vote, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.826733 hotstuff.go:233: [2] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[INFO] 2025/04/15 12:54:54.826752 replica.go:183: [2] the 4th block is committed, No. of transactions: 51, view: 4, current view: 7, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.826758 replica.go:261: [2] the last view lasts 29 milliseconds, current view: 7
+[DEBUG] 2025/04/15 12:54:54.826764 replica.go:198: [2] is processing new view: 7, leader is 2
+[DEBUG] 2025/04/15 12:54:54.826854 hotstuff.go:55: [2] is processing block from 2, view: 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.826891 hotstuff.go:117: [2] vote is sent to 1, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.839424 replica.go:119: [3] received a block from 2, view is 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608, prevID: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.839455 hotstuff.go:55: [3] is processing block from 2, view: 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.839519 hotstuff.go:233: [3] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.839750 hotstuff.go:117: [3] vote is sent to 1, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[INFO] 2025/04/15 12:54:54.839765 replica.go:183: [3] the 4th block is committed, No. of transactions: 51, view: 4, current view: 7, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.839775 replica.go:198: [3] is processing new view: 7, leader is 2
+[DEBUG] 2025/04/15 12:54:54.839777 replica.go:261: [3] the last view lasts 34 milliseconds, current view: 7
+[DEBUG] 2025/04/15 12:54:54.847415 replica.go:128: [1] received a vote frm 2, blockID is 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.847444 hotstuff.go:129: [1] is processing the vote, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.847514 hotstuff.go:143: [1] not sufficient votes to build a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.849900 replica.go:119: [4] received a block from 2, view is 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608, prevID: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.849922 hotstuff.go:55: [4] is processing block from 2, view: 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.849928 replica.go:119: [1] received a block from 2, view is 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608, prevID: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.849940 hotstuff.go:55: [1] is processing block from 2, view: 7, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.849986 hotstuff.go:233: [4] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.850003 hotstuff.go:233: [1] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:54.850196 hotstuff.go:114: [1] vote is sent to itself, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.850214 hotstuff.go:129: [1] is processing the vote, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.850219 hotstuff.go:143: [1] not sufficient votes to build a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.850224 replica.go:198: [1] is processing new view: 7, leader is 2
+[DEBUG] 2025/04/15 12:54:54.850229 replica.go:261: [1] the last view lasts 44 milliseconds, current view: 7
+[INFO] 2025/04/15 12:54:54.850201 replica.go:183: [4] the 4th block is committed, No. of transactions: 51, view: 4, current view: 7, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[INFO] 2025/04/15 12:54:54.850235 replica.go:183: [1] the 4th block is committed, No. of transactions: 51, view: 4, current view: 7, id: 08c84c7f17eb6386ed32125356f4533ad9d650d3008e9e36b725c7936f027a35
+[DEBUG] 2025/04/15 12:54:54.850196 hotstuff.go:117: [4] vote is sent to 1, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.850253 replica.go:198: [4] is processing new view: 7, leader is 2
+[DEBUG] 2025/04/15 12:54:54.850258 replica.go:261: [4] the last view lasts 32 milliseconds, current view: 7
+[DEBUG] 2025/04/15 12:54:54.855031 replica.go:128: [1] received a vote frm 3, blockID is 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.855060 hotstuff.go:129: [1] is processing the vote, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.855135 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[INFO] 2025/04/15 12:54:54.855162 replica.go:183: [1] the 5th block is committed, No. of transactions: 28, view: 5, current view: 8, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.855164 replica.go:261: [1] the last view lasts 4 milliseconds, current view: 8
+[DEBUG] 2025/04/15 12:54:54.855171 replica.go:198: [1] is processing new view: 8, leader is 1
+[DEBUG] 2025/04/15 12:54:54.855188 replica.go:204: [1] is a byzantine node, so it will propose a block Equivocate
+[DEBUG] 2025/04/15 12:54:54.855347 hotstuff.go:55: [1] is processing block from 1, view: 9, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2
+[DEBUG] 2025/04/15 12:54:54.870687 replica.go:119: [3] received a block from 1, view is 9, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.870723 hotstuff.go:55: [3] is processing block from 1, view: 9, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2
+[DEBUG] 2025/04/15 12:54:54.870804 hotstuff.go:72: [3] the block is buffered, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2
+[DEBUG] 2025/04/15 12:54:54.874705 replica.go:119: [4] received a block from 1, view is 9, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.874735 hotstuff.go:55: [4] is processing block from 1, view: 9, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2
+[DEBUG] 2025/04/15 12:54:54.874800 hotstuff.go:72: [4] the block is buffered, id: 545f92bdc6e2f1bd9e907d353311bb14454214245508000fbdd659d6d94dd2c2
+[DEBUG] 2025/04/15 12:54:54.878629 replica.go:119: [2] received a block from 1, view is 8, id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.878657 hotstuff.go:55: [2] is processing block from 1, view: 8, id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[DEBUG] 2025/04/15 12:54:54.878722 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:54.878935 hotstuff.go:117: [2] vote is sent to 4, id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[INFO] 2025/04/15 12:54:54.878963 replica.go:183: [2] the 5th block is committed, No. of transactions: 28, view: 5, current view: 8, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:54.878976 replica.go:198: [2] is processing new view: 8, leader is 1
+[DEBUG] 2025/04/15 12:54:54.878984 replica.go:261: [2] the last view lasts 52 milliseconds, current view: 8
+[DEBUG] 2025/04/15 12:54:54.887132 replica.go:128: [4] received a vote frm 2, blockID is 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[DEBUG] 2025/04/15 12:54:54.887162 hotstuff.go:129: [4] is processing the vote, block id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[DEBUG] 2025/04/15 12:54:54.887251 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[DEBUG] 2025/04/15 12:54:55.190027 hotstuff.go:157: [3] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.190062 hotstuff.go:233: [3] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.190072 replica.go:261: [3] the last view lasts 350 milliseconds, current view: 8
+[DEBUG] 2025/04/15 12:54:55.190080 replica.go:198: [3] is processing new view: 8, leader is 1
+[DEBUG] 2025/04/15 12:54:55.200429 hotstuff.go:157: [4] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.200468 hotstuff.go:233: [4] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.200478 replica.go:261: [4] the last view lasts 350 milliseconds, current view: 8
+[DEBUG] 2025/04/15 12:54:55.200489 replica.go:198: [4] is processing new view: 8, leader is 1
+[DEBUG] 2025/04/15 12:54:55.200565 replica.go:136: [4] received a timeout from 3 for view 8
+[DEBUG] 2025/04/15 12:54:55.200589 hotstuff.go:157: [4] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.200596 hotstuff.go:233: [4] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.201847 replica.go:136: [2] received a timeout from 3 for view 8
+[DEBUG] 2025/04/15 12:54:55.201879 hotstuff.go:157: [2] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.201888 hotstuff.go:233: [2] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.205579 hotstuff.go:157: [1] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:55.205599 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.205614 replica.go:261: [1] the last view lasts 350 milliseconds, current view: 9
+[DEBUG] 2025/04/15 12:54:55.205620 replica.go:198: [1] is processing new view: 9, leader is 4
+[DEBUG] 2025/04/15 12:54:55.213703 replica.go:136: [2] received a timeout from 4 for view 8
+[DEBUG] 2025/04/15 12:54:55.213732 hotstuff.go:157: [2] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.213739 hotstuff.go:233: [2] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.216375 replica.go:136: [4] received a timeout from 1 for view 9
+[DEBUG] 2025/04/15 12:54:55.216440 hotstuff.go:157: [4] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:55.216453 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.220161 replica.go:136: [3] received a timeout from 4 for view 8
+[DEBUG] 2025/04/15 12:54:55.220195 hotstuff.go:157: [3] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.220202 hotstuff.go:233: [3] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.222731 replica.go:136: [2] received a timeout from 1 for view 9
+[DEBUG] 2025/04/15 12:54:55.222761 hotstuff.go:157: [2] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:55.222768 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.225374 replica.go:136: [3] received a timeout from 1 for view 9
+[DEBUG] 2025/04/15 12:54:55.225395 hotstuff.go:157: [3] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:55.225401 hotstuff.go:233: [3] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.229049 hotstuff.go:157: [2] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.229074 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.229084 replica.go:261: [2] the last view lasts 350 milliseconds, current view: 9
+[DEBUG] 2025/04/15 12:54:55.229092 replica.go:198: [2] is processing new view: 9, leader is 4
+[DEBUG] 2025/04/15 12:54:55.237997 replica.go:136: [1] received a timeout from 2 for view 9
+[DEBUG] 2025/04/15 12:54:55.238034 hotstuff.go:157: [1] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.238042 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.239470 replica.go:136: [4] received a timeout from 2 for view 9
+[DEBUG] 2025/04/15 12:54:55.239494 hotstuff.go:157: [4] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.239502 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.252737 replica.go:136: [3] received a timeout from 2 for view 9
+[DEBUG] 2025/04/15 12:54:55.252773 hotstuff.go:157: [3] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.252783 hotstuff.go:233: [3] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.540441 hotstuff.go:157: [3] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.540491 hotstuff.go:233: [3] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.540502 hotstuff.go:163: [3] a tc is built for view 9
+[DEBUG] 2025/04/15 12:54:55.540511 replica.go:261: [3] the last view lasts 350 milliseconds, current view: 9
+[DEBUG] 2025/04/15 12:54:55.540522 replica.go:198: [3] is processing new view: 9, leader is 4
+[DEBUG] 2025/04/15 12:54:55.540553 replica.go:198: [3] is processing new view: 10, leader is 1
+[DEBUG] 2025/04/15 12:54:55.540561 replica.go:261: [3] the last view lasts 0 milliseconds, current view: 10
+[DEBUG] 2025/04/15 12:54:55.550580 hotstuff.go:157: [4] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.550607 hotstuff.go:233: [4] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.550614 hotstuff.go:163: [4] a tc is built for view 9
+[DEBUG] 2025/04/15 12:54:55.550620 replica.go:261: [4] the last view lasts 350 milliseconds, current view: 9
+[DEBUG] 2025/04/15 12:54:55.550626 replica.go:198: [4] is processing new view: 9, leader is 4
+[DEBUG] 2025/04/15 12:54:55.550720 hotstuff.go:55: [4] is processing block from 4, view: 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4
+[WARNING] 2025/04/15 12:54:55.550740 hotstuff.go:87: [4] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:55.550762 replica.go:198: [4] is processing new view: 10, leader is 1
+[DEBUG] 2025/04/15 12:54:55.550767 replica.go:261: [4] the last view lasts 0 milliseconds, current view: 10
+[DEBUG] 2025/04/15 12:54:55.552840 replica.go:136: [1] received a timeout from 3 for view 9
+[DEBUG] 2025/04/15 12:54:55.552873 hotstuff.go:157: [1] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.552881 hotstuff.go:233: [1] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.552886 hotstuff.go:163: [1] a tc is built for view 9
+[DEBUG] 2025/04/15 12:54:55.552900 replica.go:261: [1] the last view lasts 347 milliseconds, current view: 10
+[DEBUG] 2025/04/15 12:54:55.552917 replica.go:198: [1] is processing new view: 10, leader is 1
+[DEBUG] 2025/04/15 12:54:55.552928 replica.go:204: [1] is a byzantine node, so it will propose a block Equivocate
+[DEBUG] 2025/04/15 12:54:55.553055 hotstuff.go:55: [1] is processing block from 1, view: 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce
+[DEBUG] 2025/04/15 12:54:55.556689 replica.go:136: [2] received a timeout from 3 for view 9
+[DEBUG] 2025/04/15 12:54:55.556714 hotstuff.go:157: [2] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.556721 hotstuff.go:233: [2] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.556726 hotstuff.go:163: [2] a tc is built for view 9
+[DEBUG] 2025/04/15 12:54:55.556731 replica.go:261: [2] the last view lasts 327 milliseconds, current view: 10
+[DEBUG] 2025/04/15 12:54:55.556737 replica.go:198: [2] is processing new view: 10, leader is 1
+[DEBUG] 2025/04/15 12:54:55.558105 replica.go:119: [2] received a block from 1, view is 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.558134 hotstuff.go:55: [2] is processing block from 1, view: 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce
+[DEBUG] 2025/04/15 12:54:55.558204 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.558139 replica.go:119: [4] received a block from 1, view is 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.558229 hotstuff.go:55: [4] is processing block from 1, view: 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce
+[DEBUG] 2025/04/15 12:54:55.558290 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.562217 replica.go:119: [3] received a block from 1, view is 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.562244 hotstuff.go:55: [3] is processing block from 1, view: 11, id: b90e0aefe6fa526f2d30b01b003168a8adb836404148508dd777025dfef80dce
+[DEBUG] 2025/04/15 12:54:55.562310 hotstuff.go:233: [3] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.568757 replica.go:119: [1] received a block from 4, view is 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4, prevID: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.568786 hotstuff.go:55: [1] is processing block from 4, view: 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4
+[DEBUG] 2025/04/15 12:54:55.568871 hotstuff.go:233: [1] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[WARNING] 2025/04/15 12:54:55.568886 hotstuff.go:87: [1] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:55.571441 replica.go:119: [3] received a block from 4, view is 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4, prevID: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.571469 hotstuff.go:55: [3] is processing block from 4, view: 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4
+[DEBUG] 2025/04/15 12:54:55.571544 hotstuff.go:233: [3] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[WARNING] 2025/04/15 12:54:55.571564 hotstuff.go:87: [3] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:55.572843 replica.go:119: [2] received a block from 4, view is 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4, prevID: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:55.572865 hotstuff.go:55: [2] is processing block from 4, view: 9, id: ae61695567f9debca2a371d800c536fdc770f930f5e276ed62ed2b72caedc0a4
+[DEBUG] 2025/04/15 12:54:55.572929 hotstuff.go:233: [2] is processing a QC, block id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[WARNING] 2025/04/15 12:54:55.572943 hotstuff.go:87: [2] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:55.890929 hotstuff.go:157: [3] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.890967 hotstuff.go:233: [3] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.890980 replica.go:261: [3] the last view lasts 350 milliseconds, current view: 11
+[DEBUG] 2025/04/15 12:54:55.890989 replica.go:198: [3] is processing new view: 11, leader is 3
+[DEBUG] 2025/04/15 12:54:55.891103 hotstuff.go:55: [3] is processing block from 3, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.891158 hotstuff.go:114: [3] vote is sent to itself, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.891198 hotstuff.go:129: [3] is processing the vote, block id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.891227 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.896305 replica.go:136: [2] received a timeout from 3 for view 11
+[DEBUG] 2025/04/15 12:54:55.896326 hotstuff.go:157: [2] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.896333 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.897543 replica.go:119: [2] received a block from 3, view is 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.897573 hotstuff.go:55: [2] is processing block from 3, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.897640 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.897681 hotstuff.go:117: [2] vote is sent to 3, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.898987 replica.go:136: [1] received a timeout from 3 for view 11
+[DEBUG] 2025/04/15 12:54:55.899011 hotstuff.go:157: [1] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.899025 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.898991 replica.go:136: [4] received a timeout from 3 for view 11
+[DEBUG] 2025/04/15 12:54:55.899034 hotstuff.go:157: [4] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:55.899039 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.901493 hotstuff.go:157: [4] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.901514 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.901522 replica.go:261: [4] the last view lasts 350 milliseconds, current view: 11
+[DEBUG] 2025/04/15 12:54:55.901528 replica.go:198: [4] is processing new view: 11, leader is 3
+[DEBUG] 2025/04/15 12:54:55.903836 hotstuff.go:157: [1] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:55.903860 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.903868 replica.go:261: [1] the last view lasts 350 milliseconds, current view: 11
+[DEBUG] 2025/04/15 12:54:55.903875 replica.go:198: [1] is processing new view: 11, leader is 3
+[DEBUG] 2025/04/15 12:54:55.907574 hotstuff.go:157: [2] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.907594 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.907602 replica.go:261: [2] the last view lasts 350 milliseconds, current view: 11
+[DEBUG] 2025/04/15 12:54:55.907608 replica.go:198: [2] is processing new view: 11, leader is 3
+[DEBUG] 2025/04/15 12:54:55.907609 replica.go:136: [2] received a timeout from 4 for view 11
+[DEBUG] 2025/04/15 12:54:55.907622 hotstuff.go:157: [2] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.907628 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.907633 hotstuff.go:163: [2] a tc is built for view 11
+[DEBUG] 2025/04/15 12:54:55.907637 replica.go:261: [2] the last view lasts 0 milliseconds, current view: 12
+[DEBUG] 2025/04/15 12:54:55.907643 replica.go:198: [2] is processing new view: 12, leader is 3
+[DEBUG] 2025/04/15 12:54:55.910271 replica.go:136: [3] received a timeout from 4 for view 11
+[DEBUG] 2025/04/15 12:54:55.910296 hotstuff.go:157: [3] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.910303 hotstuff.go:233: [3] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.911463 replica.go:119: [4] received a block from 3, view is 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.911491 hotstuff.go:55: [4] is processing block from 3, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.911557 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.911570 replica.go:136: [1] received a timeout from 4 for view 11
+[DEBUG] 2025/04/15 12:54:55.911582 hotstuff.go:157: [1] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:55.911587 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.911592 hotstuff.go:163: [1] a tc is built for view 11
+[DEBUG] 2025/04/15 12:54:55.911596 replica.go:261: [1] the last view lasts 7 milliseconds, current view: 12
+[DEBUG] 2025/04/15 12:54:55.911601 hotstuff.go:117: [4] vote is sent to 3, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.911602 replica.go:198: [1] is processing new view: 12, leader is 3
+[DEBUG] 2025/04/15 12:54:55.914017 replica.go:136: [3] received a timeout from 2 for view 11
+[DEBUG] 2025/04/15 12:54:55.914054 hotstuff.go:157: [3] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.914063 hotstuff.go:233: [3] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.914070 hotstuff.go:163: [3] a tc is built for view 11
+[DEBUG] 2025/04/15 12:54:55.914077 replica.go:261: [3] the last view lasts 23 milliseconds, current view: 12
+[DEBUG] 2025/04/15 12:54:55.914084 replica.go:198: [3] is processing new view: 12, leader is 3
+[DEBUG] 2025/04/15 12:54:55.914062 replica.go:119: [1] received a block from 3, view is 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.914135 hotstuff.go:55: [1] is processing block from 3, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:55.914194 hotstuff.go:55: [3] is processing block from 3, view: 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.914238 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[WARNING] 2025/04/15 12:54:55.914245 hotstuff.go:87: [1] received a stale proposal from 3
+[DEBUG] 2025/04/15 12:54:55.914246 hotstuff.go:117: [3] vote is sent to 4, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.915653 replica.go:136: [4] received a timeout from 2 for view 11
+[DEBUG] 2025/04/15 12:54:55.915683 hotstuff.go:157: [4] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:55.915689 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.915701 hotstuff.go:163: [4] a tc is built for view 11
+[DEBUG] 2025/04/15 12:54:55.915716 replica.go:261: [4] the last view lasts 14 milliseconds, current view: 12
+[DEBUG] 2025/04/15 12:54:55.915722 replica.go:198: [4] is processing new view: 12, leader is 3
+[DEBUG] 2025/04/15 12:54:55.923062 replica.go:119: [2] received a block from 3, view is 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.923100 hotstuff.go:55: [2] is processing block from 3, view: 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.923169 hotstuff.go:233: [2] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.923212 hotstuff.go:117: [2] vote is sent to 4, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.927350 replica.go:119: [4] received a block from 3, view is 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.927384 replica.go:119: [1] received a block from 3, view is 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa, prevID: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.927402 hotstuff.go:55: [1] is processing block from 3, view: 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.927490 hotstuff.go:233: [1] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.927575 hotstuff.go:117: [1] vote is sent to 4, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.927387 hotstuff.go:55: [4] is processing block from 3, view: 12, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.927694 hotstuff.go:233: [4] is processing a QC, block id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[DEBUG] 2025/04/15 12:54:55.927760 hotstuff.go:114: [4] vote is sent to itself, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.927777 hotstuff.go:129: [4] is processing the vote, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.927784 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.932289 replica.go:128: [4] received a vote frm 2, blockID is f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.932320 hotstuff.go:129: [4] is processing the vote, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.932389 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.936054 replica.go:128: [4] received a vote frm 3, blockID is f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.936093 hotstuff.go:129: [4] is processing the vote, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.936182 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.936206 replica.go:261: [4] the last view lasts 20 milliseconds, current view: 13
+[DEBUG] 2025/04/15 12:54:55.936216 replica.go:198: [4] is processing new view: 13, leader is 4
+[DEBUG] 2025/04/15 12:54:55.936317 hotstuff.go:55: [4] is processing block from 4, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.936368 hotstuff.go:117: [4] vote is sent to 1, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.942993 replica.go:119: [3] received a block from 4, view is 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.943022 hotstuff.go:55: [3] is processing block from 4, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.943106 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.943370 hotstuff.go:117: [3] vote is sent to 1, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.943399 replica.go:261: [3] the last view lasts 29 milliseconds, current view: 13
+[DEBUG] 2025/04/15 12:54:55.943407 replica.go:198: [3] is processing new view: 13, leader is 4
+[DEBUG] 2025/04/15 12:54:55.945671 replica.go:119: [2] received a block from 4, view is 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.945692 hotstuff.go:55: [2] is processing block from 4, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.945759 hotstuff.go:233: [2] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.945975 hotstuff.go:117: [2] vote is sent to 1, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.946000 replica.go:261: [2] the last view lasts 38 milliseconds, current view: 13
+[DEBUG] 2025/04/15 12:54:55.946007 replica.go:198: [2] is processing new view: 13, leader is 4
+[DEBUG] 2025/04/15 12:54:55.949467 replica.go:128: [1] received a vote frm 3, blockID is d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949492 hotstuff.go:129: [1] is processing the vote, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949509 replica.go:119: [1] received a block from 4, view is 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.949563 hotstuff.go:143: [1] not sufficient votes to build a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949571 hotstuff.go:55: [1] is processing block from 4, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949577 replica.go:128: [1] received a vote frm 4, blockID is d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949630 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:55.949869 hotstuff.go:114: [1] vote is sent to itself, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949885 hotstuff.go:129: [1] is processing the vote, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949891 hotstuff.go:143: [1] not sufficient votes to build a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949896 hotstuff.go:129: [1] is processing the vote, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949957 hotstuff.go:233: [1] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.949972 replica.go:198: [1] is processing new view: 13, leader is 4
+[DEBUG] 2025/04/15 12:54:55.949977 replica.go:261: [1] the last view lasts 38 milliseconds, current view: 13
+[DEBUG] 2025/04/15 12:54:55.949983 replica.go:261: [1] the last view lasts 0 milliseconds, current view: 14
+[DEBUG] 2025/04/15 12:54:55.949988 replica.go:198: [1] is processing new view: 14, leader is 1
+[DEBUG] 2025/04/15 12:54:55.949992 replica.go:204: [1] is a byzantine node, so it will propose a block Equivocate
+[DEBUG] 2025/04/15 12:54:55.950115 hotstuff.go:55: [1] is processing block from 1, view: 15, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c
+[DEBUG] 2025/04/15 12:54:55.956010 replica.go:119: [3] received a block from 1, view is 14, id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d, prevID: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.956037 hotstuff.go:55: [3] is processing block from 1, view: 14, id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[DEBUG] 2025/04/15 12:54:55.956107 hotstuff.go:233: [3] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.956341 hotstuff.go:117: [3] vote is sent to 4, id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[DEBUG] 2025/04/15 12:54:55.956372 replica.go:261: [3] the last view lasts 12 milliseconds, current view: 14
+[DEBUG] 2025/04/15 12:54:55.956379 replica.go:198: [3] is processing new view: 14, leader is 1
+[DEBUG] 2025/04/15 12:54:55.957323 replica.go:119: [4] received a block from 1, view is 15, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c, prevID: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.957351 hotstuff.go:55: [4] is processing block from 1, view: 15, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c
+[DEBUG] 2025/04/15 12:54:55.957414 hotstuff.go:72: [4] the block is buffered, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c
+[DEBUG] 2025/04/15 12:54:55.964103 replica.go:119: [2] received a block from 1, view is 15, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c, prevID: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:55.964124 hotstuff.go:55: [2] is processing block from 1, view: 15, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c
+[DEBUG] 2025/04/15 12:54:55.964188 hotstuff.go:72: [2] the block is buffered, id: f4663fcacf58bfb1e8b36209e091c46d808c9d410e7de93aba50fd44f8b4409c
+[DEBUG] 2025/04/15 12:54:55.969318 replica.go:128: [4] received a vote frm 3, blockID is fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[DEBUG] 2025/04/15 12:54:55.969351 hotstuff.go:129: [4] is processing the vote, block id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[DEBUG] 2025/04/15 12:54:55.969417 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[DEBUG] 2025/04/15 12:54:56.286373 hotstuff.go:157: [4] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:56.286422 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.286450 replica.go:261: [4] the last view lasts 350 milliseconds, current view: 14
+[DEBUG] 2025/04/15 12:54:56.286463 replica.go:198: [4] is processing new view: 14, leader is 1
+[DEBUG] 2025/04/15 12:54:56.296651 hotstuff.go:157: [2] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:56.296684 hotstuff.go:233: [2] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.296706 replica.go:261: [2] the last view lasts 350 milliseconds, current view: 14
+[DEBUG] 2025/04/15 12:54:56.296732 replica.go:198: [2] is processing new view: 14, leader is 1
+[DEBUG] 2025/04/15 12:54:56.300848 hotstuff.go:157: [1] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.300875 hotstuff.go:233: [1] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.300887 replica.go:261: [1] the last view lasts 350 milliseconds, current view: 15
+[DEBUG] 2025/04/15 12:54:56.300896 replica.go:198: [1] is processing new view: 15, leader is 4
+[DEBUG] 2025/04/15 12:54:56.306101 replica.go:136: [3] received a timeout from 1 for view 15
+[DEBUG] 2025/04/15 12:54:56.306140 hotstuff.go:157: [3] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.306148 hotstuff.go:233: [3] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.307265 hotstuff.go:157: [3] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:56.307306 hotstuff.go:233: [3] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.307377 replica.go:261: [3] the last view lasts 350 milliseconds, current view: 15
+[DEBUG] 2025/04/15 12:54:56.307419 replica.go:198: [3] is processing new view: 15, leader is 4
+[DEBUG] 2025/04/15 12:54:56.307618 replica.go:136: [2] received a timeout from 4 for view 14
+[DEBUG] 2025/04/15 12:54:56.307673 hotstuff.go:157: [2] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:56.307691 hotstuff.go:233: [2] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.317727 replica.go:136: [2] received a timeout from 3 for view 15
+[DEBUG] 2025/04/15 12:54:56.317768 hotstuff.go:157: [2] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:56.317780 hotstuff.go:233: [2] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.318829 replica.go:136: [4] received a timeout from 2 for view 14
+[DEBUG] 2025/04/15 12:54:56.318865 hotstuff.go:157: [4] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:56.318872 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.323142 replica.go:136: [2] received a timeout from 1 for view 15
+[DEBUG] 2025/04/15 12:54:56.323195 hotstuff.go:157: [2] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.323204 hotstuff.go:233: [2] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.324370 replica.go:136: [4] received a timeout from 1 for view 15
+[DEBUG] 2025/04/15 12:54:56.324422 hotstuff.go:157: [4] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.324441 hotstuff.go:233: [4] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.330700 replica.go:136: [4] received a timeout from 3 for view 15
+[DEBUG] 2025/04/15 12:54:56.330750 hotstuff.go:157: [4] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:56.330759 hotstuff.go:233: [4] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.333051 replica.go:136: [1] received a timeout from 3 for view 15
+[DEBUG] 2025/04/15 12:54:56.333107 hotstuff.go:157: [1] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:56.333117 hotstuff.go:233: [1] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.637536 hotstuff.go:157: [4] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:56.637576 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.637586 hotstuff.go:163: [4] a tc is built for view 15
+[DEBUG] 2025/04/15 12:54:56.637594 replica.go:261: [4] the last view lasts 351 milliseconds, current view: 15
+[DEBUG] 2025/04/15 12:54:56.637604 replica.go:198: [4] is processing new view: 15, leader is 4
+[DEBUG] 2025/04/15 12:54:56.637762 hotstuff.go:55: [4] is processing block from 4, view: 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e
+[WARNING] 2025/04/15 12:54:56.637779 hotstuff.go:87: [4] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:56.637803 replica.go:198: [4] is processing new view: 16, leader is 4
+[DEBUG] 2025/04/15 12:54:56.637875 hotstuff.go:55: [4] is processing block from 4, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.637917 hotstuff.go:117: [4] vote is sent to 2, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.637882 replica.go:261: [4] the last view lasts 0 milliseconds, current view: 16
+[DEBUG] 2025/04/15 12:54:56.644173 replica.go:119: [1] received a block from 4, view is 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.644206 hotstuff.go:55: [1] is processing block from 4, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.644287 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.644327 hotstuff.go:117: [1] vote is sent to 2, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.645236 replica.go:128: [2] received a vote frm 4, blockID is 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.645271 replica.go:119: [2] received a block from 4, view is 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.645279 hotstuff.go:129: [2] is processing the vote, block id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.645350 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.645373 hotstuff.go:55: [2] is processing block from 4, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.645434 hotstuff.go:72: [2] the block is buffered, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.647438 hotstuff.go:157: [2] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:56.647457 hotstuff.go:233: [2] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.647464 hotstuff.go:163: [2] a tc is built for view 15
+[DEBUG] 2025/04/15 12:54:56.647478 replica.go:261: [2] the last view lasts 350 milliseconds, current view: 15
+[DEBUG] 2025/04/15 12:54:56.647487 replica.go:198: [2] is processing new view: 15, leader is 4
+[DEBUG] 2025/04/15 12:54:56.647493 replica.go:198: [2] is processing new view: 16, leader is 4
+[DEBUG] 2025/04/15 12:54:56.647499 replica.go:261: [2] the last view lasts 0 milliseconds, current view: 16
+[DEBUG] 2025/04/15 12:54:56.649654 replica.go:119: [3] received a block from 4, view is 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.649681 hotstuff.go:55: [3] is processing block from 4, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.649771 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.649833 hotstuff.go:117: [3] vote is sent to 2, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.650029 replica.go:119: [2] received a block from 4, view is 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.650067 hotstuff.go:55: [2] is processing block from 4, view: 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e
+[DEBUG] 2025/04/15 12:54:56.650153 hotstuff.go:233: [2] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[WARNING] 2025/04/15 12:54:56.650172 hotstuff.go:87: [2] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:56.651142 hotstuff.go:157: [1] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.651159 hotstuff.go:233: [1] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.651176 replica.go:261: [1] the last view lasts 350 milliseconds, current view: 16
+[DEBUG] 2025/04/15 12:54:56.651194 replica.go:198: [1] is processing new view: 16, leader is 4
+[DEBUG] 2025/04/15 12:54:56.655560 replica.go:136: [3] received a timeout from 4 for view 15
+[DEBUG] 2025/04/15 12:54:56.655599 hotstuff.go:157: [3] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:56.655606 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.655612 hotstuff.go:163: [3] a tc is built for view 15
+[DEBUG] 2025/04/15 12:54:56.655627 replica.go:261: [3] the last view lasts 348 milliseconds, current view: 16
+[DEBUG] 2025/04/15 12:54:56.655635 replica.go:198: [3] is processing new view: 16, leader is 4
+[DEBUG] 2025/04/15 12:54:56.656752 replica.go:119: [3] received a block from 4, view is 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.656782 hotstuff.go:55: [3] is processing block from 4, view: 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e
+[DEBUG] 2025/04/15 12:54:56.656852 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[WARNING] 2025/04/15 12:54:56.656866 hotstuff.go:87: [3] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:56.663381 replica.go:119: [1] received a block from 4, view is 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.663427 hotstuff.go:55: [1] is processing block from 4, view: 15, id: cd287a38a0a5e0ef92c87d8c646bb9843c43eb45ced11d62fc9a4d46aba18f4e
+[DEBUG] 2025/04/15 12:54:56.663388 replica.go:128: [2] received a vote frm 3, blockID is 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.663474 hotstuff.go:129: [2] is processing the vote, block id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.663517 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[WARNING] 2025/04/15 12:54:56.663537 hotstuff.go:87: [1] received a stale proposal from 4
+[DEBUG] 2025/04/15 12:54:56.663574 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.666628 replica.go:128: [2] received a vote frm 1, blockID is 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.666663 hotstuff.go:129: [2] is processing the vote, block id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:56.668837 replica.go:136: [2] received a timeout from 1 for view 16
+[DEBUG] 2025/04/15 12:54:56.668870 hotstuff.go:157: [2] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.668879 hotstuff.go:233: [2] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.671136 replica.go:136: [3] received a timeout from 1 for view 16
+[DEBUG] 2025/04/15 12:54:56.671160 hotstuff.go:157: [3] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.671167 hotstuff.go:233: [3] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.673416 replica.go:136: [4] received a timeout from 1 for view 16
+[DEBUG] 2025/04/15 12:54:56.673447 hotstuff.go:157: [4] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:56.673454 hotstuff.go:233: [4] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:56.988927 hotstuff.go:157: [4] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:56.988976 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.988991 replica.go:261: [4] the last view lasts 351 milliseconds, current view: 17
+[DEBUG] 2025/04/15 12:54:56.989003 replica.go:198: [4] is processing new view: 17, leader is 2
+[DEBUG] 2025/04/15 12:54:56.998078 hotstuff.go:157: [2] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:56.998108 hotstuff.go:233: [2] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:56.998120 replica.go:261: [2] the last view lasts 350 milliseconds, current view: 17
+[DEBUG] 2025/04/15 12:54:56.998151 replica.go:198: [2] is processing new view: 17, leader is 2
+[DEBUG] 2025/04/15 12:54:56.998322 hotstuff.go:55: [2] is processing block from 2, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:56.998378 hotstuff.go:114: [2] vote is sent to itself, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:56.998386 hotstuff.go:129: [2] is processing the vote, block id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:56.998393 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:56.999227 replica.go:136: [3] received a timeout from 4 for view 17
+[DEBUG] 2025/04/15 12:54:56.999261 hotstuff.go:157: [3] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:56.999268 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.001322 hotstuff.go:157: [1] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:57.001363 hotstuff.go:233: [1] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.001374 replica.go:261: [1] the last view lasts 350 milliseconds, current view: 17
+[DEBUG] 2025/04/15 12:54:57.001382 replica.go:198: [1] is processing new view: 17, leader is 2
+[DEBUG] 2025/04/15 12:54:57.006473 replica.go:136: [2] received a timeout from 1 for view 17
+[DEBUG] 2025/04/15 12:54:57.006501 hotstuff.go:157: [2] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:57.006507 hotstuff.go:233: [2] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.006483 hotstuff.go:157: [3] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:57.006515 hotstuff.go:233: [3] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.006520 replica.go:261: [3] the last view lasts 350 milliseconds, current view: 17
+[DEBUG] 2025/04/15 12:54:57.006525 replica.go:198: [3] is processing new view: 17, leader is 2
+[DEBUG] 2025/04/15 12:54:57.007629 replica.go:136: [1] received a timeout from 4 for view 17
+[DEBUG] 2025/04/15 12:54:57.007653 hotstuff.go:157: [1] is processing tmo from 4
+[DEBUG] 2025/04/15 12:54:57.007659 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.009820 replica.go:136: [3] received a timeout from 2 for view 17
+[DEBUG] 2025/04/15 12:54:57.009850 hotstuff.go:157: [3] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:57.009857 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.009863 hotstuff.go:163: [3] a tc is built for view 17
+[DEBUG] 2025/04/15 12:54:57.009881 replica.go:261: [3] the last view lasts 3 milliseconds, current view: 18
+[DEBUG] 2025/04/15 12:54:57.009889 replica.go:198: [3] is processing new view: 18, leader is 2
+[DEBUG] 2025/04/15 12:54:57.010993 replica.go:119: [3] received a block from 2, view is 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.011017 hotstuff.go:55: [3] is processing block from 2, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.011081 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[WARNING] 2025/04/15 12:54:57.011094 hotstuff.go:87: [3] received a stale proposal from 2
+[DEBUG] 2025/04/15 12:54:57.011262 replica.go:136: [4] received a timeout from 2 for view 17
+[DEBUG] 2025/04/15 12:54:57.011292 hotstuff.go:157: [4] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:57.011301 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.013607 replica.go:136: [2] received a timeout from 3 for view 17
+[DEBUG] 2025/04/15 12:54:57.013641 hotstuff.go:157: [2] is processing tmo from 3
+[DEBUG] 2025/04/15 12:54:57.013650 hotstuff.go:233: [2] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.013656 hotstuff.go:163: [2] a tc is built for view 17
+[DEBUG] 2025/04/15 12:54:57.013674 replica.go:261: [2] the last view lasts 15 milliseconds, current view: 18
+[DEBUG] 2025/04/15 12:54:57.013698 replica.go:198: [2] is processing new view: 18, leader is 2
+[DEBUG] 2025/04/15 12:54:57.013808 hotstuff.go:55: [2] is processing block from 2, view: 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.013865 hotstuff.go:117: [2] vote is sent to 4, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.014789 replica.go:119: [4] received a block from 2, view is 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.014808 hotstuff.go:55: [4] is processing block from 2, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.014802 replica.go:119: [1] received a block from 2, view is 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.014838 replica.go:136: [1] received a timeout from 2 for view 17
+[DEBUG] 2025/04/15 12:54:57.014862 hotstuff.go:55: [1] is processing block from 2, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.014871 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.014905 hotstuff.go:117: [4] vote is sent to 2, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.014934 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.014977 hotstuff.go:117: [1] vote is sent to 2, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.015002 hotstuff.go:157: [1] is processing tmo from 2
+[DEBUG] 2025/04/15 12:54:57.015008 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.015013 hotstuff.go:163: [1] a tc is built for view 17
+[DEBUG] 2025/04/15 12:54:57.015018 replica.go:261: [1] the last view lasts 13 milliseconds, current view: 18
+[DEBUG] 2025/04/15 12:54:57.015023 replica.go:198: [1] is processing new view: 18, leader is 2
+[DEBUG] 2025/04/15 12:54:57.015896 replica.go:136: [4] received a timeout from 1 for view 17
+[DEBUG] 2025/04/15 12:54:57.015921 hotstuff.go:157: [4] is processing tmo from 1
+[DEBUG] 2025/04/15 12:54:57.015926 hotstuff.go:233: [4] is processing a QC, block id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.015931 hotstuff.go:163: [4] a tc is built for view 17
+[DEBUG] 2025/04/15 12:54:57.015943 replica.go:261: [4] the last view lasts 26 milliseconds, current view: 18
+[DEBUG] 2025/04/15 12:54:57.015960 replica.go:198: [4] is processing new view: 18, leader is 2
+[DEBUG] 2025/04/15 12:54:57.027600 replica.go:119: [1] received a block from 2, view is 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.027646 hotstuff.go:55: [1] is processing block from 2, view: 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.027721 hotstuff.go:233: [1] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.027772 hotstuff.go:117: [1] vote is sent to 4, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.030839 replica.go:119: [4] received a block from 2, view is 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.030880 hotstuff.go:55: [4] is processing block from 2, view: 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.030969 hotstuff.go:233: [4] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.031023 hotstuff.go:114: [4] vote is sent to itself, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.031043 hotstuff.go:129: [4] is processing the vote, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.031053 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.038504 replica.go:119: [3] received a block from 2, view is 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc, prevID: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.038542 hotstuff.go:55: [3] is processing block from 2, view: 18, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.038636 hotstuff.go:233: [3] is processing a QC, block id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[DEBUG] 2025/04/15 12:54:57.038689 hotstuff.go:117: [3] vote is sent to 4, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.039612 replica.go:128: [4] received a vote frm 2, blockID is 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.039629 hotstuff.go:129: [4] is processing the vote, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.039691 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.046808 replica.go:128: [4] received a vote frm 1, blockID is 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.046845 hotstuff.go:129: [4] is processing the vote, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.046932 hotstuff.go:233: [4] is processing a QC, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.046965 replica.go:261: [4] the last view lasts 31 milliseconds, current view: 19
+[DEBUG] 2025/04/15 12:54:57.046990 replica.go:198: [4] is processing new view: 19, leader is 4
+[DEBUG] 2025/04/15 12:54:57.047112 hotstuff.go:55: [4] is processing block from 4, view: 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.047167 hotstuff.go:117: [4] vote is sent to 2, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.054187 replica.go:119: [1] received a block from 4, view is 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986, prevID: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.054227 hotstuff.go:55: [1] is processing block from 4, view: 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.054324 hotstuff.go:233: [1] is processing a QC, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.054551 hotstuff.go:117: [1] vote is sent to 2, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.054575 replica.go:261: [1] the last view lasts 39 milliseconds, current view: 19
+[DEBUG] 2025/04/15 12:54:57.054581 replica.go:198: [1] is processing new view: 19, leader is 4
+[DEBUG] 2025/04/15 12:54:57.055277 replica.go:119: [3] received a block from 4, view is 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986, prevID: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.055302 hotstuff.go:55: [3] is processing block from 4, view: 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.055364 hotstuff.go:233: [3] is processing a QC, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.055568 hotstuff.go:117: [3] vote is sent to 2, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.055599 replica.go:261: [3] the last view lasts 45 milliseconds, current view: 19
+[DEBUG] 2025/04/15 12:54:57.055605 replica.go:198: [3] is processing new view: 19, leader is 4
+[DEBUG] 2025/04/15 12:54:57.066827 replica.go:128: [2] received a vote frm 3, blockID is 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.066860 hotstuff.go:129: [2] is processing the vote, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.066939 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.067905 replica.go:128: [2] received a vote frm 1, blockID is 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.067936 hotstuff.go:129: [2] is processing the vote, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.067998 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070062 replica.go:128: [2] received a vote frm 4, blockID is 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070102 hotstuff.go:129: [2] is processing the vote, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070113 replica.go:119: [2] received a block from 4, view is 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986, prevID: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.070207 hotstuff.go:55: [2] is processing block from 4, view: 19, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070303 hotstuff.go:233: [2] is processing a QC, block id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[DEBUG] 2025/04/15 12:54:57.070559 hotstuff.go:233: [2] is processing a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070609 hotstuff.go:114: [2] vote is sent to itself, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070616 hotstuff.go:129: [2] is processing the vote, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070621 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.070641 replica.go:198: [2] is processing new view: 19, leader is 4
+[DEBUG] 2025/04/15 12:54:57.070664 replica.go:261: [2] the last view lasts 56 milliseconds, current view: 19
+[DEBUG] 2025/04/15 12:54:57.070697 replica.go:261: [2] the last view lasts 0 milliseconds, current view: 20
+[DEBUG] 2025/04/15 12:54:57.070719 replica.go:198: [2] is processing new view: 20, leader is 2
+[DEBUG] 2025/04/15 12:54:57.070842 hotstuff.go:55: [2] is processing block from 2, view: 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.070892 hotstuff.go:117: [2] vote is sent to 4, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.080118 replica.go:128: [4] received a vote frm 2, blockID is 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.080155 hotstuff.go:129: [4] is processing the vote, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.080241 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.093320 replica.go:119: [3] received a block from 2, view is 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a, prevID: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.093359 hotstuff.go:55: [3] is processing block from 2, view: 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.093445 hotstuff.go:233: [3] is processing a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.093708 hotstuff.go:117: [3] vote is sent to 4, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.093738 replica.go:261: [3] the last view lasts 38 milliseconds, current view: 20
+[DEBUG] 2025/04/15 12:54:57.093746 replica.go:198: [3] is processing new view: 20, leader is 2
+[DEBUG] 2025/04/15 12:54:57.096504 replica.go:119: [4] received a block from 2, view is 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a, prevID: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.096539 hotstuff.go:55: [4] is processing block from 2, view: 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.096563 replica.go:119: [1] received a block from 2, view is 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a, prevID: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.096592 hotstuff.go:55: [1] is processing block from 2, view: 20, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.096626 hotstuff.go:233: [4] is processing a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.096679 hotstuff.go:233: [1] is processing a QC, block id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.096905 hotstuff.go:114: [4] vote is sent to itself, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.096926 hotstuff.go:129: [4] is processing the vote, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.096934 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.096941 replica.go:261: [4] the last view lasts 49 milliseconds, current view: 20
+[DEBUG] 2025/04/15 12:54:57.096948 replica.go:198: [4] is processing new view: 20, leader is 2
+[DEBUG] 2025/04/15 12:54:57.096954 hotstuff.go:117: [1] vote is sent to 4, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.096975 replica.go:261: [1] the last view lasts 42 milliseconds, current view: 20
+[DEBUG] 2025/04/15 12:54:57.096983 replica.go:198: [1] is processing new view: 20, leader is 2
+[DEBUG] 2025/04/15 12:54:57.103811 replica.go:128: [4] received a vote frm 3, blockID is 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.103855 hotstuff.go:129: [4] is processing the vote, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.103945 hotstuff.go:233: [4] is processing a QC, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.103982 leveled_forrest.go:76: found a forked block, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:57.103990 leveled_forrest.go:76: found a forked block, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.103996 leveled_forrest.go:76: found a forked block, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:57.104001 leveled_forrest.go:76: found a forked block, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[INFO] 2025/04/15 12:54:57.104013 replica.go:183: [4] the 5th block is committed, No. of transactions: 0, view: 18, current view: 21, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[INFO] 2025/04/15 12:54:57.104020 replica.go:194: [4] the block is forked, No. of transactions: 51, view: 11, current view: 21, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[INFO] 2025/04/15 12:54:57.104025 replica.go:183: [4] the 6th block is committed, No. of transactions: 24, view: 12, current view: 21, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[INFO] 2025/04/15 12:54:57.104034 replica.go:194: [4] the block is forked, No. of transactions: 51, view: 13, current view: 21, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[INFO] 2025/04/15 12:54:57.104039 replica.go:194: [4] the block is forked, No. of transactions: 0, view: 16, current view: 21, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[INFO] 2025/04/15 12:54:57.104050 replica.go:194: [4] the block is forked, No. of transactions: 51, view: 17, current view: 21, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[INFO] 2025/04/15 12:54:57.104055 replica.go:183: [4] the 7th block is committed, No. of transactions: 28, view: 7, current view: 21, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[INFO] 2025/04/15 12:54:57.104060 replica.go:183: [4] the 8th block is committed, No. of transactions: 51, view: 6, current view: 21, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[INFO] 2025/04/15 12:54:57.104065 replica.go:183: [4] the 9th block is committed, No. of transactions: 28, view: 5, current view: 21, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[DEBUG] 2025/04/15 12:54:57.104070 replica.go:261: [4] the last view lasts 7 milliseconds, current view: 21
+[DEBUG] 2025/04/15 12:54:57.104089 replica.go:198: [4] is processing new view: 21, leader is 4
+[DEBUG] 2025/04/15 12:54:57.104215 hotstuff.go:55: [4] is processing block from 4, view: 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.104263 hotstuff.go:117: [4] vote is sent to 2, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.115078 replica.go:119: [2] received a block from 4, view is 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a, prevID: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.115116 hotstuff.go:55: [2] is processing block from 4, view: 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.115207 hotstuff.go:233: [2] is processing a QC, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.115483 leveled_forrest.go:76: found a forked block, view: 8, id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[DEBUG] 2025/04/15 12:54:57.115506 leveled_forrest.go:76: found a forked block, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:57.115514 leveled_forrest.go:76: found a forked block, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.115520 leveled_forrest.go:76: found a forked block, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.115563 hotstuff.go:114: [2] vote is sent to itself, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.115583 hotstuff.go:129: [2] is processing the vote, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.115591 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.115598 replica.go:198: [2] is processing new view: 21, leader is 4
+[DEBUG] 2025/04/15 12:54:57.115604 replica.go:261: [2] the last view lasts 44 milliseconds, current view: 21
+[INFO] 2025/04/15 12:54:57.115576 replica.go:183: [2] the 6th block is committed, No. of transactions: 0, view: 18, current view: 21, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[INFO] 2025/04/15 12:54:57.115616 replica.go:194: [2] the block is forked, No. of transactions: 51, view: 8, current view: 21, id: 85a6d543b0e11237268c31b20db1645e8664fff9896753cc6652a246f39e7ede
+[INFO] 2025/04/15 12:54:57.115622 replica.go:183: [2] the 7th block is committed, No. of transactions: 24, view: 12, current view: 21, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[INFO] 2025/04/15 12:54:57.115627 replica.go:194: [2] the block is forked, No. of transactions: 51, view: 11, current view: 21, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[INFO] 2025/04/15 12:54:57.115633 replica.go:194: [2] the block is forked, No. of transactions: 51, view: 13, current view: 21, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[INFO] 2025/04/15 12:54:57.115649 replica.go:183: [2] the 8th block is committed, No. of transactions: 28, view: 7, current view: 21, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[INFO] 2025/04/15 12:54:57.115659 replica.go:194: [2] the block is forked, No. of transactions: 51, view: 17, current view: 21, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[INFO] 2025/04/15 12:54:57.115671 replica.go:183: [2] the 9th block is committed, No. of transactions: 51, view: 6, current view: 21, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:57.117219 replica.go:128: [2] received a vote frm 4, blockID is 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.117246 hotstuff.go:129: [2] is processing the vote, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.117312 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.128467 replica.go:119: [1] received a block from 4, view is 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a, prevID: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.128507 hotstuff.go:55: [1] is processing block from 4, view: 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.128593 hotstuff.go:233: [1] is processing a QC, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.128858 leveled_forrest.go:76: found a forked block, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.128878 leveled_forrest.go:76: found a forked block, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:57.128885 leveled_forrest.go:76: found a forked block, view: 17, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[DEBUG] 2025/04/15 12:54:57.128946 hotstuff.go:117: [1] vote is sent to 2, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.128980 replica.go:198: [1] is processing new view: 21, leader is 4
+[DEBUG] 2025/04/15 12:54:57.128987 replica.go:261: [1] the last view lasts 31 milliseconds, current view: 21
+[INFO] 2025/04/15 12:54:57.128996 replica.go:183: [1] the 6th block is committed, No. of transactions: 0, view: 18, current view: 21, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[INFO] 2025/04/15 12:54:57.129002 replica.go:183: [1] the 7th block is committed, No. of transactions: 24, view: 12, current view: 21, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[INFO] 2025/04/15 12:54:57.129007 replica.go:194: [1] the block is forked, No. of transactions: 51, view: 13, current view: 21, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[INFO] 2025/04/15 12:54:57.129013 replica.go:194: [1] the block is forked, No. of transactions: 0, view: 16, current view: 21, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[INFO] 2025/04/15 12:54:57.129018 replica.go:194: [1] the block is forked, No. of transactions: 51, view: 17, current view: 21, id: 1aa01157266a456baeafdb1b358355a7455323a587b79170a0c2a399d73b289a
+[INFO] 2025/04/15 12:54:57.129023 replica.go:183: [1] the 8th block is committed, No. of transactions: 28, view: 7, current view: 21, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[INFO] 2025/04/15 12:54:57.129028 replica.go:183: [1] the 9th block is committed, No. of transactions: 51, view: 6, current view: 21, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[DEBUG] 2025/04/15 12:54:57.129642 replica.go:119: [3] received a block from 4, view is 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a, prevID: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.129675 hotstuff.go:55: [3] is processing block from 4, view: 21, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.129739 hotstuff.go:233: [3] is processing a QC, block id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.129928 leveled_forrest.go:76: found a forked block, view: 11, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[DEBUG] 2025/04/15 12:54:57.129944 leveled_forrest.go:76: found a forked block, view: 13, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[DEBUG] 2025/04/15 12:54:57.129949 leveled_forrest.go:76: found a forked block, view: 14, id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[DEBUG] 2025/04/15 12:54:57.129954 leveled_forrest.go:76: found a forked block, view: 16, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:57.129992 hotstuff.go:117: [3] vote is sent to 2, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.130019 replica.go:198: [3] is processing new view: 21, leader is 4
+[DEBUG] 2025/04/15 12:54:57.130025 replica.go:261: [3] the last view lasts 36 milliseconds, current view: 21
+[INFO] 2025/04/15 12:54:57.130029 replica.go:183: [3] the 5th block is committed, No. of transactions: 0, view: 18, current view: 21, id: 0885f313a95e7d776fcace1a4db420e6d7b7626834a080ab12606c711de53bfc
+[INFO] 2025/04/15 12:54:57.130047 replica.go:194: [3] the block is forked, No. of transactions: 51, view: 11, current view: 21, id: e93984a5d41f8e20b26e03db1c517f45110ba92eb17ac433cb0968c347dae2e0
+[INFO] 2025/04/15 12:54:57.130056 replica.go:183: [3] the 6th block is committed, No. of transactions: 24, view: 12, current view: 21, id: f1e805e8c048bd04f0c0b10ffb137971f9ad4e031c11b471c35048df35cdbefa
+[INFO] 2025/04/15 12:54:57.130060 replica.go:183: [3] the 7th block is committed, No. of transactions: 28, view: 7, current view: 21, id: 7901f1d9f30d0e35e37cc4b7e68bbea269a027505309dcdfbfbdff1fc8566608
+[INFO] 2025/04/15 12:54:57.130064 replica.go:183: [3] the 8th block is committed, No. of transactions: 51, view: 6, current view: 21, id: 511aab30863353d8f6b35a7c30603b7b34972b64119f008b24fd38f8ca87869e
+[INFO] 2025/04/15 12:54:57.130068 replica.go:194: [3] the block is forked, No. of transactions: 51, view: 13, current view: 21, id: d6a904f07f91c1171c52d28b9f4e524ece4acba7341dff0b53b9590708b15f54
+[INFO] 2025/04/15 12:54:57.130072 replica.go:194: [3] the block is forked, No. of transactions: 51, view: 14, current view: 21, id: fc7026b2c6b83064e7bfba2a7d1833c1245bcf7f921bb2a33036fcdb58a3110d
+[INFO] 2025/04/15 12:54:57.130079 replica.go:183: [3] the 9th block is committed, No. of transactions: 28, view: 5, current view: 21, id: 153289bbb6b6ff569d94e621d6a6d855b79d1f7cdf06dba4ad3bfd091bcc51b4
+[INFO] 2025/04/15 12:54:57.130083 replica.go:194: [3] the block is forked, No. of transactions: 0, view: 16, current view: 21, id: 0e482d70391d9eac0c28b2544a356dd669daa2c368b1fb7a32872f698bfa1867
+[DEBUG] 2025/04/15 12:54:57.145275 replica.go:128: [2] received a vote frm 3, blockID is 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.145327 hotstuff.go:129: [2] is processing the vote, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.145418 hotstuff.go:233: [2] is processing a QC, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[INFO] 2025/04/15 12:54:57.145454 replica.go:183: [2] the 10th block is committed, No. of transactions: 0, view: 19, current view: 22, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.145477 replica.go:261: [2] the last view lasts 29 milliseconds, current view: 22
+[DEBUG] 2025/04/15 12:54:57.145503 replica.go:198: [2] is processing new view: 22, leader is 2
+[DEBUG] 2025/04/15 12:54:57.145654 hotstuff.go:55: [2] is processing block from 2, view: 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.145714 hotstuff.go:117: [2] vote is sent to 3, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.152643 replica.go:119: [3] received a block from 2, view is 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7, prevID: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.152674 hotstuff.go:55: [3] is processing block from 2, view: 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.152737 hotstuff.go:233: [3] is processing a QC, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.152953 hotstuff.go:114: [3] vote is sent to itself, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.152970 hotstuff.go:129: [3] is processing the vote, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.152975 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.152980 replica.go:198: [3] is processing new view: 22, leader is 2
+[DEBUG] 2025/04/15 12:54:57.152985 replica.go:261: [3] the last view lasts 23 milliseconds, current view: 22
+[INFO] 2025/04/15 12:54:57.152962 replica.go:183: [3] the 10th block is committed, No. of transactions: 0, view: 19, current view: 22, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.157809 replica.go:128: [3] received a vote frm 2, blockID is 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.157846 hotstuff.go:129: [3] is processing the vote, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.157932 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.164018 replica.go:119: [4] received a block from 2, view is 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7, prevID: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.164058 hotstuff.go:55: [4] is processing block from 2, view: 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.164121 hotstuff.go:233: [4] is processing a QC, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.164340 hotstuff.go:117: [4] vote is sent to 3, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.164365 replica.go:198: [4] is processing new view: 22, leader is 2
+[DEBUG] 2025/04/15 12:54:57.164371 replica.go:261: [4] the last view lasts 60 milliseconds, current view: 22
+[INFO] 2025/04/15 12:54:57.164378 replica.go:183: [4] the 10th block is committed, No. of transactions: 0, view: 19, current view: 22, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.168286 replica.go:119: [1] received a block from 2, view is 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7, prevID: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.168323 hotstuff.go:55: [1] is processing block from 2, view: 22, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.168409 hotstuff.go:233: [1] is processing a QC, block id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.168696 hotstuff.go:117: [1] vote is sent to 3, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.168728 replica.go:198: [1] is processing new view: 22, leader is 2
+[DEBUG] 2025/04/15 12:54:57.168735 replica.go:261: [1] the last view lasts 39 milliseconds, current view: 22
+[INFO] 2025/04/15 12:54:57.168751 replica.go:183: [1] the 10th block is committed, No. of transactions: 0, view: 19, current view: 22, id: 38b13700b4259d02ebc2f3dd2625726ab95370d9a2ab487c6987b70b9215e986
+[DEBUG] 2025/04/15 12:54:57.171490 replica.go:128: [3] received a vote frm 4, blockID is 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.171524 hotstuff.go:129: [3] is processing the vote, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.171613 hotstuff.go:233: [3] is processing a QC, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[INFO] 2025/04/15 12:54:57.171656 replica.go:183: [3] the 11th block is committed, No. of transactions: 0, view: 20, current view: 23, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.171668 replica.go:261: [3] the last view lasts 18 milliseconds, current view: 23
+[DEBUG] 2025/04/15 12:54:57.171679 replica.go:198: [3] is processing new view: 23, leader is 3
+[DEBUG] 2025/04/15 12:54:57.171834 hotstuff.go:55: [3] is processing block from 3, view: 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.171884 hotstuff.go:114: [3] vote is sent to itself, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.171892 hotstuff.go:129: [3] is processing the vote, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.171899 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.177176 replica.go:119: [2] received a block from 3, view is 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e, prevID: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.177204 hotstuff.go:55: [2] is processing block from 3, view: 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.177265 hotstuff.go:233: [2] is processing a QC, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.177474 hotstuff.go:117: [2] vote is sent to 3, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.177501 replica.go:198: [2] is processing new view: 23, leader is 3
+[DEBUG] 2025/04/15 12:54:57.177509 replica.go:261: [2] the last view lasts 31 milliseconds, current view: 23
+[INFO] 2025/04/15 12:54:57.177516 replica.go:183: [2] the 11th block is committed, No. of transactions: 0, view: 20, current view: 23, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.179430 replica.go:119: [4] received a block from 3, view is 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e, prevID: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.179456 hotstuff.go:55: [4] is processing block from 3, view: 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.179537 hotstuff.go:233: [4] is processing a QC, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.179822 hotstuff.go:117: [4] vote is sent to 3, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.179854 replica.go:198: [4] is processing new view: 23, leader is 3
+[DEBUG] 2025/04/15 12:54:57.179861 replica.go:261: [4] the last view lasts 15 milliseconds, current view: 23
+[INFO] 2025/04/15 12:54:57.179869 replica.go:183: [4] the 11th block is committed, No. of transactions: 0, view: 20, current view: 23, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.184572 replica.go:128: [3] received a vote frm 2, blockID is be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.184614 hotstuff.go:129: [3] is processing the vote, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.184701 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.191841 replica.go:119: [1] received a block from 3, view is 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e, prevID: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.191885 hotstuff.go:55: [1] is processing block from 3, view: 23, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.191972 hotstuff.go:233: [1] is processing a QC, block id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.192259 hotstuff.go:117: [1] vote is sent to 3, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.192303 replica.go:198: [1] is processing new view: 23, leader is 3
+[DEBUG] 2025/04/15 12:54:57.192311 replica.go:261: [1] the last view lasts 23 milliseconds, current view: 23
+[INFO] 2025/04/15 12:54:57.192322 replica.go:183: [1] the 11th block is committed, No. of transactions: 0, view: 20, current view: 23, id: 7ef20337c08771a4b888394b6908ae744af99d131ffdf38a6104476bae90a32a
+[DEBUG] 2025/04/15 12:54:57.197536 replica.go:128: [3] received a vote frm 1, blockID is be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.197572 hotstuff.go:129: [3] is processing the vote, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.197661 hotstuff.go:233: [3] is processing a QC, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[INFO] 2025/04/15 12:54:57.197695 replica.go:183: [3] the 12th block is committed, No. of transactions: 51, view: 21, current view: 24, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.197717 replica.go:261: [3] the last view lasts 26 milliseconds, current view: 24
+[DEBUG] 2025/04/15 12:54:57.197733 replica.go:198: [3] is processing new view: 24, leader is 3
+[DEBUG] 2025/04/15 12:54:57.197817 hotstuff.go:55: [3] is processing block from 3, view: 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.197870 hotstuff.go:117: [3] vote is sent to 4, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.206924 replica.go:119: [4] received a block from 3, view is 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f, prevID: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.206963 hotstuff.go:55: [4] is processing block from 3, view: 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.207050 hotstuff.go:233: [4] is processing a QC, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.207338 hotstuff.go:114: [4] vote is sent to itself, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.207359 hotstuff.go:129: [4] is processing the vote, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.207367 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.207375 replica.go:198: [4] is processing new view: 24, leader is 3
+[DEBUG] 2025/04/15 12:54:57.207381 replica.go:261: [4] the last view lasts 27 milliseconds, current view: 24
+[INFO] 2025/04/15 12:54:57.207395 replica.go:183: [4] the 12th block is committed, No. of transactions: 51, view: 21, current view: 24, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.212143 replica.go:119: [2] received a block from 3, view is 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f, prevID: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.212187 hotstuff.go:55: [2] is processing block from 3, view: 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.212272 hotstuff.go:233: [2] is processing a QC, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.212558 hotstuff.go:117: [2] vote is sent to 4, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.212602 replica.go:198: [2] is processing new view: 24, leader is 3
+[DEBUG] 2025/04/15 12:54:57.212610 replica.go:261: [2] the last view lasts 35 milliseconds, current view: 24
+[INFO] 2025/04/15 12:54:57.212618 replica.go:183: [2] the 12th block is committed, No. of transactions: 51, view: 21, current view: 24, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.218841 replica.go:128: [4] received a vote frm 2, blockID is debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.218874 hotstuff.go:129: [4] is processing the vote, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.218954 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.220993 replica.go:128: [4] received a vote frm 3, blockID is debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.221034 hotstuff.go:129: [4] is processing the vote, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.221065 replica.go:119: [1] received a block from 3, view is 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f, prevID: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.221080 hotstuff.go:55: [1] is processing block from 3, view: 24, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.221123 hotstuff.go:233: [4] is processing a QC, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[INFO] 2025/04/15 12:54:57.221158 replica.go:183: [4] the 13th block is committed, No. of transactions: 51, view: 22, current view: 25, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.221165 hotstuff.go:233: [1] is processing a QC, block id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.221182 replica.go:261: [4] the last view lasts 13 milliseconds, current view: 25
+[DEBUG] 2025/04/15 12:54:57.221225 replica.go:198: [4] is processing new view: 25, leader is 4
+[DEBUG] 2025/04/15 12:54:57.221367 hotstuff.go:55: [4] is processing block from 4, view: 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.221425 hotstuff.go:114: [4] vote is sent to itself, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.221433 hotstuff.go:129: [4] is processing the vote, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.221440 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[INFO] 2025/04/15 12:54:57.221444 replica.go:183: [1] the 12th block is committed, No. of transactions: 51, view: 21, current view: 24, id: 51bf73624a78cdd5a9f44ab17afbd7d990b6d261317a2ca858889fdcbdadfb5a
+[DEBUG] 2025/04/15 12:54:57.221440 hotstuff.go:117: [1] vote is sent to 4, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.221468 replica.go:198: [1] is processing new view: 24, leader is 3
+[DEBUG] 2025/04/15 12:54:57.221483 replica.go:261: [1] the last view lasts 29 milliseconds, current view: 24
+[DEBUG] 2025/04/15 12:54:57.226710 replica.go:119: [2] received a block from 4, view is 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91, prevID: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.226748 hotstuff.go:55: [2] is processing block from 4, view: 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.226835 hotstuff.go:233: [2] is processing a QC, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.227127 hotstuff.go:117: [2] vote is sent to 4, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[INFO] 2025/04/15 12:54:57.227147 replica.go:183: [2] the 13th block is committed, No. of transactions: 51, view: 22, current view: 25, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.227159 replica.go:198: [2] is processing new view: 25, leader is 4
+[DEBUG] 2025/04/15 12:54:57.227165 replica.go:261: [2] the last view lasts 14 milliseconds, current view: 25
+[DEBUG] 2025/04/15 12:54:57.233960 replica.go:119: [1] received a block from 4, view is 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91, prevID: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.234000 hotstuff.go:55: [1] is processing block from 4, view: 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.234087 hotstuff.go:233: [1] is processing a QC, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.234373 hotstuff.go:117: [1] vote is sent to 4, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.234406 replica.go:198: [1] is processing new view: 25, leader is 4
+[DEBUG] 2025/04/15 12:54:57.234414 replica.go:261: [1] the last view lasts 12 milliseconds, current view: 25
+[INFO] 2025/04/15 12:54:57.234421 replica.go:183: [1] the 13th block is committed, No. of transactions: 51, view: 22, current view: 25, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.244251 replica.go:119: [3] received a block from 4, view is 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91, prevID: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.244279 hotstuff.go:55: [3] is processing block from 4, view: 25, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.244341 hotstuff.go:233: [3] is processing a QC, block id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.244549 hotstuff.go:117: [3] vote is sent to 4, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.244574 replica.go:198: [3] is processing new view: 25, leader is 4
+[DEBUG] 2025/04/15 12:54:57.244579 replica.go:261: [3] the last view lasts 46 milliseconds, current view: 25
+[INFO] 2025/04/15 12:54:57.244585 replica.go:183: [3] the 13th block is committed, No. of transactions: 51, view: 22, current view: 25, id: 36aba720b9b33b85dec017f42bb0016f8932d30848a38faf56f148dee4ec11c7
+[DEBUG] 2025/04/15 12:54:57.250401 replica.go:128: [4] received a vote frm 2, blockID is 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.250428 hotstuff.go:129: [4] is processing the vote, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.250492 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.253527 replica.go:128: [4] received a vote frm 1, blockID is 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.253567 hotstuff.go:129: [4] is processing the vote, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.253678 hotstuff.go:233: [4] is processing a QC, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[INFO] 2025/04/15 12:54:57.253720 replica.go:183: [4] the 14th block is committed, No. of transactions: 100, view: 23, current view: 26, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.253728 replica.go:261: [4] the last view lasts 32 milliseconds, current view: 26
+[DEBUG] 2025/04/15 12:54:57.253734 replica.go:198: [4] is processing new view: 26, leader is 4
+[DEBUG] 2025/04/15 12:54:57.253835 hotstuff.go:55: [4] is processing block from 4, view: 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.253880 hotstuff.go:114: [4] vote is sent to itself, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.253887 hotstuff.go:129: [4] is processing the vote, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.253892 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.259160 replica.go:119: [1] received a block from 4, view is 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951, prevID: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.259199 hotstuff.go:55: [1] is processing block from 4, view: 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.259288 hotstuff.go:233: [1] is processing a QC, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.259577 hotstuff.go:117: [1] vote is sent to 4, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.259609 replica.go:198: [1] is processing new view: 26, leader is 4
+[DEBUG] 2025/04/15 12:54:57.259617 replica.go:261: [1] the last view lasts 25 milliseconds, current view: 26
+[INFO] 2025/04/15 12:54:57.259625 replica.go:183: [1] the 14th block is committed, No. of transactions: 100, view: 23, current view: 26, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.265393 replica.go:119: [3] received a block from 4, view is 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951, prevID: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.265431 hotstuff.go:55: [3] is processing block from 4, view: 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.265516 hotstuff.go:233: [3] is processing a QC, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.265814 hotstuff.go:117: [3] vote is sent to 4, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.265847 replica.go:198: [3] is processing new view: 26, leader is 4
+[DEBUG] 2025/04/15 12:54:57.265855 replica.go:261: [3] the last view lasts 21 milliseconds, current view: 26
+[INFO] 2025/04/15 12:54:57.265872 replica.go:183: [3] the 14th block is committed, No. of transactions: 100, view: 23, current view: 26, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.268755 replica.go:119: [2] received a block from 4, view is 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951, prevID: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.268785 hotstuff.go:55: [2] is processing block from 4, view: 26, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.268851 hotstuff.go:233: [2] is processing a QC, block id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.269070 hotstuff.go:117: [2] vote is sent to 4, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.269104 replica.go:198: [2] is processing new view: 26, leader is 4
+[DEBUG] 2025/04/15 12:54:57.269110 replica.go:261: [2] the last view lasts 41 milliseconds, current view: 26
+[INFO] 2025/04/15 12:54:57.269116 replica.go:183: [2] the 14th block is committed, No. of transactions: 100, view: 23, current view: 26, id: be94574c1c3b1633b053479c3d99b8a641b43977dbb6daa56d1169beb9043b3e
+[DEBUG] 2025/04/15 12:54:57.275978 replica.go:128: [4] received a vote frm 1, blockID is 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.276015 hotstuff.go:129: [4] is processing the vote, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.276103 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.289198 replica.go:128: [4] received a vote frm 3, blockID is 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.289242 hotstuff.go:129: [4] is processing the vote, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.289334 hotstuff.go:233: [4] is processing a QC, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[INFO] 2025/04/15 12:54:57.289372 replica.go:183: [4] the 15th block is committed, No. of transactions: 2, view: 24, current view: 27, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.289394 replica.go:261: [4] the last view lasts 35 milliseconds, current view: 27
+[DEBUG] 2025/04/15 12:54:57.289426 replica.go:198: [4] is processing new view: 27, leader is 4
+[DEBUG] 2025/04/15 12:54:57.289539 hotstuff.go:55: [4] is processing block from 4, view: 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.289590 hotstuff.go:117: [4] vote is sent to 2, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.295602 replica.go:128: [2] received a vote frm 4, blockID is b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.295627 replica.go:119: [2] received a block from 4, view is 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c, prevID: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.295635 hotstuff.go:129: [2] is processing the vote, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.295703 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.295727 hotstuff.go:55: [2] is processing block from 4, view: 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.295787 hotstuff.go:233: [2] is processing a QC, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.296005 hotstuff.go:114: [2] vote is sent to itself, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.296021 hotstuff.go:129: [2] is processing the vote, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.296026 hotstuff.go:143: [2] not sufficient votes to build a QC, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.296031 replica.go:198: [2] is processing new view: 27, leader is 4
+[DEBUG] 2025/04/15 12:54:57.296036 replica.go:261: [2] the last view lasts 26 milliseconds, current view: 27
+[INFO] 2025/04/15 12:54:57.296042 replica.go:183: [2] the 15th block is committed, No. of transactions: 2, view: 24, current view: 27, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.300828 replica.go:119: [1] received a block from 4, view is 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c, prevID: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.300872 hotstuff.go:55: [1] is processing block from 4, view: 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.300941 hotstuff.go:233: [1] is processing a QC, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.301162 hotstuff.go:117: [1] vote is sent to 2, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.301188 replica.go:198: [1] is processing new view: 27, leader is 4
+[DEBUG] 2025/04/15 12:54:57.301194 replica.go:261: [1] the last view lasts 41 milliseconds, current view: 27
+[INFO] 2025/04/15 12:54:57.301201 replica.go:183: [1] the 15th block is committed, No. of transactions: 2, view: 24, current view: 27, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.315121 replica.go:119: [3] received a block from 4, view is 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c, prevID: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.315172 hotstuff.go:55: [3] is processing block from 4, view: 27, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.315264 hotstuff.go:233: [3] is processing a QC, block id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.315560 hotstuff.go:117: [3] vote is sent to 2, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.315594 replica.go:198: [3] is processing new view: 27, leader is 4
+[DEBUG] 2025/04/15 12:54:57.315602 replica.go:261: [3] the last view lasts 49 milliseconds, current view: 27
+[INFO] 2025/04/15 12:54:57.315612 replica.go:183: [3] the 15th block is committed, No. of transactions: 2, view: 24, current view: 27, id: debdcefebf9a40a132a54e8c41adbc3c0d989e48945e418add216086ba59844f
+[DEBUG] 2025/04/15 12:54:57.318275 replica.go:128: [2] received a vote frm 1, blockID is b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.318311 hotstuff.go:129: [2] is processing the vote, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.318404 hotstuff.go:233: [2] is processing a QC, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[INFO] 2025/04/15 12:54:57.318440 replica.go:183: [2] the 16th block is committed, No. of transactions: 0, view: 25, current view: 28, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.318460 replica.go:261: [2] the last view lasts 22 milliseconds, current view: 28
+[DEBUG] 2025/04/15 12:54:57.318488 replica.go:198: [2] is processing new view: 28, leader is 2
+[DEBUG] 2025/04/15 12:54:57.318614 hotstuff.go:55: [2] is processing block from 2, view: 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.318665 hotstuff.go:117: [2] vote is sent to 4, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.325947 replica.go:119: [1] received a block from 2, view is 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77, prevID: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.325989 hotstuff.go:55: [1] is processing block from 2, view: 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.326076 hotstuff.go:233: [1] is processing a QC, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.326369 hotstuff.go:117: [1] vote is sent to 4, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.326412 replica.go:198: [1] is processing new view: 28, leader is 2
+[DEBUG] 2025/04/15 12:54:57.326421 replica.go:261: [1] the last view lasts 25 milliseconds, current view: 28
+[INFO] 2025/04/15 12:54:57.326437 replica.go:183: [1] the 16th block is committed, No. of transactions: 0, view: 25, current view: 28, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.335674 replica.go:128: [4] received a vote frm 1, blockID is 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.335703 hotstuff.go:129: [4] is processing the vote, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.335778 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.336794 replica.go:128: [4] received a vote frm 2, blockID is 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.336827 hotstuff.go:129: [4] is processing the vote, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.336894 hotstuff.go:143: [4] not sufficient votes to build a QC, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.337930 replica.go:119: [3] received a block from 2, view is 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77, prevID: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.337956 hotstuff.go:55: [3] is processing block from 2, view: 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.338016 hotstuff.go:233: [3] is processing a QC, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.338222 hotstuff.go:117: [3] vote is sent to 4, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.338245 replica.go:198: [3] is processing new view: 28, leader is 2
+[DEBUG] 2025/04/15 12:54:57.338251 replica.go:261: [3] the last view lasts 22 milliseconds, current view: 28
+[INFO] 2025/04/15 12:54:57.338256 replica.go:183: [3] the 16th block is committed, No. of transactions: 0, view: 25, current view: 28, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[DEBUG] 2025/04/15 12:54:57.340156 replica.go:119: [4] received a block from 2, view is 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77, prevID: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.340191 hotstuff.go:55: [4] is processing block from 2, view: 28, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.340276 hotstuff.go:233: [4] is processing a QC, block id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.340564 hotstuff.go:114: [4] vote is sent to itself, id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.340585 hotstuff.go:129: [4] is processing the vote, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.340593 hotstuff.go:233: [4] is processing a QC, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.340601 replica.go:198: [4] is processing new view: 28, leader is 2
+[DEBUG] 2025/04/15 12:54:57.340607 replica.go:261: [4] the last view lasts 51 milliseconds, current view: 28
+[DEBUG] 2025/04/15 12:54:57.340615 replica.go:261: [4] the last view lasts 0 milliseconds, current view: 29
+[DEBUG] 2025/04/15 12:54:57.340621 replica.go:198: [4] is processing new view: 29, leader is 4
+[INFO] 2025/04/15 12:54:57.340645 replica.go:183: [4] the 16th block is committed, No. of transactions: 0, view: 25, current view: 29, id: 5c38b7f516ac1132c9970bd7a35eed328cbf91d530d34f37e494924f2837eb91
+[INFO] 2025/04/15 12:54:57.340661 replica.go:183: [4] the 17th block is committed, No. of transactions: 0, view: 26, current view: 29, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.340698 hotstuff.go:55: [4] is processing block from 4, view: 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.340734 hotstuff.go:117: [4] vote is sent to 1, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.349969 replica.go:128: [1] received a vote frm 4, blockID is c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.350008 hotstuff.go:129: [1] is processing the vote, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.350099 hotstuff.go:143: [1] not sufficient votes to build a QC, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.351062 replica.go:119: [1] received a block from 4, view is 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf, prevID: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.351087 hotstuff.go:55: [1] is processing block from 4, view: 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.351149 hotstuff.go:233: [1] is processing a QC, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.351369 hotstuff.go:114: [1] vote is sent to itself, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.351385 hotstuff.go:129: [1] is processing the vote, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.351391 hotstuff.go:143: [1] not sufficient votes to build a QC, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.351396 replica.go:198: [1] is processing new view: 29, leader is 4
+[DEBUG] 2025/04/15 12:54:57.351401 replica.go:261: [1] the last view lasts 25 milliseconds, current view: 29
+[INFO] 2025/04/15 12:54:57.351406 replica.go:183: [1] the 17th block is committed, No. of transactions: 0, view: 26, current view: 29, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.357740 replica.go:119: [2] received a block from 4, view is 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf, prevID: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.357768 hotstuff.go:55: [2] is processing block from 4, view: 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.357846 hotstuff.go:233: [2] is processing a QC, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.358136 hotstuff.go:117: [2] vote is sent to 1, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.358169 replica.go:198: [2] is processing new view: 29, leader is 4
+[DEBUG] 2025/04/15 12:54:57.358177 replica.go:261: [2] the last view lasts 39 milliseconds, current view: 29
+[INFO] 2025/04/15 12:54:57.358185 replica.go:183: [2] the 17th block is committed, No. of transactions: 0, view: 26, current view: 29, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.363982 replica.go:119: [3] received a block from 4, view is 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf, prevID: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.364021 hotstuff.go:55: [3] is processing block from 4, view: 29, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.364107 hotstuff.go:233: [3] is processing a QC, block id: 5b3ea1d5abf4f861f37461d7c53bff622e95f479b856ae33d79445f45120cd77
+[DEBUG] 2025/04/15 12:54:57.364404 hotstuff.go:117: [3] vote is sent to 1, id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.364438 replica.go:198: [3] is processing new view: 29, leader is 4
+[DEBUG] 2025/04/15 12:54:57.364452 replica.go:261: [3] the last view lasts 26 milliseconds, current view: 29
+[INFO] 2025/04/15 12:54:57.364461 replica.go:183: [3] the 17th block is committed, No. of transactions: 0, view: 26, current view: 29, id: 057b64fadb2c860fd3b7a4e46db5c0c00e9772bf3c1a54218e49b938eaa14951
+[DEBUG] 2025/04/15 12:54:57.384234 replica.go:128: [1] received a vote frm 2, blockID is c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.384277 hotstuff.go:129: [1] is processing the vote, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.384363 hotstuff.go:233: [1] is processing a QC, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[INFO] 2025/04/15 12:54:57.384395 replica.go:183: [1] the 18th block is committed, No. of transactions: 0, view: 27, current view: 30, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.384416 replica.go:261: [1] the last view lasts 33 milliseconds, current view: 30
+[DEBUG] 2025/04/15 12:54:57.384449 replica.go:198: [1] is processing new view: 30, leader is 1
+[DEBUG] 2025/04/15 12:54:57.384463 replica.go:204: [1] is a byzantine node, so it will propose a block Equivocate
+[DEBUG] 2025/04/15 12:54:57.384618 hotstuff.go:55: [1] is processing block from 1, view: 31, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6
+[DEBUG] 2025/04/15 12:54:57.398703 replica.go:119: [2] received a block from 1, view is 31, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6, prevID: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.398743 hotstuff.go:55: [2] is processing block from 1, view: 31, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6
+[DEBUG] 2025/04/15 12:54:57.398796 replica.go:119: [3] received a block from 1, view is 30, id: 909fbae50dde62e99431dd63aa17a4b533aee72357ed052f7a64b91966ddf92e, prevID: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.398831 hotstuff.go:72: [2] the block is buffered, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6
+[DEBUG] 2025/04/15 12:54:57.398838 hotstuff.go:55: [3] is processing block from 1, view: 30, id: 909fbae50dde62e99431dd63aa17a4b533aee72357ed052f7a64b91966ddf92e
+[DEBUG] 2025/04/15 12:54:57.398924 hotstuff.go:233: [3] is processing a QC, block id: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.399224 hotstuff.go:114: [3] vote is sent to itself, id: 909fbae50dde62e99431dd63aa17a4b533aee72357ed052f7a64b91966ddf92e
+[DEBUG] 2025/04/15 12:54:57.399246 hotstuff.go:129: [3] is processing the vote, block id: 909fbae50dde62e99431dd63aa17a4b533aee72357ed052f7a64b91966ddf92e
+[DEBUG] 2025/04/15 12:54:57.399253 hotstuff.go:143: [3] not sufficient votes to build a QC, block id: 909fbae50dde62e99431dd63aa17a4b533aee72357ed052f7a64b91966ddf92e
+[DEBUG] 2025/04/15 12:54:57.399260 replica.go:198: [3] is processing new view: 30, leader is 1
+[DEBUG] 2025/04/15 12:54:57.399266 replica.go:261: [3] the last view lasts 34 milliseconds, current view: 30
+[INFO] 2025/04/15 12:54:57.399274 replica.go:183: [3] the 18th block is committed, No. of transactions: 0, view: 27, current view: 30, id: b2fe46c14616319922643c3385802730361b6ad716d983c27000ac598e4b449c
+[DEBUG] 2025/04/15 12:54:57.410048 replica.go:119: [4] received a block from 1, view is 31, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6, prevID: c1c1d2256e0261a4e7d669da9b9903ddbad18502a9411ccd5df8877365697abf
+[DEBUG] 2025/04/15 12:54:57.410088 hotstuff.go:55: [4] is processing block from 1, view: 31, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6
+[DEBUG] 2025/04/15 12:54:57.410175 hotstuff.go:72: [4] the block is buffered, id: 614d987d6b31fcc51e213ee4ab4623a9e5bac407c6fd973be0bb84976d69ccc6
