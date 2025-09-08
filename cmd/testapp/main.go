@@ -1,5 +1,3 @@
-#parsing/serializing, synonyms mapping 테스트용
-
 package main
 
 import (
@@ -466,4 +464,5 @@ func runSynonymTests() {
 	fmt.Printf("Parsed from modified JSON:\n  Height=%v, Signature=%q\n",
 		parsed.Height, parsed.Signature)
 }
+
 
