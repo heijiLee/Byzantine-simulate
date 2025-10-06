@@ -29,7 +29,7 @@ The Byzantine Message Bridge provides bidirectional message transformation betwe
 - **CometBFT**: Tendermint consensus with Proposal/Prevote/Precommit messages
 - **Hyperledger Fabric**: PBFT-style consensus with channel-specific messages  
 - **Hyperledger Besu**: IBFT2 consensus with Ethereum-compatible messages
-- **Kaia**: Istanbul BFT consensus with governance features
+- **Kaia**: Istanbul BFT consensus with IBFT 3-phase protocol (Preprepare/Prepare/Commit)
 
 ## 🔄 Message Flow Architecture
 
@@ -290,10 +290,15 @@ Byzantine-simulate/
 │   ├── message_file_parser.go       # Parse message files
 │   ├── real_message_simulator.go    # Real message simulation
 │   └── wal_reader.go                # WAL file reader
-├── examples/cometbft/        # CometBFT message examples
-│   ├── samples.json          # Sample messages
-│   ├── all_messages.json     # All message types
-│   └── [MessageType].json    # Type-specific messages
+├── examples/
+│   ├── cometbft/             # CometBFT message examples
+│   │   ├── samples.json      # Sample messages
+│   │   ├── all_messages.json # All message types
+│   │   └── [MessageType].json # Type-specific messages
+│   └── kaia/                 # Kaia IBFT message examples
+│       ├── samples.json      # Sample IBFT messages
+│       ├── all_messages.json # All IBFT message types
+│       └── [MessageType].json # IBFT type-specific messages
 └── configs/
     └── bridge.yaml           # Configuration file
 ```
@@ -351,6 +356,12 @@ go run cmd/demo/message_file_parser.go examples/cometbft/all_messages.json
 ```bash
 # Simulate real CometBFT consensus flow
 go run cmd/demo/real_message_simulator.go
+
+# Generate Kaia IBFT message examples
+go run cmd/demo/kaia_message_generator.go
+
+# Parse Kaia IBFT messages
+go run cmd/demo/kaia_message_parser.go examples/kaia/samples.json
 ```
 
 ## 🔄 Message Flow
@@ -434,6 +445,10 @@ go test -bench=. -benchmem benchmark_test.go
 go run cmd/demo/message_example_generator.go
 go run cmd/demo/message_file_parser.go examples/cometbft/samples.json
 
+# Generate and test Kaia IBFT messages
+go run cmd/demo/kaia_message_generator.go
+go run cmd/demo/kaia_message_parser.go examples/kaia/samples.json
+
 # Simulate real consensus flow
 go run cmd/demo/real_message_simulator.go
 ```
@@ -464,6 +479,38 @@ This project implements real CometBFT protocol buffer structures:
 - Validator voting power-based consensus simulation
 - Round-robin proposer selection
 - Block finalization process
+
+### Kaia IBFT Protocol Implementation
+
+This project implements real Kaia IBFT (Istanbul BFT) protocol structures:
+
+#### Supported IBFT Message Types
+- **Preprepare**: IBFT 3-phase 1단계 (제안자 → 검증자들)
+- **Prepare**: IBFT 3-phase 2단계 (검증자들 → 모든 검증자들)
+- **Commit**: IBFT 3-phase 3단계 (검증자들 → 모든 검증자들)
+- **RoundChange**: 라운드 변경 메시지
+
+#### Real Kaia IBFT Structures
+- **View**: Round + Sequence (블록 높이)
+- **Subject**: Prepare/Commit/RoundChange 공통 페이로드
+- **Proposal**: 블록 헤더 기반 제안물
+- **ConsensusMsg**: PrevHash + Payload 래퍼
+- **RLP Encoding**: 실제 Kaia에서 사용하는 직렬화 방식
+
+#### IBFT 3-Phase Consensus Flow
+```
+1. Preprepare (제안자)
+   View{Round, Sequence} + Proposal{BlockHeader}
+   ↓
+2. Prepare (검증자들)
+   Subject{View, Digest, PrevHash}
+   ↓
+3. Commit (검증자들)
+   Subject{View, Digest, PrevHash} + CommittedSeal
+   ↓
+4. RoundChange (필요시)
+   Subject{View, "", PrevHash}
+```
 
 ### What You Can Verify in Tests
 

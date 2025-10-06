@@ -1,0 +1,77 @@
+[
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Preprepare",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJQcmVwcmVwYXJlIiwicHJvcG9zYWwiOnsiYmFzZV9mZWUiOiIyNTAwMDAwMDAwMCIsImV4dHJhX2RhdGEiOiJhMkZwWVMxcFltWjBMV052Ym5ObGJuTjFjdz09IiwiZ2FzX2xpbWl0IjozMDAwMDAwMCwiZ2FzX3VzZWQiOjE1MDAwMDAwLCJoYXNoIjoiMHgxODZiZTliOTQzYzJlZjg4IiwibWl4X2hhc2giOiIweDE4NmJlOWI5NDNjMmZmMjgiLCJub25jZSI6IkFBQUFBQUFBQUFBPSIsIm51bWJlciI6MTAwMDAwMCwicGFyZW50X2hhc2giOiIweDE4NmJlOWI5NDNjMmVmODgiLCJ0aW1lc3RhbXAiOjE3NTk3NTcwNjF9LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmlldyI6eyJyb3VuZCI6MCwic2VxdWVuY2UiOjEwMDAwMDB9fQ==",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333705+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "preprepare_1000000_0_0x186be9b943c2ef88",
+        "prev_hash": "0x186be9b943c2ef88"
+      },
+      "height": 1000000,
+      "rlp_data": "preprepare_1000000_0_0x186be9b943c2ef88",
+      "round": 0,
+      "source": "kaia_example_generator"
+    }
+  },
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Prepare",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJQcmVwYXJlIiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjN2U4ZjgiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjN2U1MTAiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMCJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333712+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "prepare_1000000_0_validator0_0x186be9b943c7e8f8",
+        "prev_hash": "0x186be9b943c7e510"
+      },
+      "height": 1000000,
+      "rlp_data": "prepare_1000000_0_validator0_0x186be9b943c7e8f8",
+      "round": 0,
+      "source": "kaia_example_generator",
+      "validator": "validator0"
+    }
+  },
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Commit",
+    "payload": "eyJjb21taXR0ZWRfc2VhbCI6ImNvbW1pdHRlZF9zZWFsX3ZhbGlkYXRvcjBfMTAwMDAwMF8wIiwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODJmNDgiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODJiNjAiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMCJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.33373+09:00",
+    "metadata": {
+      "committed_seal": "committed_seal_validator0_1000000_0",
+      "consensus_msg": {
+        "payload": "commit_1000000_0_validator0_0x186be9b943c82f48",
+        "prev_hash": "0x186be9b943c82b60"
+      },
+      "height": 1000000,
+      "rlp_data": "commit_1000000_0_validator0_0x186be9b943c82f48",
+      "round": 0,
+      "source": "kaia_example_generator",
+      "validator": "validator0"
+    }
+  },
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "RoundChange",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJSb3VuZENoYW5nZSIsInN1YmplY3QiOnsiZGlnZXN0IjoiIiwicHJldl9oYXNoIjoiMHgxODZiZTliOTQzYzg3OTgwIiwidmlldyI6eyJyb3VuZCI6MSwic2VxdWVuY2UiOjEwMDAwMDB9fSwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMjoyNDoyMSswOTowMCJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333749+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "roundchange_1000000_1",
+        "prev_hash": "0x186be9b943c87980"
+      },
+      "height": 1000000,
+      "rlp_data": "roundchange_1000000_1",
+      "round": 1,
+      "source": "kaia_example_generator"
+    }
+  }
+]

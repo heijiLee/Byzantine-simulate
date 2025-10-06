@@ -1,0 +1,20 @@
+[
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "RoundChange",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJSb3VuZENoYW5nZSIsInN1YmplY3QiOnsiZGlnZXN0IjoiIiwicHJldl9oYXNoIjoiMHgxODZiZTliOTQzYzg3OTgwIiwidmlldyI6eyJyb3VuZCI6MSwic2VxdWVuY2UiOjEwMDAwMDB9fSwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMjoyNDoyMSswOTowMCJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333749+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "roundchange_1000000_1",
+        "prev_hash": "0x186be9b943c87980"
+      },
+      "height": 1000000,
+      "rlp_data": "roundchange_1000000_1",
+      "round": 1,
+      "source": "kaia_example_generator"
+    }
+  }
+]

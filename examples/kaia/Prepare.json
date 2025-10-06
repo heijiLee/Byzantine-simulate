@@ -1,0 +1,78 @@
+[
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Prepare",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJQcmVwYXJlIiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjN2U4ZjgiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjN2U1MTAiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMCJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333712+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "prepare_1000000_0_validator0_0x186be9b943c7e8f8",
+        "prev_hash": "0x186be9b943c7e510"
+      },
+      "height": 1000000,
+      "rlp_data": "prepare_1000000_0_validator0_0x186be9b943c7e8f8",
+      "round": 0,
+      "source": "kaia_example_generator",
+      "validator": "validator0"
+    }
+  },
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Prepare",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJQcmVwYXJlIiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODA0NTAiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODAwNjgiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMSJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333716+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "prepare_1000000_0_validator1_0x186be9b943c80450",
+        "prev_hash": "0x186be9b943c80068"
+      },
+      "height": 1000000,
+      "rlp_data": "prepare_1000000_0_validator1_0x186be9b943c80450",
+      "round": 0,
+      "source": "kaia_example_generator",
+      "validator": "validator1"
+    }
+  },
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Prepare",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJQcmVwYXJlIiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODEzZjAiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODEzZjAiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMiJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333721+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "prepare_1000000_0_validator2_0x186be9b943c813f0",
+        "prev_hash": "0x186be9b943c813f0"
+      },
+      "height": 1000000,
+      "rlp_data": "prepare_1000000_0_validator2_0x186be9b943c813f0",
+      "round": 0,
+      "source": "kaia_example_generator",
+      "validator": "validator2"
+    }
+  },
+  {
+    "chain_type": "kaia",
+    "chain_id": "kaia-mainnet",
+    "message_type": "Prepare",
+    "payload": "eyJtZXNzYWdlX3R5cGUiOiJQcmVwYXJlIiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODFmYTgiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODFmYTgiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMyJ9",
+    "encoding": "rlp",
+    "timestamp": "2025-10-06T22:24:21.333724+09:00",
+    "metadata": {
+      "consensus_msg": {
+        "payload": "prepare_1000000_0_validator3_0x186be9b943c81fa8",
+        "prev_hash": "0x186be9b943c81fa8"
+      },
+      "height": 1000000,
+      "rlp_data": "prepare_1000000_0_validator3_0x186be9b943c81fa8",
+      "round": 0,
+      "source": "kaia_example_generator",
+      "validator": "validator3"
+    }
+  }
+]

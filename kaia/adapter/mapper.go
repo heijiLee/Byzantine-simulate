@@ -56,27 +56,53 @@ func (m *KaiaMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abstract
 		}
 	}
 
-	// Convert to canonical message
+	// Convert to canonical message based on IBFT structure
 	canonical := &abstraction.CanonicalMessage{
 		ChainID:    m.chainID,
-		Height:     kaiaMsg.BlockNumber,
-		Round:      kaiaMsg.RoundNumber,
-		Timestamp:  kaiaMsg.Timestamp,
-		Type:       m.mapMessageType(kaiaMsg.Type),
-		BlockHash:  kaiaMsg.BlockHash,
-		PrevHash:   kaiaMsg.ParentHash,
-		Proposer:   kaiaMsg.Proposer,
+		Height:     nil,
+		Round:      nil,
+		Timestamp:  time.Now(),
+		Type:       m.mapMessageType(kaiaMsg.MessageType),
+		BlockHash:  "",
+		PrevHash:   "",
+		Proposer:   "",
 		Validator:  kaiaMsg.Validator,
-		Signature:  kaiaMsg.Signature,
+		Signature:  kaiaMsg.CommittedSeal,
 		RawPayload: raw.Payload,
 		Extensions: map[string]interface{}{
-			"gas_limit":       kaiaMsg.GasLimit,
-			"gas_used":        kaiaMsg.GasUsed,
-			"tx_count":        kaiaMsg.TxCount,
-			"validator_count": kaiaMsg.ValidatorCount,
-			"consensus_type":  kaiaMsg.ConsensusType,
-			"governance_id":   kaiaMsg.GovernanceID,
+			"kaia_message_type": kaiaMsg.MessageType,
+			"timestamp":         kaiaMsg.Timestamp,
 		},
+	}
+
+	// Extract data based on message type
+	switch kaiaMsg.MessageType {
+	case "Preprepare":
+		if kaiaMsg.View != nil {
+			canonical.Height = big.NewInt(kaiaMsg.View.Sequence)
+			canonical.Round = big.NewInt(int64(kaiaMsg.View.Round))
+		}
+		if kaiaMsg.Proposal != nil {
+			canonical.BlockHash = kaiaMsg.Proposal.Hash
+			canonical.PrevHash = kaiaMsg.Proposal.ParentHash
+			canonical.Proposer = "proposer" // 실제로는 validator에서 추출
+			canonical.Extensions["proposal"] = kaiaMsg.Proposal
+		}
+	case "Prepare", "Commit", "RoundChange":
+		if kaiaMsg.Subject != nil {
+			if kaiaMsg.Subject.View != nil {
+				canonical.Height = big.NewInt(kaiaMsg.Subject.View.Sequence)
+				canonical.Round = big.NewInt(int64(kaiaMsg.Subject.View.Round))
+			}
+			canonical.BlockHash = kaiaMsg.Subject.Digest
+			canonical.PrevHash = kaiaMsg.Subject.PrevHash
+			canonical.Extensions["subject"] = kaiaMsg.Subject
+		}
+	}
+
+	// Add consensus message wrapper info
+	if kaiaMsg.ConsensusMsg != nil {
+		canonical.Extensions["consensus_msg"] = kaiaMsg.ConsensusMsg
 	}
 
 	return canonical, nil
@@ -92,52 +118,48 @@ func (m *KaiaMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abstract
 		}
 	}
 
-	// Extract Kaia-specific extensions
-	gasLimit := uint64(0)
-	gasUsed := uint64(0)
-	txCount := 0
-	validatorCount := 0
-	consensusType := "istanbul"
-	governanceID := ""
-
-	if msg.Extensions != nil {
-		if gl, ok := msg.Extensions["gas_limit"].(float64); ok {
-			gasLimit = uint64(gl)
-		}
-		if gu, ok := msg.Extensions["gas_used"].(float64); ok {
-			gasUsed = uint64(gu)
-		}
-		if tc, ok := msg.Extensions["tx_count"].(int); ok {
-			txCount = tc
-		}
-		if vc, ok := msg.Extensions["validator_count"].(int); ok {
-			validatorCount = vc
-		}
-		if ct, ok := msg.Extensions["consensus_type"].(string); ok {
-			consensusType = ct
-		}
-		if gi, ok := msg.Extensions["governance_id"].(string); ok {
-			governanceID = gi
-		}
-	}
+	// Extract Kaia-specific extensions if needed
+	// (Currently not used in the new IBFT structure)
 
 	// Convert canonical message to Kaia format
 	kaiaMsg := KaiaMessage{
-		BlockNumber:    msg.Height,
-		RoundNumber:    msg.Round,
-		Timestamp:      msg.Timestamp,
-		Type:           m.mapToKaiaType(msg.Type),
-		BlockHash:      msg.BlockHash,
-		ParentHash:     msg.PrevHash,
-		Proposer:       msg.Proposer,
-		Validator:      msg.Validator,
-		Signature:      msg.Signature,
-		GasLimit:       gasLimit,
-		GasUsed:        gasUsed,
-		TxCount:        txCount,
-		ValidatorCount: validatorCount,
-		ConsensusType:  consensusType,
-		GovernanceID:   governanceID,
+		MessageType:   m.mapToKaiaType(msg.Type),
+		Validator:     msg.Validator,
+		CommittedSeal: msg.Signature,
+		Timestamp:     msg.Timestamp.Format(time.RFC3339),
+	}
+
+	// Add View based on message type
+	if msg.Height != nil && msg.Round != nil {
+		kaiaMsg.View = &KaiaView{
+			Round:    int32(msg.Round.Int64()),
+			Sequence: msg.Height.Int64(),
+		}
+	}
+
+	// Add Subject for Prepare/Commit/RoundChange
+	if msg.Type == abstraction.MsgTypeVote || msg.Type == abstraction.MsgTypeBlock {
+		kaiaMsg.Subject = &KaiaSubject{
+			View:     kaiaMsg.View,
+			Digest:   msg.BlockHash,
+			PrevHash: msg.PrevHash,
+		}
+	}
+
+	// Add Proposal for Preprepare
+	if msg.Type == abstraction.MsgTypeProposal {
+		kaiaMsg.Proposal = &KaiaProposal{
+			Number:     msg.Height.Int64(),
+			Hash:       msg.BlockHash,
+			ParentHash: msg.PrevHash,
+			Timestamp:  msg.Timestamp.Unix(),
+			GasLimit:   30000000,
+			GasUsed:    15000000,
+			ExtraData:  "kaia-ibft-consensus",
+			MixHash:    fmt.Sprintf("0x%x", time.Now().UnixNano()),
+			Nonce:      "0x0000000000000000",
+			BaseFee:    "25000000000",
+		}
 	}
 
 	// Serialize to JSON (default format)
@@ -153,29 +175,25 @@ func (m *KaiaMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abstract
 	raw := &abstraction.RawConsensusMessage{
 		ChainType:   abstraction.ChainTypeKaia,
 		ChainID:     m.chainID,
-		MessageType: string(kaiaMsg.Type),
+		MessageType: kaiaMsg.MessageType,
 		Payload:     payload,
-		Encoding:    "json",
+		Encoding:    "rlp",
 		Timestamp:   time.Now(),
 		Metadata: map[string]interface{}{
-			"gas_limit":       kaiaMsg.GasLimit,
-			"gas_used":        kaiaMsg.GasUsed,
-			"tx_count":        kaiaMsg.TxCount,
-			"validator_count": kaiaMsg.ValidatorCount,
-			"consensus_type":  kaiaMsg.ConsensusType,
-			"governance_id":   kaiaMsg.GovernanceID,
+			"kaia_message_type": kaiaMsg.MessageType,
+			"timestamp":         kaiaMsg.Timestamp,
 		},
 	}
 
 	return raw, nil
 }
 
-// GetSupportedTypes returns the message types supported by Kaia
+// GetSupportedTypes returns the message types supported by Kaia IBFT
 func (m *KaiaMapper) GetSupportedTypes() []abstraction.MsgType {
 	return []abstraction.MsgType{
-		abstraction.MsgTypeProposal,
-		abstraction.MsgTypeVote,
-		abstraction.MsgTypeBlock,
+		abstraction.MsgTypeProposal, // Preprepare
+		abstraction.MsgTypeVote,     // Prepare, Commit
+		abstraction.MsgTypeBlock,    // RoundChange
 	}
 }
 
@@ -184,49 +202,75 @@ func (m *KaiaMapper) GetChainType() abstraction.ChainType {
 	return abstraction.ChainTypeKaia
 }
 
-// mapMessageType maps Kaia message types to canonical types
+// mapMessageType maps Kaia IBFT message types to canonical types
 func (m *KaiaMapper) mapMessageType(kaiaType string) abstraction.MsgType {
 	switch kaiaType {
-	case "PROPOSAL":
+	case "Preprepare":
 		return abstraction.MsgTypeProposal
-	case "VOTE":
+	case "Prepare", "Commit":
 		return abstraction.MsgTypeVote
-	case "BLOCK":
+	case "RoundChange":
 		return abstraction.MsgTypeBlock
 	default:
 		return abstraction.MsgType(kaiaType)
 	}
 }
 
-// mapToKaiaType maps canonical message types to Kaia types
+// mapToKaiaType maps canonical message types to Kaia IBFT types
 func (m *KaiaMapper) mapToKaiaType(canonicalType abstraction.MsgType) string {
 	switch canonicalType {
 	case abstraction.MsgTypeProposal:
-		return "PROPOSAL"
+		return "Preprepare"
 	case abstraction.MsgTypeVote:
-		return "VOTE"
+		return "Prepare" // 기본값으로 Prepare 사용
 	case abstraction.MsgTypeBlock:
-		return "BLOCK"
+		return "RoundChange"
 	default:
 		return string(canonicalType)
 	}
 }
 
-// KaiaMessage represents the internal Kaia message structure
+// KaiaMessage represents the internal Kaia IBFT message structure
 type KaiaMessage struct {
-	BlockNumber    *big.Int  `json:"block_number"`
-	RoundNumber    *big.Int  `json:"round_number"`
-	Timestamp      time.Time `json:"timestamp"`
-	Type           string    `json:"type"`
-	BlockHash      string    `json:"block_hash,omitempty"`
-	ParentHash     string    `json:"parent_hash,omitempty"`
-	Proposer       string    `json:"proposer,omitempty"`
-	Validator      string    `json:"validator,omitempty"`
-	Signature      string    `json:"signature,omitempty"`
-	GasLimit       uint64    `json:"gas_limit,omitempty"`
-	GasUsed        uint64    `json:"gas_used,omitempty"`
-	TxCount        int       `json:"tx_count,omitempty"`
-	ValidatorCount int       `json:"validator_count,omitempty"`
-	ConsensusType  string    `json:"consensus_type,omitempty"`
-	GovernanceID   string    `json:"governance_id,omitempty"`
+	MessageType   string            `json:"message_type"`
+	View          *KaiaView         `json:"view,omitempty"`
+	Subject       *KaiaSubject      `json:"subject,omitempty"`
+	Proposal      *KaiaProposal     `json:"proposal,omitempty"`
+	Validator     string            `json:"validator,omitempty"`
+	CommittedSeal string            `json:"committed_seal,omitempty"`
+	Timestamp     string            `json:"timestamp"`
+	ConsensusMsg  *KaiaConsensusMsg `json:"consensus_msg,omitempty"`
+}
+
+// KaiaView represents IBFT View (Round, Sequence)
+type KaiaView struct {
+	Round    int32 `json:"round"`
+	Sequence int64 `json:"sequence"`
+}
+
+// KaiaSubject represents IBFT Subject (Prepare/Commit/RoundChange 공통)
+type KaiaSubject struct {
+	View     *KaiaView `json:"view"`
+	Digest   string    `json:"digest"`    // 제안 블록 해시
+	PrevHash string    `json:"prev_hash"` // 부모 블록 해시
+}
+
+// KaiaProposal represents IBFT Proposal (블록 헤더 기반)
+type KaiaProposal struct {
+	Number     int64  `json:"number"`
+	Hash       string `json:"hash"`
+	ParentHash string `json:"parent_hash"`
+	Timestamp  int64  `json:"timestamp"`
+	GasLimit   int64  `json:"gas_limit"`
+	GasUsed    int64  `json:"gas_used"`
+	ExtraData  string `json:"extra_data"`
+	MixHash    string `json:"mix_hash"`
+	Nonce      string `json:"nonce"`
+	BaseFee    string `json:"base_fee"`
+}
+
+// KaiaConsensusMsg represents the outer wrapper (PrevHash, Payload)
+type KaiaConsensusMsg struct {
+	PrevHash string `json:"prev_hash"`
+	Payload  string `json:"payload"`
 }
