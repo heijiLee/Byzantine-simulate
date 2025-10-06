@@ -7,7 +7,7 @@ import (
 	"time"
 
 	cometbftAdapter "codec/cometbft/adapter"
-	fabricAdapter "codec/hyperledger/fabric/adapter"
+	besuAdapter "codec/hyperledger/besu/adapter"
 	"codec/message/abstraction"
 )
 
@@ -126,10 +126,10 @@ func TestCometBFTAdvancedMapper(t *testing.T) {
 
 	// 크로스체인 변환 테스트
 	t.Run("CrossChainConversion", func(t *testing.T) {
-		fmt.Printf("\n📤 CometBFT -> Fabric 변환 테스트\n")
+		fmt.Printf("\n📤 CometBFT -> Besu 변환 테스트\n")
 
 		cometbftMapper := cometbftAdapter.NewCometBFTMapper("testnet-cometbft")
-		fabricMapper := fabricAdapter.NewFabricMapper("testnet-fabric")
+		besuMapper := besuAdapter.NewBesuMapper("testnet-besu")
 
 		cometbftProposal := createCometBFTMessage("Proposal", 1000, 1, map[string]interface{}{
 			"block_id": map[string]interface{}{
@@ -149,26 +149,26 @@ func TestCometBFTAdvancedMapper(t *testing.T) {
 
 		fmt.Printf("   ✅ CometBFT -> Canonical 성공\n")
 
-		// Canonical -> Fabric
-		fabricRaw, err := fabricMapper.FromCanonical(canonical)
+		// Canonical -> Besu
+		besuRaw, err := besuMapper.FromCanonical(canonical)
 		if err != nil {
-			t.Errorf("Canonical -> Fabric 실패: %v", err)
+			t.Errorf("Canonical -> Besu 실패: %v", err)
 			return
 		}
 
-		fmt.Printf("   ✅ Canonical -> Fabric 성공: %s\n", fabricRaw.MessageType)
+		fmt.Printf("   ✅ Canonical -> Besu 성공: %s\n", besuRaw.MessageType)
 
 		// 데이터 보존 확인
-		fabricCanonical, err := fabricMapper.ToCanonical(*fabricRaw)
+		besuCanonical, err := besuMapper.ToCanonical(*besuRaw)
 		if err != nil {
-			t.Errorf("Fabric -> Canonical 실패: %v", err)
+			t.Errorf("Besu -> Canonical 실패: %v", err)
 			return
 		}
 
-		if canonical.Height.Cmp(fabricCanonical.Height) == 0 {
+		if canonical.Height.Cmp(besuCanonical.Height) == 0 {
 			fmt.Printf("   ✅ 높이 보존 확인: %v\n", canonical.Height)
 		} else {
-			t.Errorf("높이 불일치: %v != %v", canonical.Height, fabricCanonical.Height)
+			t.Errorf("높이 불일치: %v != %v", canonical.Height, besuCanonical.Height)
 		}
 	})
 

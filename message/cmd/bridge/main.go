@@ -6,13 +6,12 @@ import (
 	"os"
 	"time"
 
-	"byzantine-message-bridge/message/abstraction"
-	"byzantine-message-bridge/message/abstraction/validator"
+	"codec/message/abstraction"
+	"codec/message/abstraction/validator"
 
-	cometbftAdapter "byzantine-message-bridge/cometbft/adapter"
-	besuAdapter "byzantine-message-bridge/hyperledger/besu/adapter"
-	fabricAdapter "byzantine-message-bridge/hyperledger/fabric/adapter"
-	kaiaAdapter "byzantine-message-bridge/kaia/adapter"
+	cometbftAdapter "codec/cometbft/adapter"
+	besuAdapter "codec/hyperledger/besu/adapter"
+	kaiaAdapter "codec/kaia/adapter"
 )
 
 // BridgeConfig represents the configuration for the message bridge
@@ -109,9 +108,6 @@ func (mb *MessageBridge) initializeMapper(config ChainConfig) {
 	case "cometbft":
 		chainType = abstraction.ChainTypeCometBFT
 		mapper = cometbftAdapter.NewCometBFTMapper(config.Endpoint)
-	case "fabric":
-		chainType = abstraction.ChainTypeHyperledger
-		mapper = fabricAdapter.NewFabricMapper(config.Endpoint)
 	case "besu":
 		chainType = abstraction.ChainTypeHyperledger
 		mapper = besuAdapter.NewBesuMapper(config.Endpoint)

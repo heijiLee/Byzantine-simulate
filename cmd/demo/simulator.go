@@ -8,7 +8,6 @@ import (
 
 	cometbftAdapter "codec/cometbft/adapter"
 	besuAdapter "codec/hyperledger/besu/adapter"
-	fabricAdapter "codec/hyperledger/fabric/adapter"
 	kaiaAdapter "codec/kaia/adapter"
 	"codec/message/abstraction"
 )
@@ -24,7 +23,6 @@ func NewMessageSimulator() *MessageSimulator {
 	return &MessageSimulator{
 		mappers: map[string]abstraction.Mapper{
 			"cometbft": cometbftAdapter.NewCometBFTMapper("testnet-cometbft"),
-			"fabric":   fabricAdapter.NewFabricMapper("testnet-fabric"),
 			"besu":     besuAdapter.NewBesuMapper("testnet-besu"),
 			"kaia":     kaiaAdapter.NewKaiaMapper("testnet-kaia"),
 		},
@@ -59,7 +57,7 @@ func (ms *MessageSimulator) RunSimulation(duration time.Duration) {
 
 func (ms *MessageSimulator) generateAndProcessMessage(count int) {
 	// 랜덤하게 체인 선택
-	chains := []string{"cometbft", "fabric", "besu", "kaia"}
+	chains := []string{"cometbft", "besu", "kaia"}
 	sourceChain := chains[rand.Intn(len(chains))]
 
 	// 메시지 타입 선택
@@ -127,14 +125,6 @@ func (ms *MessageSimulator) generateRawMessage(chain, msgType string) abstractio
 		baseMsg["proposer"] = fmt.Sprintf("node%d", rand.Intn(10)+1)
 		baseMsg["validator"] = fmt.Sprintf("validator%d", rand.Intn(10)+1)
 		baseMsg["signature"] = fmt.Sprintf("sig_%d", rand.Int63())
-
-	case "fabric":
-		chainType = abstraction.ChainTypeHyperledger
-		baseMsg["block_number"] = ms.height
-		baseMsg["block_hash"] = fmt.Sprintf("0x%x", rand.Int63())
-		baseMsg["proposer"] = fmt.Sprintf("peer%d", rand.Intn(5)+1)
-		baseMsg["channel_id"] = "mychannel"
-		baseMsg["tx_count"] = rand.Intn(100) + 1
 
 	case "besu":
 		chainType = abstraction.ChainTypeHyperledger

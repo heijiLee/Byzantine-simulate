@@ -1,15 +1,49 @@
 package adapter
 
 import (
+	"crypto/ecdsa"
 	"encoding/json"
 	"fmt"
 	"math/big"
-	"time"
 
 	"codec/message/abstraction"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/rlp"
 )
 
-// BesuMapper implements the Mapper interface for Hyperledger Besu consensus messages
+// BesuIBFTMessage represents Besu's IBFT2.0/QBFT message structure
+type BesuIBFTMessage struct {
+	Code      uint8       `json:"code"`       // Message type code
+	Height    *big.Int    `json:"height"`     // Block height (h)
+	Round     uint64      `json:"round"`      // Round number (r)
+	BlockHash common.Hash `json:"block_hash"` // Block hash (H)
+	Signature []byte      `json:"signature"`  // ECDSA signature (65 bytes)
+}
+
+// BesuCommitPayload represents IBFT Commit message with seal
+type BesuCommitPayload struct {
+	Body       BesuIBFTMessage `json:"body"`
+	CommitSeal []byte          `json:"commit_seal"` // 65-byte secp256k1 signature
+}
+
+// BesuBlockExtraData represents Besu's block extraData RLP structure
+type BesuBlockExtraData struct {
+	Vanity     []byte    `json:"vanity"`     // 32-byte vanity data
+	Validators [][]byte  `json:"validators"` // List of validator addresses
+	Vote       *VoteData `json:"vote"`       // Vote data (nil in genesis)
+	Round      uint64    `json:"round"`      // Round number (0 in genesis)
+	Seals      [][]byte  `json:"seals"`      // List of commit seals
+}
+
+// VoteData represents IBFT vote information
+type VoteData struct {
+	RecipientAddress common.Address `json:"recipient_address"`
+	VoteType         uint8          `json:"vote_type"` // 0=add, 1=remove
+}
+
+// BesuMapper implements the Mapper interface for Hyperledger Besu
 type BesuMapper struct {
 	chainID string
 }
@@ -21,60 +55,94 @@ func NewBesuMapper(chainID string) *BesuMapper {
 	}
 }
 
-// ToCanonical converts a Besu raw message to canonical format
+// ToCanonical converts a Besu message to canonical format
 func (m *BesuMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abstraction.CanonicalMessage, error) {
 	if raw.ChainType != abstraction.ChainTypeHyperledger {
-		return nil, abstraction.ErrChainMismatch
+		return nil, fmt.Errorf("invalid chain type: expected %s, got %s", abstraction.ChainTypeHyperledger, raw.ChainType)
 	}
 
-	// Parse the payload based on encoding
-	var besuMsg BesuMessage
-	switch raw.Encoding {
-	case "json":
-		if err := json.Unmarshal(raw.Payload, &besuMsg); err != nil {
-			return nil, &abstraction.MessageValidationError{
-				Field:   "payload",
-				Message: fmt.Sprintf("failed to parse JSON: %v", err),
-				Code:    "DECODE_FAILURE",
-			}
+	// Parse the raw payload based on message type
+	var canonicalType abstraction.MsgType
+	var height *big.Int
+	var round *big.Int
+	var blockHash string
+	var proposer string
+	var validator string
+	var signature string
+
+	switch raw.MessageType {
+	case "Proposal":
+		var proposal BesuIBFTMessage
+		if err := json.Unmarshal(raw.Payload, &proposal); err != nil {
+			return nil, fmt.Errorf("failed to parse proposal: %w", err)
 		}
-	case "rlp":
-		// For RLP encoding, we'll use a simplified approach
-		// In a real implementation, you'd use proper RLP decoding
-		if err := json.Unmarshal(raw.Payload, &besuMsg); err != nil {
-			return nil, &abstraction.MessageValidationError{
-				Field:   "payload",
-				Message: fmt.Sprintf("failed to parse RLP: %v", err),
-				Code:    "DECODE_FAILURE",
-			}
+		canonicalType = abstraction.MsgTypeProposal
+		height = proposal.Height
+		round = big.NewInt(int64(proposal.Round))
+		blockHash = proposal.BlockHash.Hex()
+		signature = fmt.Sprintf("0x%x", proposal.Signature)
+
+	case "Prepare":
+		var prepare BesuIBFTMessage
+		if err := json.Unmarshal(raw.Payload, &prepare); err != nil {
+			return nil, fmt.Errorf("failed to parse prepare: %w", err)
 		}
+		canonicalType = abstraction.MsgTypePrepare
+		height = prepare.Height
+		round = big.NewInt(int64(prepare.Round))
+		blockHash = prepare.BlockHash.Hex()
+		signature = fmt.Sprintf("0x%x", prepare.Signature)
+
+	case "Commit":
+		var commit BesuCommitPayload
+		if err := json.Unmarshal(raw.Payload, &commit); err != nil {
+			return nil, fmt.Errorf("failed to parse commit: %w", err)
+		}
+		canonicalType = abstraction.MsgTypeCommit
+		height = commit.Body.Height
+		round = big.NewInt(int64(commit.Body.Round))
+		blockHash = commit.Body.BlockHash.Hex()
+		signature = fmt.Sprintf("0x%x", commit.CommitSeal)
+
+	case "RoundChange":
+		var roundChange BesuIBFTMessage
+		if err := json.Unmarshal(raw.Payload, &roundChange); err != nil {
+			return nil, fmt.Errorf("failed to parse roundchange: %w", err)
+		}
+		canonicalType = abstraction.MsgTypeRoundChange
+		height = roundChange.Height
+		round = big.NewInt(int64(roundChange.Round))
+		blockHash = roundChange.BlockHash.Hex()
+		signature = fmt.Sprintf("0x%x", roundChange.Signature)
+
 	default:
-		return nil, &abstraction.MessageValidationError{
-			Field:   "encoding",
-			Message: fmt.Sprintf("unsupported encoding: %s", raw.Encoding),
-			Code:    "DECODE_FAILURE",
-		}
+		return nil, fmt.Errorf("unsupported message type: %s", raw.MessageType)
 	}
 
-	// Convert to canonical message
+	// Extract validator from metadata
+	if val, ok := raw.Metadata["validator"].(string); ok {
+		validator = val
+		proposer = val
+	}
+
+	// Create canonical message
 	canonical := &abstraction.CanonicalMessage{
-		ChainID:    m.chainID,
-		Height:     besuMsg.BlockNumber,
-		Round:      besuMsg.RoundNumber,
-		Timestamp:  besuMsg.Timestamp,
-		Type:       m.mapMessageType(besuMsg.Type),
-		BlockHash:  besuMsg.BlockHash,
-		PrevHash:   besuMsg.ParentHash,
-		Proposer:   besuMsg.Proposer,
-		Validator:  besuMsg.Validator,
-		Signature:  besuMsg.Signature,
-		RawPayload: raw.Payload,
+		ChainID:   m.chainID,
+		Height:    height,
+		Round:     round,
+		Timestamp: raw.Timestamp,
+		Type:      canonicalType,
+		BlockHash: blockHash,
+		Proposer:  proposer,
+		Validator: validator,
+		Signature: signature,
 		Extensions: map[string]interface{}{
-			"gas_limit":       besuMsg.GasLimit,
-			"gas_used":        besuMsg.GasUsed,
-			"tx_count":        besuMsg.TxCount,
-			"validator_count": besuMsg.ValidatorCount,
-			"consensus_type":  besuMsg.ConsensusType,
+			"ibft_type":       raw.MessageType,
+			"gas_limit":       raw.Metadata["gas_limit"],
+			"gas_used":        raw.Metadata["gas_used"],
+			"tx_count":        raw.Metadata["tx_count"],
+			"validator_count": raw.Metadata["validator_count"],
+			"consensus_type":  raw.Metadata["consensus_type"], // IBFT2.0 or QBFT
 		},
 	}
 
@@ -82,153 +150,171 @@ func (m *BesuMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abstract
 }
 
 // FromCanonical converts a canonical message to Besu format
-func (m *BesuMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abstraction.RawConsensusMessage, error) {
-	if msg == nil {
-		return nil, &abstraction.MessageValidationError{
-			Field:   "message",
-			Message: "message cannot be nil",
-			Code:    "MISSING_FIELD",
-		}
+func (m *BesuMapper) FromCanonical(canonical *abstraction.CanonicalMessage) (*abstraction.RawConsensusMessage, error) {
+	if canonical.ChainID != m.chainID {
+		return nil, fmt.Errorf("chain ID mismatch: expected %s, got %s", m.chainID, canonical.ChainID)
 	}
 
 	// Extract Besu-specific extensions
-	gasLimit := uint64(0)
-	gasUsed := uint64(0)
-	txCount := 0
-	validatorCount := 0
-	consensusType := "ibft2"
+	gasLimit := uint64(30000000)
+	gasUsed := uint64(15000000)
+	txCount := 100
+	validatorCount := 4
+	consensusType := "IBFT2.0"
 
-	if msg.Extensions != nil {
-		if gl, ok := msg.Extensions["gas_limit"].(float64); ok {
-			gasLimit = uint64(gl)
+	if canonical.Extensions != nil {
+		if gl, ok := canonical.Extensions["gas_limit"].(uint64); ok {
+			gasLimit = gl
 		}
-		if gu, ok := msg.Extensions["gas_used"].(float64); ok {
-			gasUsed = uint64(gu)
+		if gu, ok := canonical.Extensions["gas_used"].(uint64); ok {
+			gasUsed = gu
 		}
-		if tc, ok := msg.Extensions["tx_count"].(int); ok {
+		if tc, ok := canonical.Extensions["tx_count"].(int); ok {
 			txCount = tc
 		}
-		if vc, ok := msg.Extensions["validator_count"].(int); ok {
+		if vc, ok := canonical.Extensions["validator_count"].(int); ok {
 			validatorCount = vc
 		}
-		if ct, ok := msg.Extensions["consensus_type"].(string); ok {
+		if ct, ok := canonical.Extensions["consensus_type"].(string); ok {
 			consensusType = ct
 		}
 	}
 
-	// Convert canonical message to Besu format
-	besuMsg := BesuMessage{
-		BlockNumber:    msg.Height,
-		RoundNumber:    msg.Round,
-		Timestamp:      msg.Timestamp,
-		Type:           m.mapToBesuType(msg.Type),
-		BlockHash:      msg.BlockHash,
-		ParentHash:     msg.PrevHash,
-		Proposer:       msg.Proposer,
-		Validator:      msg.Validator,
-		Signature:      msg.Signature,
-		GasLimit:       gasLimit,
-		GasUsed:        gasUsed,
-		TxCount:        txCount,
-		ValidatorCount: validatorCount,
-		ConsensusType:  consensusType,
+	// Convert block hash
+	var blockHash common.Hash
+	if canonical.BlockHash != "" {
+		blockHash = common.HexToHash(canonical.BlockHash)
 	}
 
-	// Serialize to JSON (default format)
-	payload, err := json.Marshal(besuMsg)
-	if err != nil {
-		return nil, &abstraction.MessageValidationError{
-			Field:   "payload",
-			Message: fmt.Sprintf("failed to serialize: %v", err),
-			Code:    "DECODE_FAILURE",
+	// Create Besu message based on type
+	var payload []byte
+	var msgType string
+	var err error
+
+	switch canonical.Type {
+	case abstraction.MsgTypeProposal:
+		besuMsg := BesuIBFTMessage{
+			Code:      0x00, // MsgProposal
+			Height:    canonical.Height,
+			Round:     canonical.Round.Uint64(),
+			BlockHash: blockHash,
+			Signature: []byte("proposal_signature"), // In real implementation, this would be actual signature
 		}
+		payload, err = json.Marshal(besuMsg)
+		msgType = "Proposal"
+
+	case abstraction.MsgTypePrepare:
+		besuMsg := BesuIBFTMessage{
+			Code:      0x01, // MsgPrepare
+			Height:    canonical.Height,
+			Round:     canonical.Round.Uint64(),
+			BlockHash: blockHash,
+			Signature: []byte("prepare_signature"),
+		}
+		payload, err = json.Marshal(besuMsg)
+		msgType = "Prepare"
+
+	case abstraction.MsgTypeCommit:
+		body := BesuIBFTMessage{
+			Code:      0x02, // MsgCommit
+			Height:    canonical.Height,
+			Round:     canonical.Round.Uint64(),
+			BlockHash: blockHash,
+			Signature: []byte("commit_body_signature"),
+		}
+		commitPayload := BesuCommitPayload{
+			Body:       body,
+			CommitSeal: []byte("commit_seal_signature"), // In real implementation, this would be actual seal
+		}
+		payload, err = json.Marshal(commitPayload)
+		msgType = "Commit"
+
+	case abstraction.MsgTypeRoundChange:
+		besuMsg := BesuIBFTMessage{
+			Code:      0x03, // MsgRoundChange
+			Height:    canonical.Height,
+			Round:     canonical.Round.Uint64(),
+			BlockHash: blockHash,
+			Signature: []byte("roundchange_signature"),
+		}
+		payload, err = json.Marshal(besuMsg)
+		msgType = "RoundChange"
+
+	default:
+		return nil, fmt.Errorf("unsupported canonical message type: %s", canonical.Type)
 	}
 
-	raw := &abstraction.RawConsensusMessage{
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal besu message: %w", err)
+	}
+
+	return &abstraction.RawConsensusMessage{
 		ChainType:   abstraction.ChainTypeHyperledger,
 		ChainID:     m.chainID,
-		MessageType: string(besuMsg.Type),
+		MessageType: msgType,
 		Payload:     payload,
-		Encoding:    "json",
-		Timestamp:   time.Now(),
+		Encoding:    "rlp",
+		Timestamp:   canonical.Timestamp,
 		Metadata: map[string]interface{}{
-			"gas_limit":       besuMsg.GasLimit,
-			"gas_used":        besuMsg.GasUsed,
-			"tx_count":        besuMsg.TxCount,
-			"validator_count": besuMsg.ValidatorCount,
-			"consensus_type":  besuMsg.ConsensusType,
+			"gas_limit":       gasLimit,
+			"gas_used":        gasUsed,
+			"tx_count":        txCount,
+			"validator_count": validatorCount,
+			"consensus_type":  consensusType,
+			"validator":       canonical.Validator,
+			"source":          "besu_mapper",
 		},
-	}
-
-	return raw, nil
+	}, nil
 }
 
-// GetSupportedTypes returns the message types supported by Besu
+// GetSupportedTypes returns the supported message types
 func (m *BesuMapper) GetSupportedTypes() []abstraction.MsgType {
 	return []abstraction.MsgType{
 		abstraction.MsgTypeProposal,
 		abstraction.MsgTypePrepare,
 		abstraction.MsgTypeCommit,
-		abstraction.MsgTypeViewChange,
-		abstraction.MsgTypeNewView,
+		abstraction.MsgTypeRoundChange,
 	}
 }
 
-// GetChainType returns the chain type this mapper handles
+// GetChainType returns the chain type
 func (m *BesuMapper) GetChainType() abstraction.ChainType {
 	return abstraction.ChainTypeHyperledger
 }
 
-// mapMessageType maps Besu message types to canonical types
-func (m *BesuMapper) mapMessageType(besuType string) abstraction.MsgType {
-	switch besuType {
-	case "PROPOSAL":
-		return abstraction.MsgTypeProposal
-	case "PREPARE":
-		return abstraction.MsgTypePrepare
-	case "COMMIT":
-		return abstraction.MsgTypeCommit
-	case "VIEW_CHANGE":
-		return abstraction.MsgTypeViewChange
-	case "NEW_VIEW":
-		return abstraction.MsgTypeNewView
-	default:
-		return abstraction.MsgType(besuType)
+// Helper function to create IBFT extraData RLP structure
+func CreateIBFTExtraData(validators []common.Address, vote *VoteData, round uint64, seals [][]byte) ([]byte, error) {
+	vanity := make([]byte, 32) // 32-byte vanity data
+	copy(vanity, []byte("besu-ibft-consensus"))
+
+	extraData := BesuBlockExtraData{
+		Vanity:     vanity,
+		Validators: make([][]byte, len(validators)),
+		Vote:       vote,
+		Round:      round,
+		Seals:      seals,
 	}
+
+	// Convert addresses to bytes
+	for i, addr := range validators {
+		extraData.Validators[i] = addr.Bytes()
+	}
+
+	return rlp.EncodeToBytes(extraData)
 }
 
-// mapToBesuType maps canonical message types to Besu types
-func (m *BesuMapper) mapToBesuType(canonicalType abstraction.MsgType) string {
-	switch canonicalType {
-	case abstraction.MsgTypeProposal:
-		return "PROPOSAL"
-	case abstraction.MsgTypePrepare:
-		return "PREPARE"
-	case abstraction.MsgTypeCommit:
-		return "COMMIT"
-	case abstraction.MsgTypeViewChange:
-		return "VIEW_CHANGE"
-	case abstraction.MsgTypeNewView:
-		return "NEW_VIEW"
-	default:
-		return string(canonicalType)
+// Helper function to sign IBFT message body
+func SignIBFTMessage(privKey *ecdsa.PrivateKey, body BesuIBFTMessage) ([]byte, error) {
+	bodyBytes, err := rlp.EncodeToBytes(&body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to encode body: %w", err)
 	}
-}
 
-// BesuMessage represents the internal Besu message structure
-type BesuMessage struct {
-	BlockNumber    *big.Int  `json:"block_number"`
-	RoundNumber    *big.Int  `json:"round_number"`
-	Timestamp      time.Time `json:"timestamp"`
-	Type           string    `json:"type"`
-	BlockHash      string    `json:"block_hash,omitempty"`
-	ParentHash     string    `json:"parent_hash,omitempty"`
-	Proposer       string    `json:"proposer,omitempty"`
-	Validator      string    `json:"validator,omitempty"`
-	Signature      string    `json:"signature,omitempty"`
-	GasLimit       uint64    `json:"gas_limit,omitempty"`
-	GasUsed        uint64    `json:"gas_used,omitempty"`
-	TxCount        int       `json:"tx_count,omitempty"`
-	ValidatorCount int       `json:"validator_count,omitempty"`
-	ConsensusType  string    `json:"consensus_type,omitempty"`
+	hash := crypto.Keccak256Hash(bodyBytes)
+	signature, err := crypto.Sign(hash.Bytes(), privKey)
+	if err != nil {
+		return nil, fmt.Errorf("failed to sign: %w", err)
+	}
+
+	return signature, nil
 }

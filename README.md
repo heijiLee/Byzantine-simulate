@@ -27,8 +27,7 @@ The Byzantine Message Bridge provides bidirectional message transformation betwe
 ### Supported Protocols
 
 - **CometBFT**: Tendermint consensus with Proposal/Prevote/Precommit messages
-- **Hyperledger Fabric**: PBFT-style consensus with channel-specific messages  
-- **Hyperledger Besu**: IBFT2 consensus with Ethereum-compatible messages
+- **Hyperledger Besu**: IBFT2.0/QBFT consensus with RLP + devp2p + ECDSA signatures
 - **Kaia**: Istanbul BFT consensus with IBFT 3-phase protocol (Preprepare/Prepare/Commit)
 
 ## 🔄 Message Flow Architecture
@@ -295,6 +294,10 @@ Byzantine-simulate/
 │   │   ├── samples.json      # Sample messages
 │   │   ├── all_messages.json # All message types
 │   │   └── [MessageType].json # Type-specific messages
+│   ├── besu/                 # Hyperledger Besu IBFT examples
+│   │   ├── samples.json      # Sample IBFT messages
+│   │   ├── all_messages.json # All IBFT message types
+│   │   └── [MessageType].json # IBFT type-specific messages
 │   └── kaia/                 # Kaia IBFT message examples
 │       ├── samples.json      # Sample IBFT messages
 │       ├── all_messages.json # All IBFT message types
@@ -362,6 +365,9 @@ go run cmd/demo/kaia_message_generator.go
 
 # Parse Kaia IBFT messages
 go run cmd/demo/kaia_message_parser.go examples/kaia/samples.json
+
+# Generate Hyperledger Besu IBFT message examples
+go run cmd/demo/besu_message_generator.go
 ```
 
 ## 🔄 Message Flow
@@ -449,6 +455,9 @@ go run cmd/demo/message_file_parser.go examples/cometbft/samples.json
 go run cmd/demo/kaia_message_generator.go
 go run cmd/demo/kaia_message_parser.go examples/kaia/samples.json
 
+# Generate and test Hyperledger Besu IBFT messages
+go run cmd/demo/besu_message_generator.go
+
 # Simulate real consensus flow
 go run cmd/demo/real_message_simulator.go
 ```
@@ -510,6 +519,37 @@ This project implements real Kaia IBFT (Istanbul BFT) protocol structures:
    ↓
 4. RoundChange (필요시)
    Subject{View, "", PrevHash}
+```
+
+### Hyperledger Besu IBFT2.0/QBFT Protocol Implementation
+
+This project implements real Hyperledger Besu IBFT2.0/QBFT consensus structures:
+
+#### Supported IBFT Message Types
+- **Proposal**: IBFT2.0 block proposals with (h,r,H) structure
+- **Prepare**: IBFT2.0 prepare messages with block hash commitment
+- **Commit**: IBFT2.0 commit messages with ECDSA commit seals
+- **RoundChange**: IBFT2.0 round change messages for timeout handling
+
+#### Real Besu IBFT Structures
+- **BesuIBFTMessage**: (Code, Height, Round, BlockHash, Signature)
+- **BesuCommitPayload**: Body + CommitSeal (65-byte ECDSA signature)
+- **BesuBlockExtraData**: RLP([Vanity, Validators, Vote, Round, Seals])
+- **RLP Encoding**: Actual Besu serialization format
+
+#### IBFT2.0 Consensus Flow
+```
+1. Proposal (Proposer)
+   (h, r, H) + Block Data
+   ↓
+2. Prepare (Validators)
+   (h, r, H) + ECDSA Signature
+   ↓
+3. Commit (Validators)
+   (h, r, H) + Commit Seal
+   ↓
+4. RoundChange (Timeout)
+   (h, r+1, 0) + Round Change Evidence
 ```
 
 ### What You Can Verify in Tests

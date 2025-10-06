@@ -8,7 +8,7 @@ import (
 	"time"
 
 	cometbftAdapter "codec/cometbft/adapter"
-	fabricAdapter "codec/hyperledger/fabric/adapter"
+	besuAdapter "codec/hyperledger/besu/adapter"
 	kaiaAdapter "codec/kaia/adapter"
 	"codec/message/abstraction"
 	"codec/message/abstraction/validator"
@@ -77,9 +77,9 @@ func testCrossChainConversion() {
 	fmt.Println("\n🌉 2. 크로스체인 변환 테스트")
 	fmt.Println("---------------------------")
 
-	// CometBFT -> Fabric 변환
+	// CometBFT -> Besu 변환
 	cometbftMapper := cometbftAdapter.NewCometBFTMapper("testnet-cometbft")
-	fabricMapper := fabricAdapter.NewFabricMapper("testnet-fabric")
+	besuMapper := besuAdapter.NewBesuMapper("testnet-besu")
 
 	// CometBFT 메시지
 	cometbftRaw := abstraction.RawConsensusMessage{
@@ -104,27 +104,27 @@ func testCrossChainConversion() {
 	fmt.Printf("\n🔄 Canonical 메시지:\n")
 	printJSON(canonical)
 
-	// Fabric으로 변환
-	fabricRaw, err := fabricMapper.FromCanonical(canonical)
+	// Besu로 변환
+	besuRaw, err := besuMapper.FromCanonical(canonical)
 	if err != nil {
-		log.Printf("Canonical -> Fabric 실패: %v", err)
+		log.Printf("Canonical -> Besu 실패: %v", err)
 		return
 	}
 
-	fmt.Printf("\n📥 Fabric 메시지:\n")
-	printJSON(fabricRaw)
+	fmt.Printf("\n📥 Besu 메시지:\n")
+	printJSON(besuRaw)
 
 	// 검증: 다시 Canonical로 변환해서 높이가 같은지 확인
-	fabricCanonical, err := fabricMapper.ToCanonical(*fabricRaw)
+	besuCanonical, err := besuMapper.ToCanonical(*besuRaw)
 	if err != nil {
-		log.Printf("Fabric -> Canonical 실패: %v", err)
+		log.Printf("Besu -> Canonical 실패: %v", err)
 		return
 	}
 
-	if canonical.Height.Cmp(fabricCanonical.Height) == 0 {
+	if canonical.Height.Cmp(besuCanonical.Height) == 0 {
 		fmt.Printf("\n✅ 높이 보존 확인: %v\n", canonical.Height)
 	} else {
-		fmt.Printf("\n❌ 높이 불일치: %v != %v\n", canonical.Height, fabricCanonical.Height)
+		fmt.Printf("\n❌ 높이 불일치: %v != %v\n", canonical.Height, besuCanonical.Height)
 	}
 }
 
@@ -197,15 +197,15 @@ func testRealWorldScenario() {
 			},
 		},
 		{
-			name:   "Fabric Proposal",
-			chain:  "fabric",
-			mapper: fabricAdapter.NewFabricMapper("testnet-fabric"),
+			name:   "Besu Proposal",
+			chain:  "besu",
+			mapper: besuAdapter.NewBesuMapper("testnet-besu"),
 			raw: abstraction.RawConsensusMessage{
 				ChainType:   abstraction.ChainTypeHyperledger,
-				ChainID:     "testnet-fabric",
+				ChainID:     "testnet-besu",
 				MessageType: "PROPOSAL",
-				Payload:     []byte(`{"block_number":1000,"type":"PROPOSAL","block_hash":"0xdef456","proposer":"peer1","channel_id":"mychannel","timestamp":"2024-01-01T00:00:00Z"}`),
-				Encoding:    "json",
+				Payload:     []byte(`{"height":1000,"round":0,"block_hash":"0xdef456","signature":"0x123456","code":0}`),
+				Encoding:    "rlp",
 				Timestamp:   time.Now(),
 			},
 		},

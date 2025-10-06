@@ -8,7 +8,6 @@ import (
 	"codec/abstraction"
 	cometbftAdapter "codec/cometbft/adapter"
 	besuAdapter "codec/hyperledger/besu/adapter"
-	fabricAdapter "codec/hyperledger/fabric/adapter"
 	kaiaAdapter "codec/kaia/adapter"
 )
 
@@ -33,7 +32,7 @@ func BenchmarkCometBFTConversion(b *testing.B) {
 
 func BenchmarkCrossChainConversion(b *testing.B) {
 	cometbftMapper := cometbftAdapter.NewCometBFTMapper("testnet-cometbft")
-	fabricMapper := fabricAdapter.NewFabricMapper("testnet-fabric")
+	besuMapper := besuAdapter.NewBesuMapper("testnet-besu")
 
 	rawMsg := abstraction.RawConsensusMessage{
 		ChainType:   abstraction.ChainTypeCometBFT,
@@ -47,15 +46,14 @@ func BenchmarkCrossChainConversion(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		canonical, _ := cometbftMapper.ToCanonical(rawMsg)
-		fabricRaw, _ := fabricMapper.FromCanonical(canonical)
-		fabricMapper.ToCanonical(*fabricRaw)
+		besuRaw, _ := besuMapper.FromCanonical(canonical)
+		besuMapper.ToCanonical(*besuRaw)
 	}
 }
 
 func BenchmarkAllChainsConversion(b *testing.B) {
 	mappers := map[string]abstraction.Mapper{
 		"cometbft": cometbftAdapter.NewCometBFTMapper("testnet-cometbft"),
-		"fabric":   fabricAdapter.NewFabricMapper("testnet-fabric"),
 		"besu":     besuAdapter.NewBesuMapper("testnet-besu"),
 		"kaia":     kaiaAdapter.NewKaiaMapper("testnet-kaia"),
 	}
@@ -91,5 +89,3 @@ func main() {
 	fmt.Println("go test -bench=BenchmarkCrossChainConversion -benchmem")
 	fmt.Println("go test -bench=BenchmarkAllChainsConversion -benchmem")
 }
-
-

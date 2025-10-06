@@ -16,23 +16,6 @@ chains:
       timeout: 30s
       retry_count: 3
 
-  - name: fabric
-    enabled: true
-    endpoint: grpc://localhost:7051
-    ingress:
-      type: collector
-      decoder: proto
-    egress:
-      targets:
-        - type: kafka
-          topic: fabric.consensus
-        - type: database
-          table: fabric_messages
-    config:
-      channel_id: "mychannel"
-      peer_endpoint: "peer0.org1.example.com:7051"
-      timeout: 30s
-
   - name: besu
     enabled: true
     endpoint: http://localhost:8545
@@ -67,17 +50,17 @@ chains:
 
 router:
   rules:
-    # Route CometBFT votes to Fabric and Kafka
+    # Route CometBFT votes to Besu and Kafka
     - match:
         chain: cometbft
         message_type: vote
       forward:
-        - chain: fabric
+        - chain: besu
         - sink: kafka://consensus.vote
 
-    # Route Fabric proposals to CometBFT
+    # Route Besu proposals to CometBFT
     - match:
-        chain: fabric
+        chain: besu
         message_type: proposal
       forward:
         - chain: cometbft
@@ -95,7 +78,7 @@ router:
         message_type: proposal
       forward:
         - chain: cometbft
-        - chain: fabric
+        - chain: besu
         - chain: kaia
         - sink: kafka://consensus.proposals
 

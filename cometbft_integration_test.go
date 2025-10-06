@@ -10,7 +10,6 @@ import (
 	cometbftConsensus "codec/cometbft"
 	cometbftAdapter "codec/cometbft/adapter"
 	besuAdapter "codec/hyperledger/besu/adapter"
-	fabricAdapter "codec/hyperledger/fabric/adapter"
 	kaiaAdapter "codec/kaia/adapter"
 	"codec/message/abstraction"
 )
@@ -214,7 +213,6 @@ func testCrossChainConversion(t *testing.T) {
 
 	mappers := map[string]abstraction.Mapper{
 		"CometBFT": cometbftAdapter.NewCometBFTMapper("testnet-cometbft"),
-		"Fabric":   fabricAdapter.NewFabricMapper("testnet-fabric"),
 		"Besu":     besuAdapter.NewBesuMapper("testnet-besu"),
 		"Kaia":     kaiaAdapter.NewKaiaMapper("testnet-kaia"),
 	}
