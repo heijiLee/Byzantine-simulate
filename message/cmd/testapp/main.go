@@ -9,191 +9,349 @@ import (
 	"strings"
 	"time"
 
-	"codec/abstraction"
-	"codec/codec"
+	"byzantine-message-bridge/message/abstraction"
+	"byzantine-message-bridge/message/abstraction/validator"
+	"byzantine-message-bridge/message/codec"
+
+	cometbftAdapter "byzantine-message-bridge/cometbft/adapter"
+	besuAdapter "byzantine-message-bridge/hyperledger/besu/adapter"
+	fabricAdapter "byzantine-message-bridge/hyperledger/fabric/adapter"
+	kaiaAdapter "byzantine-message-bridge/kaia/adapter"
 )
 
 func main() {
-	//proto descriptor set 등록
-	if err := codec.RegisterDescriptorSetFile("proto/abstraction.protoset"); err != nil {
-		log.Printf("Failed to register: %v\n", err)
-	} else {
-		log.Println("Registered proto descriptor set")
-	}
-	am := sampleMessage() //샘플 메시지
-	tests := []struct {
-		name      string
-		format    codec.Format
-		serOpts   codec.SerializeOptions
-		parseOpts codec.ParseOptions
-		profile   CompareProfile
-	}{
-		{
-			name:   "generic",
-			format: codec.FormatGeneric,
-			serOpts: codec.SerializeOptions{
-				Format: codec.FormatGeneric,
-			},
-			parseOpts: codec.ParseOptions{
-				Format: codec.FormatGeneric,
-			},
-			profile: CompareProfile{
-				Type: true, Height: true, Round: true, View: true,
-				Timestamp: true, BlockHash: true, PrevHash: true,
-				Proposer: true, Validator: true, Signature: true,
-				CommitSeals: false, ViewChanges: false, Extras: true, RawPayload: false,
-			},
-		},
-		{
-			name:   "json",
-			format: codec.FormatJSON,
-			serOpts: codec.SerializeOptions{
-				Format: codec.FormatJSON,
-			},
-			parseOpts: codec.ParseOptions{
-				Format: codec.FormatJSON,
-			},
-			profile: CompareProfile{
-				Type: true, Height: true, Round: true, View: true,
-				Timestamp: true, BlockHash: true, PrevHash: true,
-				Proposer: true, Validator: true, Signature: true,
-				CommitSeals: true, ViewChanges: true, Extras: true, RawPayload: false,
-			},
-		},
-		{
-			name:   "protobuf",
-			format: codec.FormatProtobuf,
-			serOpts: codec.SerializeOptions{
-				Format:               codec.FormatProtobuf,
-				ProtoMessageFullName: "pbft.AbstractMessage",
-				ProtoDiscardUnknown:  true,
-			},
-			parseOpts: codec.ParseOptions{
-				Format:               codec.FormatProtobuf,
-				ProtoMessageFullName: "pbft.AbstractMessage",
-				ProtoDiscardUnknown:  true,
-			},
-			profile: CompareProfile{
-				Type: true, Height: true, Round: true, View: false,
-				Timestamp: true, BlockHash: false, PrevHash: false,
-				Proposer: true, Validator: true, Signature: true,
-				CommitSeals: false, ViewChanges: false, Extras: false, RawPayload: false,
-			},
-		},
-		{
-			name:   "rlp",
-			format: codec.FormatRLP,
-			serOpts: codec.SerializeOptions{
-				Format: codec.FormatRLP,
-			},
-			parseOpts: codec.ParseOptions{
-				Format: codec.FormatRLP,
-			},
-			profile: CompareProfile{
-				Type: true, Height: true, Round: true, View: true,
-				Timestamp: true, BlockHash: true, PrevHash: true,
-				Proposer: true, Validator: true, Signature: true,
-				CommitSeals: true, ViewChanges: true, Extras: true, RawPayload: false,
-			},
-		},
-		{
-			name:   "msgpack",
-			format: codec.FormatMsgPack,
-			serOpts: codec.SerializeOptions{
-				Format: codec.FormatMsgPack,
-			},
-			parseOpts: codec.ParseOptions{
-				Format: codec.FormatMsgPack,
-			},
-			profile: CompareProfile{
-				Type: true, Height: true, Round: true, View: true,
-				Timestamp: true, BlockHash: true, PrevHash: true,
-				Proposer: true, Validator: true, Signature: true,
-				CommitSeals: true, ViewChanges: true, Extras: true, RawPayload: false,
-			},
-		},
-		{
-			name:   "bcs",
-			format: codec.FormatBCS,
-			serOpts: codec.SerializeOptions{
-				Format: codec.FormatBCS,
-			},
-			parseOpts: codec.ParseOptions{
-				Format: codec.FormatBCS,
-			},
-			profile: CompareProfile{
-				Type: true, Height: true, Round: true, View: true,
-				Timestamp: true, BlockHash: true, PrevHash: true,
-				Proposer: true, Validator: true, Signature: true,
-				CommitSeals: true, ViewChanges: true, Extras: true, RawPayload: false,
-			},
-		},
+	fmt.Println("=== Byzantine Message Bridge Test Suite ===")
+
+	// Test message mappers
+	testMappers()
+
+	// Test validators
+	testValidators()
+
+	// Test round-trip conversions
+	testRoundTripConversions()
+
+	fmt.Println("\n=== All Tests Completed ===")
+}
+
+func testMappers() {
+	fmt.Println("\n--- Testing Message Mappers ---")
+
+	// Test CometBFT mapper
+	testCometBFTMapper()
+
+	// Test Fabric mapper
+	testFabricMapper()
+
+	// Test Besu mapper
+	testBesuMapper()
+
+	// Test Kaia mapper
+	testKaiaMapper()
+}
+
+func testCometBFTMapper() {
+	fmt.Println("\nTesting CometBFT Mapper:")
+	mapper := cometbftAdapter.NewCometBFTMapper("testnet-cometbft")
+
+	// Test supported types
+	supportedTypes := mapper.GetSupportedTypes()
+	fmt.Printf("  Supported types: %v\n", supportedTypes)
+
+	// Test chain type
+	chainType := mapper.GetChainType()
+	fmt.Printf("  Chain type: %s\n", chainType)
+
+	// Create sample raw message
+	rawMsg := abstraction.RawConsensusMessage{
+		ChainType:   abstraction.ChainTypeCometBFT,
+		ChainID:     "testnet-cometbft",
+		MessageType: "Proposal",
+		Payload:     []byte(`{"height":1000,"round":1,"type":"Proposal","block_hash":"0xabc123","proposer":"node1","timestamp":"2024-01-01T00:00:00Z"}`),
+		Encoding:    "json",
+		Timestamp:   time.Now(),
 	}
 
-	for _, t := range tests {
-		fmt.Printf("\n=== Testing format: %s ===\n", t.name)
-		//1) serialize
-		data, err := codec.Serialize(am, t.serOpts)
-		if err != nil {
-			log.Printf("[ERROR] Serialize (%s): %v\n", t.name, err)
-			continue
-		}
-		fmt.Printf("Serialized %d bytes\n", len(data))
-		fmt.Printf("first 64 bytes (hex): %s\n", previewHex(data, 64))
-		//2) parse
-		parsed, err := codec.Parse(data, t.parseOpts)
-		if err != nil {
-			log.Printf("[ERROR] Parse (%s): %v\n", t.name, err)
-			continue
-		}
-		// 3) canonicalize & compare
-		aCanon := canonicalizeForCompare(copyAM(am), t.name)
-		bCanon := canonicalizeForCompare(copyAM(parsed), t.name)
-		ok, diff := compareWithProfile(aCanon, bCanon, t.profile)
-		if ok {
-			fmt.Println("Fields match (profiled)")
-		} else {
-			fmt.Println("Fields mismatch (profiled)")
-			fmt.Println(diff)
-		}
-		// 4) mutation 테스트
-		parsed.Signature = "CORRUPTED_SIG"
-		if parsed.Extras == nil {
-			parsed.Extras = map[string][]byte{}
-		}
-		if t.name != "protobuf" {
-			parsed.Extras["injected_by_testapp"] = []byte("1")
-		}
-		data2, err := codec.Serialize(parsed, t.serOpts)
-		if err != nil {
-			log.Printf("[ERROR] Serialize (mutated) (%s): %v\n", t.name, err)
-			continue
-		}
-		fmt.Printf("Mutated: %d bytes\n", len(data2))
-		fmt.Printf("mutated first 64 bytes (hex): %s\n", previewHex(data2, 64))
-		parsed2, err := codec.Parse(data2, t.parseOpts)
-		if err != nil {
-			log.Printf("[ERROR] Parse (mutated) (%s): %v\n", t.name, err)
-			continue
-		}
-		if parsed2.Signature == "CORRUPTED_SIG" {
-			fmt.Println("Mutation confirmed: Signature corrupted")
-		} else {
-			fmt.Printf("Mutation failed: Signature unchanged (%q)\n", parsed2.Signature)
-		}
-		if t.name != "protobuf" {
-			if v, ok := parsed2.Extras["injected_by_testapp"]; ok {
-				if string(v) == "1" || string(v) == "\"1\"" {
-					fmt.Printf("Mutation confirmed: Extras injected (%s)\n", string(v))
-				} else {
-					fmt.Printf("Mutation maybe injected but normalized differently (%q)\n", string(v))
-				}
-			} else {
-				fmt.Println("Mutation failed: Extras unchanged")
-			}
+	// Convert to canonical
+	canonical, err := mapper.ToCanonical(rawMsg)
+	if err != nil {
+		log.Printf("  Error converting to canonical: %v", err)
+		return
+	}
+
+	fmt.Printf("  Converted to canonical: chain=%s, type=%s, height=%v\n",
+		canonical.ChainID, canonical.Type, canonical.Height)
+
+	// Convert back to raw
+	rawBack, err := mapper.FromCanonical(canonical)
+	if err != nil {
+		log.Printf("  Error converting back to raw: %v", err)
+		return
+	}
+
+	fmt.Printf("  Converted back to raw: chain=%s, type=%s\n",
+		rawBack.ChainID, rawBack.MessageType)
+}
+
+func testFabricMapper() {
+	fmt.Println("\nTesting Fabric Mapper:")
+	mapper := fabricAdapter.NewFabricMapper("testnet-fabric")
+
+	// Test supported types
+	supportedTypes := mapper.GetSupportedTypes()
+	fmt.Printf("  Supported types: %v\n", supportedTypes)
+
+	// Create sample raw message
+	rawMsg := abstraction.RawConsensusMessage{
+		ChainType:   abstraction.ChainTypeHyperledger,
+		ChainID:     "testnet-fabric",
+		MessageType: "PROPOSAL",
+		Payload:     []byte(`{"block_number":1000,"type":"PROPOSAL","block_hash":"0xdef456","proposer":"peer1","channel_id":"mychannel","timestamp":"2024-01-01T00:00:00Z"}`),
+		Encoding:    "json",
+		Timestamp:   time.Now(),
+	}
+
+	// Convert to canonical
+	canonical, err := mapper.ToCanonical(rawMsg)
+	if err != nil {
+		log.Printf("  Error converting to canonical: %v", err)
+		return
+	}
+
+	fmt.Printf("  Converted to canonical: chain=%s, type=%s, height=%v\n",
+		canonical.ChainID, canonical.Type, canonical.Height)
+
+	// Check extensions
+	if canonical.Extensions != nil {
+		if channelID, ok := canonical.Extensions["channel_id"].(string); ok {
+			fmt.Printf("  Channel ID: %s\n", channelID)
 		}
 	}
-	runSynonymTests()
+}
+
+func testBesuMapper() {
+	fmt.Println("\nTesting Besu Mapper:")
+	mapper := besuAdapter.NewBesuMapper("testnet-besu")
+
+	// Test supported types
+	supportedTypes := mapper.GetSupportedTypes()
+	fmt.Printf("  Supported types: %v\n", supportedTypes)
+
+	// Create sample raw message
+	rawMsg := abstraction.RawConsensusMessage{
+		ChainType:   abstraction.ChainTypeHyperledger,
+		ChainID:     "testnet-besu",
+		MessageType: "PROPOSAL",
+		Payload:     []byte(`{"block_number":1000,"round_number":1,"type":"PROPOSAL","block_hash":"0x789abc","proposer":"validator1","gas_limit":8000000,"timestamp":"2024-01-01T00:00:00Z"}`),
+		Encoding:    "json",
+		Timestamp:   time.Now(),
+	}
+
+	// Convert to canonical
+	canonical, err := mapper.ToCanonical(rawMsg)
+	if err != nil {
+		log.Printf("  Error converting to canonical: %v", err)
+		return
+	}
+
+	fmt.Printf("  Converted to canonical: chain=%s, type=%s, height=%v\n",
+		canonical.ChainID, canonical.Type, canonical.Height)
+
+	// Check extensions
+	if canonical.Extensions != nil {
+		if gasLimit, ok := canonical.Extensions["gas_limit"].(float64); ok {
+			fmt.Printf("  Gas Limit: %v\n", gasLimit)
+		}
+	}
+}
+
+func testKaiaMapper() {
+	fmt.Println("\nTesting Kaia Mapper:")
+	mapper := kaiaAdapter.NewKaiaMapper("testnet-kaia")
+
+	// Test supported types
+	supportedTypes := mapper.GetSupportedTypes()
+	fmt.Printf("  Supported types: %v\n", supportedTypes)
+
+	// Create sample raw message
+	rawMsg := abstraction.RawConsensusMessage{
+		ChainType:   abstraction.ChainTypeKaia,
+		ChainID:     "testnet-kaia",
+		MessageType: "PROPOSAL",
+		Payload:     []byte(`{"block_number":1000,"round_number":1,"type":"PROPOSAL","block_hash":"0x456def","proposer":"validator1","gas_limit":8000000,"consensus_type":"istanbul","timestamp":"2024-01-01T00:00:00Z"}`),
+		Encoding:    "json",
+		Timestamp:   time.Now(),
+	}
+
+	// Convert to canonical
+	canonical, err := mapper.ToCanonical(rawMsg)
+	if err != nil {
+		log.Printf("  Error converting to canonical: %v", err)
+		return
+	}
+
+	fmt.Printf("  Converted to canonical: chain=%s, type=%s, height=%v\n",
+		canonical.ChainID, canonical.Type, canonical.Height)
+
+	// Check extensions
+	if canonical.Extensions != nil {
+		if consensusType, ok := canonical.Extensions["consensus_type"].(string); ok {
+			fmt.Printf("  Consensus Type: %s\n", consensusType)
+		}
+	}
+}
+
+func testValidators() {
+	fmt.Println("\n--- Testing Message Validators ---")
+
+	// Test CometBFT validator
+	testCometBFTValidator()
+
+	// Test Fabric validator
+	testFabricValidator()
+
+	// Test Kaia validator
+	testKaiaValidator()
+}
+
+func testCometBFTValidator() {
+	fmt.Println("\nTesting CometBFT Validator:")
+	validator := validator.NewValidator(abstraction.ChainTypeCometBFT)
+
+	// Create valid message
+	validMsg := &abstraction.CanonicalMessage{
+		ChainID:   "testnet-cometbft",
+		Height:    big.NewInt(1000),
+		Round:     big.NewInt(1),
+		Timestamp: time.Now(),
+		Type:      abstraction.MsgTypeProposal,
+		Proposer:  "node1",
+		Signature: "sig123",
+	}
+
+	err := validator.Validate(validMsg)
+	if err != nil {
+		fmt.Printf("  Valid message failed validation: %v\n", err)
+	} else {
+		fmt.Println("  Valid message passed validation")
+	}
+
+	// Create invalid message (missing required fields)
+	invalidMsg := &abstraction.CanonicalMessage{
+		ChainID: "testnet-cometbft",
+		// Missing height, round, timestamp, type
+	}
+
+	err = validator.Validate(invalidMsg)
+	if err != nil {
+		fmt.Printf("  Invalid message correctly failed validation: %v\n", err)
+	} else {
+		fmt.Println("  Invalid message incorrectly passed validation")
+	}
+}
+
+func testFabricValidator() {
+	fmt.Println("\nTesting Fabric Validator:")
+	validator := validator.NewValidator(abstraction.ChainTypeHyperledger)
+
+	// Create valid message
+	validMsg := &abstraction.CanonicalMessage{
+		ChainID:   "testnet-fabric",
+		Height:    big.NewInt(1000),
+		Timestamp: time.Now(),
+		Type:      abstraction.MsgTypeProposal,
+		Proposer:  "peer1",
+	}
+
+	err := validator.Validate(validMsg)
+	if err != nil {
+		fmt.Printf("  Valid message failed validation: %v\n", err)
+	} else {
+		fmt.Println("  Valid message passed validation")
+	}
+}
+
+func testKaiaValidator() {
+	fmt.Println("\nTesting Kaia Validator:")
+	validator := validator.NewValidator(abstraction.ChainTypeKaia)
+
+	// Create valid message
+	validMsg := &abstraction.CanonicalMessage{
+		ChainID:   "testnet-kaia",
+		Height:    big.NewInt(1000),
+		Round:     big.NewInt(1),
+		Timestamp: time.Now(),
+		Type:      abstraction.MsgTypeProposal,
+		Proposer:  "validator1",
+	}
+
+	err := validator.Validate(validMsg)
+	if err != nil {
+		fmt.Printf("  Valid message failed validation: %v\n", err)
+	} else {
+		fmt.Println("  Valid message passed validation")
+	}
+}
+
+func testRoundTripConversions() {
+	fmt.Println("\n--- Testing Round-Trip Conversions ---")
+
+	// Test CometBFT -> Canonical -> Fabric
+	testCrossChainConversion()
+}
+
+func testCrossChainConversion() {
+	fmt.Println("\nTesting Cross-Chain Conversion (CometBFT -> Fabric):")
+
+	// Create CometBFT mapper
+	cometbftMapper := cometbftAdapter.NewCometBFTMapper("testnet-cometbft")
+
+	// Create Fabric mapper
+	fabricMapper := fabricAdapter.NewFabricMapper("testnet-fabric")
+
+	// Create sample CometBFT message
+	cometbftRaw := abstraction.RawConsensusMessage{
+		ChainType:   abstraction.ChainTypeCometBFT,
+		ChainID:     "testnet-cometbft",
+		MessageType: "Proposal",
+		Payload:     []byte(`{"height":1000,"round":1,"type":"Proposal","block_hash":"0xabc123","proposer":"node1","timestamp":"2024-01-01T00:00:00Z"}`),
+		Encoding:    "json",
+		Timestamp:   time.Now(),
+	}
+
+	// Convert to canonical
+	canonical, err := cometbftMapper.ToCanonical(cometbftRaw)
+	if err != nil {
+		log.Printf("  Error converting CometBFT to canonical: %v", err)
+		return
+	}
+
+	fmt.Printf("  CometBFT -> Canonical: type=%s, height=%v\n", canonical.Type, canonical.Height)
+
+	// Convert canonical to Fabric
+	fabricRaw, err := fabricMapper.FromCanonical(canonical)
+	if err != nil {
+		log.Printf("  Error converting canonical to Fabric: %v", err)
+		return
+	}
+
+	fmt.Printf("  Canonical -> Fabric: type=%s\n", fabricRaw.MessageType)
+
+	// Verify the conversion
+	fabricCanonical, err := fabricMapper.ToCanonical(*fabricRaw)
+	if err != nil {
+		log.Printf("  Error converting Fabric back to canonical: %v", err)
+		return
+	}
+
+	fmt.Printf("  Fabric -> Canonical: type=%s, height=%v\n", fabricCanonical.Type, fabricCanonical.Height)
+
+	// Check if heights match
+	if canonical.Height.Cmp(fabricCanonical.Height) == 0 {
+		fmt.Println("  ✓ Height preserved across conversion")
+	} else {
+		fmt.Println("  ✗ Height mismatch across conversion")
+	}
 }
 
 type CompareProfile struct {
@@ -464,5 +622,3 @@ func runSynonymTests() {
 	fmt.Printf("Parsed from modified JSON:\n  Height=%v, Signature=%q\n",
 		parsed.Height, parsed.Signature)
 }
-
-

@@ -1,0 +1,80 @@
+[
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "NewRoundStep",
+    "payload": "eyJoZWlnaHQiOjEwMDAwMDAsImxhc3RfY29tbWl0X3JvdW5kIjotMSwibWVzc2FnZV90eXBlIjoiTmV3Um91bmRTdGVwIiwicm91bmQiOjAsInNlY29uZHNfc2luY2Vfc3RhcnRfdGltZSI6MCwic3RlcCI6MSwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCJ9",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920926+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  },
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "Proposal",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjY5MzE4IiwicGFydF9zZXRfaGVhZGVyIjp7Imhhc2giOiJNSGd4T0RaaVpUY3hPR013WmpZNU16RTQiLCJ0b3RhbCI6MX0sInByZXZfaGFzaCI6IjB4YWJjZGVmMTIzNDU2Nzg5MCJ9LCJoZWlnaHQiOjEwMDAwMDAsIm1lc3NhZ2VfdHlwZSI6IlByb3Bvc2FsIiwicG9sX3JvdW5kIjotMSwicHJvcG9zZXJfYWRkcmVzcyI6ImNvc21vczFhYmMxMjNkZWY0NTZnaGk3ODkiLCJyb3VuZCI6MCwic2lnbmF0dXJlIjoic2lnX3Byb3Bvc2FsXzEwMDAwMDBfMCIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920935+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  },
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "BlockPart",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjZiYTI4In0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQmxvY2tQYXJ0IiwicGFydF9ieXRlcyI6IllteHZZMnRmY0dGeWRGOHhNREF3TURBd1h6QmZNQT09IiwicGFydF9pbmRleCI6MCwicGFydF9wcm9vZiI6ImJXVnlhMnhsWDNCeWIyOW1YekE9Iiwicm91bmQiOjAsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920941+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  },
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "Vote",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjZlNTIwIn0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiVm90ZSIsInJvdW5kIjowLCJzaWduYXR1cmUiOiJQcmV2b3RlVHlwZV9zaWdfdmFsaWRhdG9yMF8xMDAwMDAwXzAiLCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIxOjM2OjEyKzA5OjAwIiwidmFsaWRhdG9yX2FkZHJlc3MiOiJ2YWxpZGF0b3IwIiwidmFsaWRhdG9yX2luZGV4IjowLCJ2b3RlX3R5cGUiOiJQcmV2b3RlVHlwZSJ9",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920955+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  },
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "NewValidBlock",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjc2OWYwIiwicGFydF9zZXRfaGVhZGVyIjp7Imhhc2giOiJNSGd4T0RaaVpUY3hPR013WmpjMk9XWXciLCJ0b3RhbCI6MX19LCJibG9ja19wYXJ0cyI6WyJwYXJ0MSIsInBhcnQyIiwicGFydDMiXSwiaGVpZ2h0IjoxMDAwMDAwLCJpc19jb21taXQiOnRydWUsIm1lc3NhZ2VfdHlwZSI6Ik5ld1ZhbGlkQmxvY2siLCJyb3VuZCI6MCwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCJ9",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920986+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  },
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "Commit",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjc3OTkwIn0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwicm91bmQiOjAsInNpZ25hdHVyZXMiOlt7ImJsb2NrX2lkX2ZsYWciOiJCbG9ja0lERmxhZ0NvbW1pdCIsInNpZ25hdHVyZSI6ImNvbW1pdF9zaWdfMCIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAiLCJ2YWxpZGF0b3JfYWRkcmVzcyI6InZhbGlkYXRvcjAifSx7ImJsb2NrX2lkX2ZsYWciOiJCbG9ja0lERmxhZ0NvbW1pdCIsInNpZ25hdHVyZSI6ImNvbW1pdF9zaWdfMSIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAiLCJ2YWxpZGF0b3JfYWRkcmVzcyI6InZhbGlkYXRvcjEifV0sInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920991+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  }
+]

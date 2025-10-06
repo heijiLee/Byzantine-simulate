@@ -1,31 +1,92 @@
 syntax = "proto3";
 
-package pbft;
+package byzantine;
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
 
+// Chain types supported by the bridge
+enum ChainType {
+  CHAIN_TYPE_UNSPECIFIED = 0;
+  CHAIN_TYPE_COMETBFT = 1;
+  CHAIN_TYPE_HYPERLEDGER = 2;
+  CHAIN_TYPE_KAIA = 3;
+}
+
+// Message types across different consensus protocols
+enum MsgType {
+  MSG_TYPE_UNSPECIFIED = 0;
+  MSG_TYPE_PROPOSAL = 1;
+  MSG_TYPE_PREPARE = 2;
+  MSG_TYPE_VOTE = 3;
+  MSG_TYPE_COMMIT = 4;
+  MSG_TYPE_VIEW_CHANGE = 5;
+  MSG_TYPE_NEW_VIEW = 6;
+  MSG_TYPE_BLOCK = 7;
+  MSG_TYPE_PREVOTE = 8;
+  MSG_TYPE_PRECOMMIT = 9;
+}
+
+// View change entry for PBFT-style protocols
 message ViewChangeEntry {
-  int64 height = 1;
-  int64 view = 2;
+  int64 view = 1;
+  int64 height = 2;
   string validator = 3;
   string signature = 4;
 }
 
-message AbstractMessage {
-  string type = 1;
+// Canonical message format - unified representation across all chains
+message CanonicalMessage {
+  string chain_id = 1;
   int64 height = 2;
   int64 round = 3;
   int64 view = 4;
   google.protobuf.Timestamp timestamp = 5;
-  string block_hash = 6;
-  string prev_hash = 7;
-  string proposer = 8;
-  string validator = 9;
-  string signature = 10;
-  repeated string commit_seals = 11;
-  repeated ViewChangeEntry view_changes = 12;
-  map<string, bytes> extras = 13;
-  bytes rawPayload = 14;
-  string payload = 15;
+  MsgType type = 6;
+  
+  // Consensus-specific fields
+  string block_hash = 7;
+  string prev_hash = 8;
+  string proposer = 9;
+  string validator = 10;
+  string signature = 11;
+  
+  // Advanced consensus fields
+  repeated string commit_seals = 12;
+  repeated ViewChangeEntry view_changes = 13;
+  
+  // Extension fields for chain-specific data
+  map<string, google.protobuf.Any> extensions = 14;
+  
+  // Metadata
+  bytes raw_payload = 15;
+}
+
+// Raw consensus message - chain-specific format
+message RawConsensusMessage {
+  ChainType chain_type = 1;
+  string chain_id = 2;
+  string message_type = 3;
+  bytes payload = 4;
+  string encoding = 5;
+  google.protobuf.Timestamp timestamp = 6;
+  map<string, google.protobuf.Any> metadata = 7;
+}
+
+// Chain metadata for configuration
+message ChainMetadata {
+  ChainType chain_type = 1;
+  string chain_id = 2;
+  string endpoint = 3;
+  bool enabled = 4;
+  map<string, google.protobuf.Any> config = 5;
+  map<string, string> credentials = 6;
+}
+
+// Validation error details
+message ValidationError {
+  string field = 1;
+  string message = 2;
+  string code = 3;
 }
 

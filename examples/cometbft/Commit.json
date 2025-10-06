@@ -1,0 +1,15 @@
+[
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "Commit",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjc3OTkwIn0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwicm91bmQiOjAsInNpZ25hdHVyZXMiOlt7ImJsb2NrX2lkX2ZsYWciOiJCbG9ja0lERmxhZ0NvbW1pdCIsInNpZ25hdHVyZSI6ImNvbW1pdF9zaWdfMCIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAiLCJ2YWxpZGF0b3JfYWRkcmVzcyI6InZhbGlkYXRvcjAifSx7ImJsb2NrX2lkX2ZsYWciOiJCbG9ja0lERmxhZ0NvbW1pdCIsInNpZ25hdHVyZSI6ImNvbW1pdF9zaWdfMSIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAiLCJ2YWxpZGF0b3JfYWRkcmVzcyI6InZhbGlkYXRvcjEifV0sInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920991+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  }
+]

@@ -1,0 +1,108 @@
+chains:
+  - name: cometbft
+    enabled: true
+    endpoint: grpc://localhost:9090
+    ingress:
+      type: collector
+      decoder: proto
+    egress:
+      targets:
+        - type: kafka
+          topic: cometbft.consensus
+        - type: file
+          path: /tmp/cometbft-messages.log
+    config:
+      version: "0.38.0"
+      timeout: 30s
+      retry_count: 3
+
+  - name: fabric
+    enabled: true
+    endpoint: grpc://localhost:7051
+    ingress:
+      type: collector
+      decoder: proto
+    egress:
+      targets:
+        - type: kafka
+          topic: fabric.consensus
+        - type: database
+          table: fabric_messages
+    config:
+      channel_id: "mychannel"
+      peer_endpoint: "peer0.org1.example.com:7051"
+      timeout: 30s
+
+  - name: besu
+    enabled: true
+    endpoint: http://localhost:8545
+    ingress:
+      type: collector
+      decoder: rlp
+    egress:
+      targets:
+        - type: kafka
+          topic: besu.consensus
+    config:
+      consensus_type: "ibft2"
+      validator_count: 4
+      timeout: 30s
+
+  - name: kaia
+    enabled: true
+    endpoint: http://localhost:8551
+    ingress:
+      type: collector
+      decoder: rlp
+    egress:
+      targets:
+        - type: kafka
+          topic: kaia.consensus
+        - type: file
+          path: /tmp/kaia-messages.log
+    config:
+      consensus_type: "istanbul"
+      governance_id: "governance-1"
+      timeout: 30s
+
+router:
+  rules:
+    # Route CometBFT votes to Fabric and Kafka
+    - match:
+        chain: cometbft
+        message_type: vote
+      forward:
+        - chain: fabric
+        - sink: kafka://consensus.vote
+
+    # Route Fabric proposals to CometBFT
+    - match:
+        chain: fabric
+        message_type: proposal
+      forward:
+        - chain: cometbft
+        - sink: kafka://consensus.proposal
+
+    # Route all Kaia messages to monitoring
+    - match:
+        chain: kaia
+      forward:
+        - sink: kafka://monitoring.all
+        - sink: file:///tmp/kaia-monitoring.log
+
+    # Route high-priority messages to all chains
+    - match:
+        message_type: proposal
+      forward:
+        - chain: cometbft
+        - chain: fabric
+        - chain: kaia
+        - sink: kafka://consensus.proposals
+
+# Global settings
+global:
+  log_level: info
+  metrics_enabled: true
+  health_check_interval: 30s
+  max_message_size: 10MB
+  buffer_size: 1000

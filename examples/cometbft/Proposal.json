@@ -1,0 +1,15 @@
+[
+  {
+    "chain_type": "cometbft",
+    "chain_id": "cosmos-hub-4",
+    "message_type": "Proposal",
+    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjY5MzE4IiwicGFydF9zZXRfaGVhZGVyIjp7Imhhc2giOiJNSGd4T0RaaVpUY3hPR013WmpZNU16RTQiLCJ0b3RhbCI6MX0sInByZXZfaGFzaCI6IjB4YWJjZGVmMTIzNDU2Nzg5MCJ9LCJoZWlnaHQiOjEwMDAwMDAsIm1lc3NhZ2VfdHlwZSI6IlByb3Bvc2FsIiwicG9sX3JvdW5kIjotMSwicHJvcG9zZXJfYWRkcmVzcyI6ImNvc21vczFhYmMxMjNkZWY0NTZnaGk3ODkiLCJyb3VuZCI6MCwic2lnbmF0dXJlIjoic2lnX3Byb3Bvc2FsXzEwMDAwMDBfMCIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
+    "encoding": "json",
+    "timestamp": "2025-10-06T21:36:12.920935+09:00",
+    "metadata": {
+      "height": 1000000,
+      "round": 0,
+      "source": "example_generator"
+    }
+  }
+]
