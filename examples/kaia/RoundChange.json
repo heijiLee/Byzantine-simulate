@@ -1,20 +1,40 @@
-[
-  {
-    "chain_type": "kaia",
-    "chain_id": "kaia-mainnet",
+{
+  "round_change_basic": {
     "message_type": "RoundChange",
-    "payload": "eyJtZXNzYWdlX3R5cGUiOiJSb3VuZENoYW5nZSIsInN1YmplY3QiOnsiZGlnZXN0IjoiIiwicHJldl9oYXNoIjoiMHgxODZiZTliOTQzYzg3OTgwIiwidmlldyI6eyJyb3VuZCI6MSwic2VxdWVuY2UiOjEwMDAwMDB9fSwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMjoyNDoyMSswOTowMCJ9",
-    "encoding": "rlp",
-    "timestamp": "2025-10-06T22:24:21.333749+09:00",
-    "metadata": {
-      "consensus_msg": {
-        "payload": "roundchange_1000000_1",
-        "prev_hash": "0x186be9b943c87980"
-      },
-      "height": 1000000,
-      "rlp_data": "roundchange_1000000_1",
-      "round": 1,
-      "source": "kaia_example_generator"
-    }
+    "subject": {
+      "digest": "",
+      "prev_hash": "0x186be9b943c87980",
+      "view": {
+        "round": 1,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:31:10.123456789Z"
+  },
+
+  "round_change_with_prepared": {
+    "message_type": "RoundChange",
+    "subject": {
+      "digest": "0x186be9b943c8a1b2",
+      "prev_hash": "0x186be9b943c87980",
+      "view": {
+        "round": 2,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:32:10.123456789Z"
+  },
+
+  "round_change_multiple_rounds": {
+    "message_type": "RoundChange",
+    "subject": {
+      "digest": "",
+      "prev_hash": "0x186be9b943c8b2c3",
+      "view": {
+        "round": 3,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:33:10.123456789Z"
   }
-]
+}

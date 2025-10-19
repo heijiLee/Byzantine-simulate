@@ -1,82 +1,61 @@
-[
-  {
-    "chain_type": "kaia",
-    "chain_id": "kaia-mainnet",
+{
+  "commit_basic": {
     "message_type": "Commit",
-    "payload": "eyJjb21taXR0ZWRfc2VhbCI6ImNvbW1pdHRlZF9zZWFsX3ZhbGlkYXRvcjBfMTAwMDAwMF8wIiwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODJmNDgiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODJiNjAiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMCJ9",
-    "encoding": "rlp",
-    "timestamp": "2025-10-06T22:24:21.33373+09:00",
-    "metadata": {
-      "committed_seal": "committed_seal_validator0_1000000_0",
-      "consensus_msg": {
-        "payload": "commit_1000000_0_validator0_0x186be9b943c82f48",
-        "prev_hash": "0x186be9b943c82b60"
-      },
-      "height": 1000000,
-      "rlp_data": "commit_1000000_0_validator0_0x186be9b943c82f48",
-      "round": 0,
-      "source": "kaia_example_generator",
-      "validator": "validator0"
-    }
+    "subject": {
+      "digest": "0x186be9b943c82f48",
+      "prev_hash": "0x186be9b943c82b60",
+      "view": {
+        "round": 0,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:30:05.123456789Z",
+    "validator": "validator0",
+    "committed_seal": "committed_seal_validator0_1000000_0"
   },
-  {
-    "chain_type": "kaia",
-    "chain_id": "kaia-mainnet",
+
+  "commit_multiple_validators": {
     "message_type": "Commit",
-    "payload": "eyJjb21taXR0ZWRfc2VhbCI6ImNvbW1pdHRlZF9zZWFsX3ZhbGlkYXRvcjFfMTAwMDAwMF8wIiwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODUyNzAiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODRlODgiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMSJ9",
-    "encoding": "rlp",
-    "timestamp": "2025-10-06T22:24:21.333737+09:00",
-    "metadata": {
-      "committed_seal": "committed_seal_validator1_1000000_0",
-      "consensus_msg": {
-        "payload": "commit_1000000_0_validator1_0x186be9b943c85270",
-        "prev_hash": "0x186be9b943c84e88"
-      },
-      "height": 1000000,
-      "rlp_data": "commit_1000000_0_validator1_0x186be9b943c85270",
-      "round": 0,
-      "source": "kaia_example_generator",
-      "validator": "validator1"
-    }
+    "subject": {
+      "digest": "0x186be9b943c85270",
+      "prev_hash": "0x186be9b943c84e88",
+      "view": {
+        "round": 0,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:30:05.123456789Z",
+    "validator": "validator1",
+    "committed_seal": "committed_seal_validator1_1000000_0"
   },
-  {
-    "chain_type": "kaia",
-    "chain_id": "kaia-mainnet",
+
+  "commit_round_1": {
     "message_type": "Commit",
-    "payload": "eyJjb21taXR0ZWRfc2VhbCI6ImNvbW1pdHRlZF9zZWFsX3ZhbGlkYXRvcjJfMTAwMDAwMF8wIiwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODYyMTAiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODVlMjgiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMiJ9",
-    "encoding": "rlp",
-    "timestamp": "2025-10-06T22:24:21.333741+09:00",
-    "metadata": {
-      "committed_seal": "committed_seal_validator2_1000000_0",
-      "consensus_msg": {
-        "payload": "commit_1000000_0_validator2_0x186be9b943c86210",
-        "prev_hash": "0x186be9b943c85e28"
-      },
-      "height": 1000000,
-      "rlp_data": "commit_1000000_0_validator2_0x186be9b943c86210",
-      "round": 0,
-      "source": "kaia_example_generator",
-      "validator": "validator2"
-    }
+    "subject": {
+      "digest": "0x186be9b943c86210",
+      "prev_hash": "0x186be9b943c85e28",
+      "view": {
+        "round": 1,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:31:00.123456789Z",
+    "validator": "validator2",
+    "committed_seal": "committed_seal_validator2_1000000_1"
   },
-  {
-    "chain_type": "kaia",
-    "chain_id": "kaia-mainnet",
+
+  "commit_nil_digest": {
     "message_type": "Commit",
-    "payload": "eyJjb21taXR0ZWRfc2VhbCI6ImNvbW1pdHRlZF9zZWFsX3ZhbGlkYXRvcjNfMTAwMDAwMF8wIiwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwic3ViamVjdCI6eyJkaWdlc3QiOiIweDE4NmJlOWI5NDNjODZkYzgiLCJwcmV2X2hhc2giOiIweDE4NmJlOWI5NDNjODY5ZTAiLCJ2aWV3Ijp7InJvdW5kIjowLCJzZXF1ZW5jZSI6MTAwMDAwMH19LCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIyOjI0OjIxKzA5OjAwIiwidmFsaWRhdG9yIjoidmFsaWRhdG9yMyJ9",
-    "encoding": "rlp",
-    "timestamp": "2025-10-06T22:24:21.333744+09:00",
-    "metadata": {
-      "committed_seal": "committed_seal_validator3_1000000_0",
-      "consensus_msg": {
-        "payload": "commit_1000000_0_validator3_0x186be9b943c86dc8",
-        "prev_hash": "0x186be9b943c869e0"
-      },
-      "height": 1000000,
-      "rlp_data": "commit_1000000_0_validator3_0x186be9b943c86dc8",
-      "round": 0,
-      "source": "kaia_example_generator",
-      "validator": "validator3"
-    }
+    "subject": {
+      "digest": "",
+      "prev_hash": "0x186be9b943c86dc8",
+      "view": {
+        "round": 0,
+        "sequence": 1000000
+      }
+    },
+    "timestamp": "2025-10-18T10:30:05.123456789Z",
+    "validator": "validator3",
+    "committed_seal": "committed_seal_validator3_1000000_0"
   }
-]
+}

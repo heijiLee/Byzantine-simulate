@@ -1,106 +1,107 @@
-[
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjZlNTIwIn0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiVm90ZSIsInJvdW5kIjowLCJzaWduYXR1cmUiOiJQcmV2b3RlVHlwZV9zaWdfdmFsaWRhdG9yMF8xMDAwMDAwXzAiLCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIxOjM2OjEyKzA5OjAwIiwidmFsaWRhdG9yX2FkZHJlc3MiOiJ2YWxpZGF0b3IwIiwidmFsaWRhdG9yX2luZGV4IjowLCJ2b3RlX3R5cGUiOiJQcmV2b3RlVHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920955+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+{
+  "prevote_for_block": {
+    "type": 1,
+    "height": "1000",
+    "round": "0",
+    "block_id": {
+      "hash": "7B1C3F5E8D9A2E4F6C8B0A1D3E5F7A9B2C4D6E8F0A1B3C5D7E9F1A3B5C7D9E0F",
+      "parts": {
+        "total": 1,
+        "hash": "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0"
+      }
+    },
+    "timestamp": "2025-10-18T10:30:00.123456789Z",
+    "validator_address": "95CEC8D3BCD896B97A9195BCC9FC3F5A7C65E092",
+    "validator_index": 0,
+    "signature": "3045022100E1F23456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABC0220DE67890ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF012"
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjcwMDc4In0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiVm90ZSIsInJvdW5kIjowLCJzaWduYXR1cmUiOiJQcmV2b3RlVHlwZV9zaWdfdmFsaWRhdG9yMV8xMDAwMDAwXzAiLCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIxOjM2OjEyKzA5OjAwIiwidmFsaWRhdG9yX2FkZHJlc3MiOiJ2YWxpZGF0b3IxIiwidmFsaWRhdG9yX2luZGV4IjowLCJ2b3RlX3R5cGUiOiJQcmV2b3RlVHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920958+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+
+  "prevote_nil": {
+    "type": 1,
+    "height": "1000",
+    "round": "0",
+    "block_id": {
+      "hash": "",
+      "parts": {
+        "total": 0,
+        "hash": ""
+      }
+    },
+    "timestamp": "2025-10-18T10:30:00.123456789Z",
+    "validator_address": "A1B2C3D4E5F6071829384756ABCDEF0123456789",
+    "validator_index": 1,
+    "signature": "304502210098765432109876543210987654321098765432109876543210987654321098760220ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789"
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjcwYzMwIn0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiVm90ZSIsInJvdW5kIjowLCJzaWduYXR1cmUiOiJQcmV2b3RlVHlwZV9zaWdfdmFsaWRhdG9yMl8xMDAwMDAwXzAiLCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIxOjM2OjEyKzA5OjAwIiwidmFsaWRhdG9yX2FkZHJlc3MiOiJ2YWxpZGF0b3IyIiwidmFsaWRhdG9yX2luZGV4IjowLCJ2b3RlX3R5cGUiOiJQcmV2b3RlVHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920961+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+
+  "precommit_basic": {
+    "type": 2,
+    "height": "1000",
+    "round": "0",
+    "block_id": {
+      "hash": "7B1C3F5E8D9A2E4F6C8B0A1D3E5F7A9B2C4D6E8F0A1B3C5D7E9F1A3B5C7D9E0F",
+      "parts": {
+        "total": 1,
+        "hash": "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0"
+      }
+    },
+    "timestamp": "2025-10-18T10:30:05.123456789Z",
+    "validator_address": "95CEC8D3BCD896B97A9195BCC9FC3F5A7C65E092",
+    "validator_index": 0,
+    "signature": "30460221009876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDC022100BA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA",
+    "extension": "",
+    "extension_signature": ""
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjcxN2U4In0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiVm90ZSIsInJvdW5kIjowLCJzaWduYXR1cmUiOiJQcmV2b3RlVHlwZV9zaWdfdmFsaWRhdG9yM18xMDAwMDAwXzAiLCJ0aW1lc3RhbXAiOiIyMDI1LTEwLTA2VDIxOjM2OjEyKzA5OjAwIiwidmFsaWRhdG9yX2FkZHJlc3MiOiJ2YWxpZGF0b3IzIiwidmFsaWRhdG9yX2luZGV4IjowLCJ2b3RlX3R5cGUiOiJQcmV2b3RlVHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920963+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+
+  "precommit_with_extension": {
+    "type": 2,
+    "height": "1000",
+    "round": "0",
+    "block_id": {
+      "hash": "7B1C3F5E8D9A2E4F6C8B0A1D3E5F7A9B2C4D6E8F0A1B3C5D7E9F1A3B5C7D9E0F",
+      "parts": {
+        "total": 1,
+        "hash": "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0"
+      }
+    },
+    "timestamp": "2025-10-18T10:30:05.123456789Z",
+    "validator_address": "95CEC8D3BCD896B97A9195BCC9FC3F5A7C65E092",
+    "validator_index": 0,
+    "signature": "30460221009876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDC022100BA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA",
+    "extension": "7B22707269636573223A5B7B2264656E6F6D223A2275617466222C227072696365223A22313233343536227D5D7D",
+    "extension_signature": "304402201234567890ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABC0220DEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCD"
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjcyYjcwIn0sImV4dGVuc2lvbiI6IlpYaDBaVzV6YVc5dVgzWmhiR2xrWVhSdmNqQT0iLCJleHRlbnNpb25fc2lnbmF0dXJlIjoiWlhoMFgzTnBaMTkyWVd4cFpHRjBiM0l3IiwiaGVpZ2h0IjoxMDAwMDAwLCJtZXNzYWdlX3R5cGUiOiJWb3RlIiwicm91bmQiOjAsInNpZ25hdHVyZSI6IlByZWNvbW1pdFR5cGVfc2lnX3ZhbGlkYXRvcjBfMTAwMDAwMF8wIiwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCIsInZhbGlkYXRvcl9hZGRyZXNzIjoidmFsaWRhdG9yMCIsInZhbGlkYXRvcl9pbmRleCI6MCwidm90ZV90eXBlIjoiUHJlY29tbWl0VHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.92097+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+
+  "precommit_nil": {
+    "type": 2,
+    "height": "1000",
+    "round": "0",
+    "block_id": {
+      "hash": "",
+      "parts": {
+        "total": 0,
+        "hash": ""
+      }
+    },
+    "timestamp": "2025-10-18T10:30:05.123456789Z",
+    "validator_address": "A1B2C3D4E5F6071829384756ABCDEF0123456789",
+    "validator_index": 1,
+    "signature": "3045022100FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876540220543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA987654"
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjczYjEwIn0sImV4dGVuc2lvbiI6IlpYaDBaVzV6YVc5dVgzWmhiR2xrWVhSdmNqRT0iLCJleHRlbnNpb25fc2lnbmF0dXJlIjoiWlhoMFgzTnBaMTkyWVd4cFpHRjBiM0l4IiwiaGVpZ2h0IjoxMDAwMDAwLCJtZXNzYWdlX3R5cGUiOiJWb3RlIiwicm91bmQiOjAsInNpZ25hdHVyZSI6IlByZWNvbW1pdFR5cGVfc2lnX3ZhbGlkYXRvcjFfMTAwMDAwMF8wIiwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCIsInZhbGlkYXRvcl9hZGRyZXNzIjoidmFsaWRhdG9yMSIsInZhbGlkYXRvcl9pbmRleCI6MCwidm90ZV90eXBlIjoiUHJlY29tbWl0VHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920973+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
-  },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjc0NmM4In0sImV4dGVuc2lvbiI6IlpYaDBaVzV6YVc5dVgzWmhiR2xrWVhSdmNqST0iLCJleHRlbnNpb25fc2lnbmF0dXJlIjoiWlhoMFgzTnBaMTkyWVd4cFpHRjBiM0l5IiwiaGVpZ2h0IjoxMDAwMDAwLCJtZXNzYWdlX3R5cGUiOiJWb3RlIiwicm91bmQiOjAsInNpZ25hdHVyZSI6IlByZWNvbW1pdFR5cGVfc2lnX3ZhbGlkYXRvcjJfMTAwMDAwMF8wIiwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCIsInZhbGlkYXRvcl9hZGRyZXNzIjoidmFsaWRhdG9yMiIsInZhbGlkYXRvcl9pbmRleCI6MCwidm90ZV90eXBlIjoiUHJlY29tbWl0VHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920979+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
-  },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Vote",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjc1ZTM4In0sImV4dGVuc2lvbiI6IlpYaDBaVzV6YVc5dVgzWmhiR2xrWVhSdmNqTT0iLCJleHRlbnNpb25fc2lnbmF0dXJlIjoiWlhoMFgzTnBaMTkyWVd4cFpHRjBiM0l6IiwiaGVpZ2h0IjoxMDAwMDAwLCJtZXNzYWdlX3R5cGUiOiJWb3RlIiwicm91bmQiOjAsInNpZ25hdHVyZSI6IlByZWNvbW1pdFR5cGVfc2lnX3ZhbGlkYXRvcjNfMTAwMDAwMF8wIiwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCIsInZhbGlkYXRvcl9hZGRyZXNzIjoidmFsaWRhdG9yMyIsInZhbGlkYXRvcl9pbmRleCI6MCwidm90ZV90eXBlIjoiUHJlY29tbWl0VHlwZSJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920982+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+
+  "prevote_round_1": {
+    "type": 1,
+    "height": "1000",
+    "round": "1",
+    "block_id": {
+      "hash": "9D8E7F6A5B4C3D2E1F0A9B8C7D6E5F4A3B2C1D0E9F8A7B6C5D4E3F2A1B0C9D8E",
+      "parts": {
+        "total": 1,
+        "hash": "E0F1A2B3C4D5E6F7A8B9C0D1E2F3A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1"
+      }
+    },
+    "timestamp": "2025-10-18T10:31:00.123456789Z",
+    "validator_address": "95CEC8D3BCD896B97A9195BCC9FC3F5A7C65E092",
+    "validator_index": 0,
+    "signature": "304502210087654321098765432109876543210987654321098765432109876543210987650220ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789"
   }
-]
+}
