@@ -1,41 +1,55 @@
-[
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "BlockPart",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjZiYTI4In0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQmxvY2tQYXJ0IiwicGFydF9ieXRlcyI6IllteHZZMnRmY0dGeWRGOHhNREF3TURBd1h6QmZNQT09IiwicGFydF9pbmRleCI6MCwicGFydF9wcm9vZiI6ImJXVnlhMnhsWDNCeWIyOW1YekE9Iiwicm91bmQiOjAsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920941+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
+{
+  "block_part_1": {
+    "height": "1000",
+    "round": 0,
+    "part": {
+      "index": 0,
+      "bytes": "YmxvY2sgZGF0YSBwYXJ0IDE=",
+      "proof": {
+        "total": 3,
+        "index": 0,
+        "leaf_hash": "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0",
+        "aunts": [
+          "B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF01",
+          "C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF012"
+        ]
+      }
     }
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "BlockPart",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjZkMTk4In0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQmxvY2tQYXJ0IiwicGFydF9ieXRlcyI6IllteHZZMnRmY0dGeWRGOHhNREF3TURBd1h6QmZNUT09IiwicGFydF9pbmRleCI6MSwicGFydF9wcm9vZiI6ImJXVnlhMnhsWDNCeWIyOW1YekU9Iiwicm91bmQiOjAsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920945+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
+
+  "block_part_2": {
+    "height": "1000",
+    "round": 0,
+    "part": {
+      "index": 1,
+      "bytes": "YmxvY2sgZGF0YSBwYXJ0IDI=",
+      "proof": {
+        "total": 3,
+        "index": 1,
+        "leaf_hash": "B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF01",
+        "aunts": [
+          "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0",
+          "C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF012"
+        ]
+      }
     }
   },
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "BlockPart",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjZkOTY4In0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQmxvY2tQYXJ0IiwicGFydF9ieXRlcyI6IllteHZZMnRmY0dGeWRGOHhNREF3TURBd1h6QmZNZz09IiwicGFydF9pbmRleCI6MiwicGFydF9wcm9vZiI6ImJXVnlhMnhsWDNCeWIyOW1Yekk9Iiwicm91bmQiOjAsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920947+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
+
+  "block_part_3": {
+    "height": "1000",
+    "round": 0,
+    "part": {
+      "index": 2,
+      "bytes": "YmxvY2sgZGF0YSBwYXJ0IDM=",
+      "proof": {
+        "total": 3,
+        "index": 2,
+        "leaf_hash": "C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF012",
+        "aunts": [
+          "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0",
+          "B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF01"
+        ]
+      }
     }
   }
-]
+}

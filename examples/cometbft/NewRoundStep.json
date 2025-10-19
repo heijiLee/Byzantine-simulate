@@ -1,15 +1,41 @@
-[
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "NewRoundStep",
-    "payload": "eyJoZWlnaHQiOjEwMDAwMDAsImxhc3RfY29tbWl0X3JvdW5kIjotMSwibWVzc2FnZV90eXBlIjoiTmV3Um91bmRTdGVwIiwicm91bmQiOjAsInNlY29uZHNfc2luY2Vfc3RhcnRfdGltZSI6MCwic3RlcCI6MSwidGltZXN0YW1wIjoiMjAyNS0xMC0wNlQyMTozNjoxMiswOTowMCJ9",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920926+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+{
+  "new_round_step_basic": {
+    "height": "1000",
+    "round": 0,
+    "step": 1,
+    "seconds_since_start_time": 0,
+    "last_commit_round": -1
+  },
+
+  "new_round_step_prevote": {
+    "height": "1000",
+    "round": 0,
+    "step": 2,
+    "seconds_since_start_time": 5,
+    "last_commit_round": -1
+  },
+
+  "new_round_step_precommit": {
+    "height": "1000",
+    "round": 0,
+    "step": 3,
+    "seconds_since_start_time": 10,
+    "last_commit_round": -1
+  },
+
+  "new_round_step_commit": {
+    "height": "1000",
+    "round": 0,
+    "step": 4,
+    "seconds_since_start_time": 15,
+    "last_commit_round": -1
+  },
+
+  "new_round_step_round_1": {
+    "height": "1000",
+    "round": 1,
+    "step": 1,
+    "seconds_since_start_time": 20,
+    "last_commit_round": 0
   }
-]
+}

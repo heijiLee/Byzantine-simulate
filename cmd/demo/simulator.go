@@ -7,33 +7,27 @@ import (
 	"time"
 
 	cometbftAdapter "codec/cometbft/adapter"
-	besuAdapter "codec/hyperledger/besu/adapter"
-	kaiaAdapter "codec/kaia/adapter"
 	"codec/message/abstraction"
 )
 
-// MessageSimulator simulates real-time message flow between chains
-type MessageSimulator struct {
-	mappers map[string]abstraction.Mapper
-	height  int64
-	round   int64
+// CometBFTMessageSimulator simulates CometBFT consensus messages
+type CometBFTMessageSimulator struct {
+	mapper *cometbftAdapter.CometBFTMapper
+	height int64
+	round  int64
 }
 
-func NewMessageSimulator() *MessageSimulator {
-	return &MessageSimulator{
-		mappers: map[string]abstraction.Mapper{
-			"cometbft": cometbftAdapter.NewCometBFTMapper("testnet-cometbft"),
-			"besu":     besuAdapter.NewBesuMapper("testnet-besu"),
-			"kaia":     kaiaAdapter.NewKaiaMapper("testnet-kaia"),
-		},
+func NewCometBFTMessageSimulator() *CometBFTMessageSimulator {
+	return &CometBFTMessageSimulator{
+		mapper: cometbftAdapter.NewCometBFTMapper("cosmos-hub-4"),
 		height: 1000,
 		round:  1,
 	}
 }
 
-func (ms *MessageSimulator) RunSimulation(duration time.Duration) {
-	fmt.Println("🚀 실시간 메시지 시뮬레이션 시작")
-	fmt.Println("================================")
+func (ms *CometBFTMessageSimulator) RunSimulation(duration time.Duration) {
+	fmt.Println("🚀 CometBFT 실시간 메시지 시뮬레이션 시작")
+	fmt.Println("=====================================")
 	fmt.Printf("⏱️  실행 시간: %v\n", duration)
 	fmt.Println()
 
@@ -55,49 +49,45 @@ func (ms *MessageSimulator) RunSimulation(duration time.Duration) {
 	}
 }
 
-func (ms *MessageSimulator) generateAndProcessMessage(count int) {
-	// 랜덤하게 체인 선택
-	chains := []string{"cometbft", "besu", "kaia"}
-	sourceChain := chains[rand.Intn(len(chains))]
-
-	// 메시지 타입 선택
-	msgTypes := []string{"proposal", "vote", "prepare", "commit"}
+func (ms *CometBFTMessageSimulator) generateAndProcessMessage(count int) {
+	// CometBFT 메시지 타입 선택
+	msgTypes := []string{"proposal", "prevote", "precommit", "new_round_step"}
 	msgType := msgTypes[rand.Intn(len(msgTypes))]
 
-	fmt.Printf("📨 메시지 #%d: %s에서 %s 메시지 생성\n", count, sourceChain, msgType)
+	fmt.Printf("📨 메시지 #%d: CometBFT %s 메시지 생성\n", count, msgType)
 
 	// 원본 메시지 생성
-	rawMsg := ms.generateRawMessage(sourceChain, msgType)
+	rawMsg := ms.generateRawMessage(msgType)
+
+	// RawCometBFT 메시지 출력
+	fmt.Printf("   📋 RawCometBFT 메시지:\n")
+	printRawMessage(rawMsg)
 
 	// Canonical로 변환
-	canonical, err := ms.mappers[sourceChain].ToCanonical(rawMsg)
+	fmt.Printf("   🔄 RawCometBFT → Canonical 변환 중...\n")
+	canonical, err := ms.mapper.ToCanonical(rawMsg)
 	if err != nil {
 		fmt.Printf("   ❌ 변환 실패: %v\n", err)
 		return
 	}
 
-	fmt.Printf("   🔄 Canonical: height=%v, type=%s\n", canonical.Height, canonical.Type)
+	// Canonical 메시지 출력
+	fmt.Printf("   📋 Canonical 메시지:\n")
+	printCanonicalMessage(canonical)
 
-	// 다른 체인으로 라우팅 (랜덤)
-	targetChains := []string{}
-	for chain := range ms.mappers {
-		if chain != sourceChain {
-			targetChains = append(targetChains, chain)
-		}
+	// 다시 RawCometBFT로 변환
+	fmt.Printf("   🔄 Canonical → RawCometBFT 변환 중...\n")
+	targetRaw, err := ms.mapper.FromCanonical(canonical)
+	if err != nil {
+		fmt.Printf("   ❌ RawCometBFT 변환 실패: %v\n", err)
+		return
 	}
 
-	if len(targetChains) > 0 {
-		targetChain := targetChains[rand.Intn(len(targetChains))]
+	// 변환된 RawCometBFT 메시지 출력
+	fmt.Printf("   📋 변환된 RawCometBFT 메시지:\n")
+	printRawMessage(*targetRaw)
 
-		targetRaw, err := ms.mappers[targetChain].FromCanonical(canonical)
-		if err != nil {
-			fmt.Printf("   ❌ %s로 변환 실패: %v\n", targetChain, err)
-			return
-		}
-
-		fmt.Printf("   📤 %s로 라우팅: %s\n", targetChain, targetRaw.MessageType)
-	}
-
+	fmt.Printf("   ✅ 변환 완료: %s\n", targetRaw.MessageType)
 	fmt.Println()
 
 	// 높이 증가
@@ -107,63 +97,49 @@ func (ms *MessageSimulator) generateAndProcessMessage(count int) {
 	}
 }
 
-func (ms *MessageSimulator) generateRawMessage(chain, msgType string) abstraction.RawConsensusMessage {
+func (ms *CometBFTMessageSimulator) generateRawMessage(msgType string) abstraction.RawConsensusMessage {
+	// 메시지 타입을 숫자로 변환
+	var typeNum int32
+	switch msgType {
+	case "proposal":
+		typeNum = 32 // Proposal 타입
+	case "prevote":
+		typeNum = 1 // Prevote 타입
+	case "precommit":
+		typeNum = 2 // Precommit 타입
+	case "new_round_step":
+		typeNum = 0 // NewRoundStep 타입
+	default:
+		typeNum = 0
+	}
+
 	baseMsg := map[string]interface{}{
-		"height":    ms.height,
-		"round":     ms.round,
+		"height":    fmt.Sprintf("%d", ms.height), // 문자열로 변환
+		"round":     fmt.Sprintf("%d", ms.round),  // 문자열로 변환
 		"timestamp": time.Now().Format(time.RFC3339),
-		"type":      msgType,
+		"type":      typeNum, // 숫자로 변환
 	}
 
-	var payload []byte
-	var chainType abstraction.ChainType
-
-	switch chain {
-	case "cometbft":
-		chainType = abstraction.ChainTypeCometBFT
-		baseMsg["block_hash"] = fmt.Sprintf("0x%x", rand.Int63())
-		baseMsg["proposer"] = fmt.Sprintf("node%d", rand.Intn(10)+1)
-		baseMsg["validator"] = fmt.Sprintf("validator%d", rand.Intn(10)+1)
-		baseMsg["signature"] = fmt.Sprintf("sig_%d", rand.Int63())
-
-	case "besu":
-		chainType = abstraction.ChainTypeHyperledger
-		baseMsg["block_number"] = ms.height
-		baseMsg["round_number"] = ms.round
-		baseMsg["block_hash"] = fmt.Sprintf("0x%x", rand.Int63())
-		baseMsg["proposer"] = fmt.Sprintf("validator%d", rand.Intn(4)+1)
-		baseMsg["gas_limit"] = 8000000
-		baseMsg["gas_used"] = rand.Intn(4000000) + 1000000
-
-	case "kaia":
-		chainType = abstraction.ChainTypeKaia
-		baseMsg["block_number"] = ms.height
-		baseMsg["round_number"] = ms.round
-		baseMsg["block_hash"] = fmt.Sprintf("0x%x", rand.Int63())
-		baseMsg["proposer"] = fmt.Sprintf("validator%d", rand.Intn(21)+1)
-		baseMsg["gas_limit"] = 8000000
-		baseMsg["consensus_type"] = "istanbul"
-		baseMsg["governance_id"] = "governance-1"
+	// CometBFT 특화 필드 추가 (mapper가 기대하는 필드명 사용)
+	baseMsg["block_id"] = map[string]interface{}{
+		"hash": fmt.Sprintf("0x%x", rand.Int63()),
+		"parts": map[string]interface{}{
+			"total": 1,
+			"hash":  fmt.Sprintf("0x%x", rand.Int63()),
+		},
 	}
+	baseMsg["proposer_address"] = fmt.Sprintf("node%d", rand.Intn(10)+1)
+	baseMsg["validator_address"] = fmt.Sprintf("validator%d", rand.Intn(10)+1)
+	baseMsg["signature"] = fmt.Sprintf("sig_%d", rand.Int63())
 
-	payload, _ = json.Marshal(baseMsg)
+	payload, _ := json.Marshal(baseMsg)
 
 	return abstraction.RawConsensusMessage{
-		ChainType:   chainType,
-		ChainID:     fmt.Sprintf("testnet-%s", chain),
+		ChainType:   abstraction.ChainTypeCometBFT,
+		ChainID:     "cosmos-hub-4",
 		MessageType: msgType,
 		Payload:     payload,
 		Encoding:    "json",
 		Timestamp:   time.Now(),
 	}
-}
-
-func main() {
-	fmt.Println("🎮 Byzantine Message Bridge 실시간 시뮬레이터")
-	fmt.Println("=============================================")
-
-	simulator := NewMessageSimulator()
-
-	// 30초간 시뮬레이션 실행
-	simulator.RunSimulation(30 * time.Second)
 }

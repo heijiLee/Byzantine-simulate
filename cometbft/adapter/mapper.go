@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/big"
+	"strconv"
 	"time"
 
 	"codec/message/abstraction"
@@ -38,6 +39,10 @@ func (m *CometBFTMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abst
 				Code:    "DECODE_FAILURE",
 			}
 		}
+		// MessageType이 비어있으면 RawConsensusMessage의 MessageType 사용
+		if cometMsg.MessageType == "" {
+			cometMsg.MessageType = raw.MessageType
+		}
 	case "proto":
 		// For protobuf, we'll parse as JSON for now since codec is not available
 		if err := json.Unmarshal(raw.Payload, &cometMsg); err != nil {
@@ -58,8 +63,8 @@ func (m *CometBFTMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abst
 	// Convert to canonical message based on message type
 	canonical := &abstraction.CanonicalMessage{
 		ChainID:    m.chainID,
-		Height:     cometMsg.Height,
-		Round:      cometMsg.Round,
+		Height:     parseStringToBigInt(cometMsg.Height), // 문자열을 big.Int로 변환
+		Round:      parseStringToBigInt(cometMsg.Round),  // 문자열을 big.Int로 변환
 		Timestamp:  cometMsg.Timestamp,
 		Type:       m.mapMessageType(cometMsg.MessageType),
 		RawPayload: raw.Payload,
@@ -93,6 +98,16 @@ func (m *CometBFTMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abst
 		canonical.Extensions["validator_index"] = cometMsg.ValidatorIndex
 		canonical.Extensions["extension"] = cometMsg.Extension
 		canonical.Extensions["extension_signature"] = cometMsg.ExtensionSignature
+
+		// Vote 타입에 따라 Canonical Type 설정
+		if cometMsg.Type == 1 {
+			canonical.Type = abstraction.MsgTypePrevote
+		} else if cometMsg.Type == 2 {
+			canonical.Type = abstraction.MsgTypePrecommit
+		} else {
+			// Type이 설정되지 않은 경우 기본값으로 MsgTypeVote 유지
+			canonical.Type = abstraction.MsgTypeVote
+		}
 
 	case "BlockPart":
 		canonical.BlockHash = cometMsg.BlockID.Hash
@@ -137,8 +152,8 @@ func (m *CometBFTMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abst
 
 	// Convert canonical message to CometBFT format
 	cometMsg := CometBFTConsensusMessage{
-		Height:    msg.Height,
-		Round:     msg.Round,
+		Height:    bigIntToString(msg.Height), // big.Int를 문자열로 변환
+		Round:     bigIntToString(msg.Round),  // big.Int를 문자열로 변환
 		Timestamp: msg.Timestamp,
 		Version:   "0.38.17", // Default version
 	}
@@ -160,21 +175,21 @@ func (m *CometBFTMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abst
 
 	case abstraction.MsgTypePrevote:
 		cometMsg.MessageType = "Vote"
-		cometMsg.VoteType = "PrevoteType"
+		cometMsg.Type = 1 // Prevote 타입
 		cometMsg.BlockID = BlockID{Hash: msg.BlockHash}
 		cometMsg.ValidatorAddress = msg.Validator
 		cometMsg.Signature = msg.Signature
 
 	case abstraction.MsgTypePrecommit:
 		cometMsg.MessageType = "Vote"
-		cometMsg.VoteType = "PrecommitType"
+		cometMsg.Type = 2 // Precommit 타입
 		cometMsg.BlockID = BlockID{Hash: msg.BlockHash}
 		cometMsg.ValidatorAddress = msg.Validator
 		cometMsg.Signature = msg.Signature
-		if ext, ok := msg.Extensions["extension"].([]byte); ok {
+		if ext, ok := msg.Extensions["extension"].(string); ok {
 			cometMsg.Extension = ext
 		}
-		if extSig, ok := msg.Extensions["extension_signature"].([]byte); ok {
+		if extSig, ok := msg.Extensions["extension_signature"].(string); ok {
 			cometMsg.ExtensionSignature = extSig
 		}
 
@@ -246,8 +261,8 @@ func (m *CometBFTMapper) mapMessageType(cometType string) abstraction.MsgType {
 	case "Proposal":
 		return abstraction.MsgTypeProposal
 	case "Vote":
-		// Vote type is determined by VoteType field
-		return abstraction.MsgTypeVote // Generic vote, specific type in extensions
+		// Vote type will be determined in ToCanonical based on Type field
+		return abstraction.MsgTypeVote // Generic vote, specific type set in ToCanonical
 	case "BlockPart":
 		return abstraction.MsgTypeBlock
 	case "NewRoundStep", "NewValidBlock", "HasVote", "VoteSetMaj23", "VoteSetBits", "ProposalPOL":
@@ -259,10 +274,11 @@ func (m *CometBFTMapper) mapMessageType(cometType string) abstraction.MsgType {
 
 // CometBFTConsensusMessage represents the internal CometBFT consensus message structure
 type CometBFTConsensusMessage struct {
-	// Common fields
-	Height    *big.Int  `json:"height"`
-	Round     *big.Int  `json:"round"`
-	Timestamp time.Time `json:"timestamp"`
+	// Common fields - Vote.json 형식에 맞춰 수정
+	Type      int32     `json:"type,omitempty"`   // Vote 타입 (1: Prevote, 2: Precommit)
+	Height    string    `json:"height,omitempty"` // 문자열로 저장 (Vote.json 형식)
+	Round     string    `json:"round,omitempty"`  // 문자열로 저장 (Vote.json 형식)
+	Timestamp time.Time `json:"timestamp,omitempty"`
 	Version   string    `json:"version,omitempty"`
 
 	// Message type and step
@@ -279,12 +295,12 @@ type CometBFTConsensusMessage struct {
 	Signature       string  `json:"signature,omitempty"`
 	POLRound        int32   `json:"pol_round,omitempty"`
 
-	// Vote specific
+	// Vote specific - Vote.json 형식에 맞춰 수정
 	VoteType           string `json:"vote_type,omitempty"`
 	ValidatorAddress   string `json:"validator_address,omitempty"`
 	ValidatorIndex     int32  `json:"validator_index,omitempty"`
-	Extension          []byte `json:"extension,omitempty"`
-	ExtensionSignature []byte `json:"extension_signature,omitempty"`
+	Extension          string `json:"extension,omitempty"`           // 문자열로 변경
+	ExtensionSignature string `json:"extension_signature,omitempty"` // 문자열로 변경
 
 	// BlockPart specific
 	PartIndex uint32 `json:"part_index,omitempty"`
@@ -314,4 +330,22 @@ type BlockID struct {
 type PartSetHeader struct {
 	Total uint32 `json:"total"`
 	Hash  []byte `json:"hash"`
+}
+
+// Helper functions for string/big.Int conversion
+func parseStringToBigInt(s string) *big.Int {
+	if s == "" {
+		return nil
+	}
+	if val, err := strconv.ParseInt(s, 10, 64); err == nil {
+		return big.NewInt(val)
+	}
+	return nil
+}
+
+func bigIntToString(bi *big.Int) string {
+	if bi == nil {
+		return ""
+	}
+	return bi.String()
 }

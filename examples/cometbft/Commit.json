@@ -1,15 +1,53 @@
-[
-  {
-    "chain_type": "cometbft",
-    "chain_id": "cosmos-hub-4",
-    "message_type": "Commit",
-    "payload": "eyJibG9ja19pZCI6eyJoYXNoIjoiMHgxODZiZTcxOGMwZjc3OTkwIn0sImhlaWdodCI6MTAwMDAwMCwibWVzc2FnZV90eXBlIjoiQ29tbWl0Iiwicm91bmQiOjAsInNpZ25hdHVyZXMiOlt7ImJsb2NrX2lkX2ZsYWciOiJCbG9ja0lERmxhZ0NvbW1pdCIsInNpZ25hdHVyZSI6ImNvbW1pdF9zaWdfMCIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAiLCJ2YWxpZGF0b3JfYWRkcmVzcyI6InZhbGlkYXRvcjAifSx7ImJsb2NrX2lkX2ZsYWciOiJCbG9ja0lERmxhZ0NvbW1pdCIsInNpZ25hdHVyZSI6ImNvbW1pdF9zaWdfMSIsInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAiLCJ2YWxpZGF0b3JfYWRkcmVzcyI6InZhbGlkYXRvcjEifV0sInRpbWVzdGFtcCI6IjIwMjUtMTAtMDZUMjE6MzY6MTIrMDk6MDAifQ==",
-    "encoding": "json",
-    "timestamp": "2025-10-06T21:36:12.920991+09:00",
-    "metadata": {
-      "height": 1000000,
-      "round": 0,
-      "source": "example_generator"
-    }
+{
+  "commit_basic": {
+    "height": "1000",
+    "round": 0,
+    "block_id": {
+      "hash": "7B1C3F5E8D9A2E4F6C8B0A1D3E5F7A9B2C4D6E8F0A1B3C5D7E9F1A3B5C7D9E0F",
+      "parts": {
+        "total": 1,
+        "hash": "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0"
+      }
+    },
+    "signatures": [
+      {
+        "block_id_flag": 2,
+        "validator_address": "95CEC8D3BCD896B97A9195BCC9FC3F5A7C65E092",
+        "timestamp": "2025-10-18T10:30:05.123456789Z",
+        "signature": "30460221009876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDC022100BA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA"
+      },
+      {
+        "block_id_flag": 2,
+        "validator_address": "A1B2C3D4E5F6071829384756ABCDEF0123456789",
+        "timestamp": "2025-10-18T10:30:05.123456789Z",
+        "signature": "3045022100FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876540220543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA987654"
+      }
+    ]
+  },
+
+  "commit_with_extension": {
+    "height": "1000",
+    "round": 0,
+    "block_id": {
+      "hash": "7B1C3F5E8D9A2E4F6C8B0A1D3E5F7A9B2C4D6E8F0A1B3C5D7E9F1A3B5C7D9E0F",
+      "parts": {
+        "total": 1,
+        "hash": "A1B2C3D4E5F67890123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0"
+      }
+    },
+    "signatures": [
+      {
+        "block_id_flag": 2,
+        "validator_address": "95CEC8D3BCD896B97A9195BCC9FC3F5A7C65E092",
+        "timestamp": "2025-10-18T10:30:05.123456789Z",
+        "signature": "30460221009876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDC022100BA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA"
+      },
+      {
+        "block_id_flag": 2,
+        "validator_address": "A1B2C3D4E5F6071829384756ABCDEF0123456789",
+        "timestamp": "2025-10-18T10:30:05.123456789Z",
+        "signature": "3045022100FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876540220543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA987654"
+      }
+    ]
   }
-]
+}
