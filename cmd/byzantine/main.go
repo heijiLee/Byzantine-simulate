@@ -29,11 +29,15 @@ type pipelineOutput struct {
 
 func main() {
 	inputPath := flag.String("input", "", "Path to a canonical message JSON file")
-	actionFlag := flag.String("action", string(cometbftAdapter.ByzantineActionDoubleVote), "Byzantine action to apply (double-vote|double-proposal|none)")
+	actionFlag := flag.String("action", string(cometbftAdapter.ByzantineActionDoubleVote), "Byzantine action to apply (double_vote|double_proposal|alter_validator|drop_signature|timestamp_skew|none)")
 	chainID := flag.String("chain-id", "cosmos-hub-4", "Chain identifier used when re-encoding the message")
 	alternateBlock := flag.String("alternate-block", "", "Alternate block hash to use for the forged message")
 	alternatePrev := flag.String("alternate-prev-hash", "", "Alternate previous block hash (used for proposals)")
 	alternateSig := flag.String("alternate-signature", "", "Alternate signature to attach to the forged message")
+	alternateValidator := flag.String("alternate-validator", "", "Alternate validator/proposer ID applied by alter_validator")
+	roundOffset := flag.Int("round-offset", 0, "Offset (positive or negative) applied to the canonical round")
+	heightOffset := flag.Int("height-offset", 0, "Offset (positive or negative) applied to the canonical height")
+	timestampSkew := flag.Duration("timestamp-skew", 0, "Duration added to canonical timestamps when mutating messages")
 	outputPath := flag.String("output", "", "Optional path to write the resulting CometBFT messages as JSON")
 	flag.Parse()
 
@@ -60,6 +64,10 @@ func main() {
 		AlternateBlockHash: *alternateBlock,
 		AlternatePrevHash:  *alternatePrev,
 		AlternateSignature: *alternateSig,
+		AlternateValidator: *alternateValidator,
+		RoundOffset:        int64(*roundOffset),
+		HeightOffset:       int64(*heightOffset),
+		TimestampShift:     *timestampSkew,
 	}
 
 	byzCanonicals, err := cometbftAdapter.ApplyByzantineCanonical(canonical, action, opts)

@@ -48,7 +48,22 @@ go run cmd/demo/main.go
 - Lists the available scenarios (`simulation`, `vote-batch`, `byzantine`).
 - `-scenario=simulation` streams synthetic CometBFT messages through the canonical mapper.
 - `-scenario=vote-batch` replays fixtures from `examples/cometbft/Vote.json` and validates the round-trip.
-- `-scenario=byzantine` forges double votes or proposals via the **canonical → byz-canonical → byzcomet** pipeline and prints each stage of the mutation.
+- `-scenario=byzantine` forges mutated payloads via the **canonical → byz-canonical → byzcomet** pipeline and prints each stage of the mutation.
+- Actions supported by the byzantine pipeline include `double_vote`, `double_proposal`, `alter_validator`, `drop_signature`, `timestamp_skew`, and `none`.
+- Tunable flags such as `-alternate-block`, `-alternate-prev`, `-alternate-signature`, `-alternate-validator`, `-round-offset`, `-height-offset`, and `-timestamp-skew` control the resulting forged payloads.
+
+Example explorations:
+
+```bash
+# Emit a conflicting prevote that bumps height/round and swaps the validator
+go run cmd/demo/main.go -scenario=byzantine -action=alter_validator -alternate-validator=validator-9 -round-offset=1 -height-offset=2
+
+# Produce a timestamp-skewed proposal with custom hashes
+go run cmd/demo/main.go -scenario=byzantine -action=timestamp_skew -timestamp-skew=250ms -alternate-block=0xDEADBEEF -alternate-prev=0xFEEDFACE
+
+# Generate a double vote while forcing an explicit signature override
+go run cmd/demo/main.go -scenario=byzantine -action=double_vote -alternate-signature=fake-signature
+```
 
 To script the same pipeline, use `cmd/byzantine` which emits JSON containing both the byz-canonical mutations and their encoded CometBFT counterparts.
 

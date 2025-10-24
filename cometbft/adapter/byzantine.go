@@ -19,6 +19,12 @@ const (
 	ByzantineActionDoubleVote ByzantineAction = "double_vote"
 	// ByzantineActionDoubleProposal emits two proposal messages that reference different blocks.
 	ByzantineActionDoubleProposal ByzantineAction = "double_proposal"
+	// ByzantineActionAlterValidator rewrites the validator or proposer identity.
+	ByzantineActionAlterValidator ByzantineAction = "alter_validator"
+	// ByzantineActionDropSignature removes the signature from the message.
+	ByzantineActionDropSignature ByzantineAction = "drop_signature"
+	// ByzantineActionTimestampSkew applies a timestamp shift to the message.
+	ByzantineActionTimestampSkew ByzantineAction = "timestamp_skew"
 )
 
 // ByzantineOptions contains optional overrides for the mutated messages.
@@ -26,6 +32,10 @@ type ByzantineOptions struct {
 	AlternateBlockHash string
 	AlternatePrevHash  string
 	AlternateSignature string
+	AlternateValidator string
+	RoundOffset        int64
+	HeightOffset       int64
+	TimestampShift     time.Duration
 }
 
 // ParseByzantineAction converts a CLI string to the typed action.
@@ -37,6 +47,12 @@ func ParseByzantineAction(value string) (ByzantineAction, error) {
 		return ByzantineActionDoubleVote, nil
 	case string(ByzantineActionDoubleProposal):
 		return ByzantineActionDoubleProposal, nil
+	case string(ByzantineActionAlterValidator):
+		return ByzantineActionAlterValidator, nil
+	case string(ByzantineActionDropSignature):
+		return ByzantineActionDropSignature, nil
+	case string(ByzantineActionTimestampSkew):
+		return ByzantineActionTimestampSkew, nil
 	default:
 		return ByzantineActionNone, fmt.Errorf("unknown byzantine action: %s", value)
 	}
@@ -49,46 +65,19 @@ func ApplyByzantineCanonical(msg *abstraction.CanonicalMessage, action Byzantine
 		return nil, fmt.Errorf("canonical message cannot be nil")
 	}
 
-	base := cloneCanonicalMessage(msg)
-
 	switch action {
 	case ByzantineActionNone:
-		return []*abstraction.CanonicalMessage{base}, nil
+		return []*abstraction.CanonicalMessage{cloneCanonicalMessage(msg)}, nil
 	case ByzantineActionDoubleVote:
-		if msg.Type != abstraction.MsgTypePrevote && msg.Type != abstraction.MsgTypePrecommit && msg.Type != abstraction.MsgTypeVote {
-			return nil, fmt.Errorf("double_vote action requires a vote canonical message")
-		}
-
-		mutated := cloneCanonicalMessage(msg)
-		mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
-		if opts.AlternateSignature != "" {
-			mutated.Signature = opts.AlternateSignature
-		}
-		if mutated.Timestamp.Equal(msg.Timestamp) {
-			mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
-		}
-
-		return []*abstraction.CanonicalMessage{base, mutated}, nil
+		return applyDoubleVoteMutation(msg, opts)
 	case ByzantineActionDoubleProposal:
-		if msg.Type != abstraction.MsgTypeProposal {
-			return nil, fmt.Errorf("double_proposal action requires a proposal canonical message")
-		}
-
-		mutated := cloneCanonicalMessage(msg)
-		mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
-		if opts.AlternatePrevHash != "" {
-			mutated.PrevHash = opts.AlternatePrevHash
-		} else if mutated.PrevHash == msg.PrevHash {
-			mutated.PrevHash = chooseAlternateHash(msg.PrevHash, "")
-		}
-		if opts.AlternateSignature != "" {
-			mutated.Signature = opts.AlternateSignature
-		}
-		if mutated.Timestamp.Equal(msg.Timestamp) {
-			mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
-		}
-
-		return []*abstraction.CanonicalMessage{base, mutated}, nil
+		return applyDoubleProposalMutation(msg, opts)
+	case ByzantineActionAlterValidator:
+		return applyAlterValidatorMutation(msg, opts)
+	case ByzantineActionDropSignature:
+		return applyDropSignatureMutation(msg, opts)
+	case ByzantineActionTimestampSkew:
+		return applyTimestampSkewMutation(msg, opts)
 	default:
 		return nil, fmt.Errorf("unsupported byzantine action: %s", action)
 	}
@@ -182,4 +171,123 @@ func cloneCanonicalMessage(msg *abstraction.CanonicalMessage) *abstraction.Canon
 		cloned.RawPayload = append([]byte(nil), msg.RawPayload...)
 	}
 	return &cloned
+}
+
+func applyDoubleVoteMutation(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.CanonicalMessage, error) {
+	if msg.Type != abstraction.MsgTypePrevote && msg.Type != abstraction.MsgTypePrecommit && msg.Type != abstraction.MsgTypeVote {
+		return nil, fmt.Errorf("double_vote action requires a vote canonical message")
+	}
+
+	original := cloneCanonicalMessage(msg)
+	mutated := cloneCanonicalMessage(msg)
+	mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
+	if opts.AlternateSignature != "" {
+		mutated.Signature = opts.AlternateSignature
+	}
+
+	applyCommonMutations(mutated, opts)
+	ensureTimestampProgress(mutated, msg.Timestamp)
+
+	return []*abstraction.CanonicalMessage{original, mutated}, nil
+}
+
+func applyDoubleProposalMutation(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.CanonicalMessage, error) {
+	if msg.Type != abstraction.MsgTypeProposal {
+		return nil, fmt.Errorf("double_proposal action requires a proposal canonical message")
+	}
+
+	original := cloneCanonicalMessage(msg)
+	mutated := cloneCanonicalMessage(msg)
+	mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
+	if opts.AlternatePrevHash != "" {
+		mutated.PrevHash = opts.AlternatePrevHash
+	} else if mutated.PrevHash == msg.PrevHash {
+		mutated.PrevHash = chooseAlternateHash(msg.PrevHash, "")
+	}
+	if opts.AlternateSignature != "" {
+		mutated.Signature = opts.AlternateSignature
+	}
+
+	applyCommonMutations(mutated, opts)
+	ensureTimestampProgress(mutated, msg.Timestamp)
+
+	return []*abstraction.CanonicalMessage{original, mutated}, nil
+}
+
+func applyAlterValidatorMutation(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.CanonicalMessage, error) {
+	if opts.AlternateValidator == "" {
+		return nil, fmt.Errorf("alter_validator action requires AlternateValidator to be set")
+	}
+
+	mutated := cloneCanonicalMessage(msg)
+	switch msg.Type {
+	case abstraction.MsgTypePrevote, abstraction.MsgTypePrecommit, abstraction.MsgTypeVote:
+		mutated.Validator = opts.AlternateValidator
+	case abstraction.MsgTypeProposal:
+		mutated.Proposer = opts.AlternateValidator
+	default:
+		return nil, fmt.Errorf("alter_validator action requires a proposal or vote canonical message")
+	}
+
+	applyCommonMutations(mutated, opts)
+	ensureTimestampProgress(mutated, msg.Timestamp)
+
+	return []*abstraction.CanonicalMessage{mutated}, nil
+}
+
+func applyDropSignatureMutation(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.CanonicalMessage, error) {
+	mutated := cloneCanonicalMessage(msg)
+	mutated.Signature = ""
+
+	applyCommonMutations(mutated, opts)
+	ensureTimestampProgress(mutated, msg.Timestamp)
+
+	return []*abstraction.CanonicalMessage{mutated}, nil
+}
+
+func applyTimestampSkewMutation(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.CanonicalMessage, error) {
+	if opts.TimestampShift == 0 {
+		return nil, fmt.Errorf("timestamp_skew action requires TimestampShift to be non-zero")
+	}
+
+	mutated := cloneCanonicalMessage(msg)
+	applyCommonMutations(mutated, opts)
+	ensureTimestampProgress(mutated, msg.Timestamp)
+
+	return []*abstraction.CanonicalMessage{mutated}, nil
+}
+
+func applyCommonMutations(target *abstraction.CanonicalMessage, opts ByzantineOptions) {
+	if opts.HeightOffset != 0 {
+		target.Height = shiftBigInt(target.Height, opts.HeightOffset)
+	}
+	if opts.RoundOffset != 0 {
+		target.Round = shiftBigInt(target.Round, opts.RoundOffset)
+	}
+	if opts.TimestampShift != 0 {
+		target.Timestamp = target.Timestamp.Add(opts.TimestampShift)
+	}
+}
+
+func ensureTimestampProgress(mutated *abstraction.CanonicalMessage, original time.Time) {
+	if original.IsZero() {
+		return
+	}
+	if mutated.Timestamp.Equal(original) {
+		mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
+	}
+}
+
+func shiftBigInt(value *big.Int, offset int64) *big.Int {
+	if offset == 0 {
+		if value == nil {
+			return nil
+		}
+		return new(big.Int).Set(value)
+	}
+
+	if value == nil {
+		return big.NewInt(offset)
+	}
+	return new(big.Int).Add(value, big.NewInt(offset))
 }

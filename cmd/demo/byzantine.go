@@ -11,7 +11,7 @@ import (
 	"codec/message/abstraction"
 )
 
-func runByzantineScenario(mapper *cometbftAdapter.CometBFTMapper, actionFlag, canonicalPath, alternateBlock, alternatePrev, alternateSig string) {
+func runByzantineScenario(mapper *cometbftAdapter.CometBFTMapper, actionFlag, canonicalPath, alternateBlock, alternatePrev, alternateSig, alternateValidator string, roundOffset, heightOffset int64, timestampSkew time.Duration) {
 	fmt.Println("🧨 Byzantine Message Emission")
 	fmt.Println("============================")
 
@@ -34,6 +34,10 @@ func runByzantineScenario(mapper *cometbftAdapter.CometBFTMapper, actionFlag, ca
 		AlternateBlockHash: alternateBlock,
 		AlternatePrevHash:  alternatePrev,
 		AlternateSignature: alternateSig,
+		AlternateValidator: alternateValidator,
+		RoundOffset:        roundOffset,
+		HeightOffset:       heightOffset,
+		TimestampShift:     timestampSkew,
 	}
 
 	byzCanonicals, err := cometbftAdapter.ApplyByzantineCanonical(canonical, action, opts)
