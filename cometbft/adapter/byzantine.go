@@ -42,81 +42,75 @@ func ParseByzantineAction(value string) (ByzantineAction, error) {
 	}
 }
 
-// FromCanonicalByzantine converts a canonical message back to CometBFT format while applying a byzantine action.
-func (m *CometBFTMapper) FromCanonicalByzantine(msg *abstraction.CanonicalMessage, action ByzantineAction, opts ByzantineOptions) ([]*abstraction.RawConsensusMessage, error) {
+// ApplyByzantineCanonical mutates a canonical message according to the requested action.
+// It returns the set of canonical messages that should subsequently be encoded.
+func ApplyByzantineCanonical(msg *abstraction.CanonicalMessage, action ByzantineAction, opts ByzantineOptions) ([]*abstraction.CanonicalMessage, error) {
+	if msg == nil {
+		return nil, fmt.Errorf("canonical message cannot be nil")
+	}
+
+	base := cloneCanonicalMessage(msg)
+
 	switch action {
 	case ByzantineActionNone:
-		raw, err := m.rawFromCanonicalMessage(msg)
-		if err != nil {
-			return nil, err
-		}
-		return []*abstraction.RawConsensusMessage{raw}, nil
+		return []*abstraction.CanonicalMessage{base}, nil
 	case ByzantineActionDoubleVote:
-		return m.doubleVoteMessages(msg, opts)
+		if msg.Type != abstraction.MsgTypePrevote && msg.Type != abstraction.MsgTypePrecommit && msg.Type != abstraction.MsgTypeVote {
+			return nil, fmt.Errorf("double_vote action requires a vote canonical message")
+		}
+
+		mutated := cloneCanonicalMessage(msg)
+		mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
+		if opts.AlternateSignature != "" {
+			mutated.Signature = opts.AlternateSignature
+		}
+		if mutated.Timestamp.Equal(msg.Timestamp) {
+			mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
+		}
+
+		return []*abstraction.CanonicalMessage{base, mutated}, nil
 	case ByzantineActionDoubleProposal:
-		return m.doubleProposalMessages(msg, opts)
+		if msg.Type != abstraction.MsgTypeProposal {
+			return nil, fmt.Errorf("double_proposal action requires a proposal canonical message")
+		}
+
+		mutated := cloneCanonicalMessage(msg)
+		mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
+		if opts.AlternatePrevHash != "" {
+			mutated.PrevHash = opts.AlternatePrevHash
+		} else if mutated.PrevHash == msg.PrevHash {
+			mutated.PrevHash = chooseAlternateHash(msg.PrevHash, "")
+		}
+		if opts.AlternateSignature != "" {
+			mutated.Signature = opts.AlternateSignature
+		}
+		if mutated.Timestamp.Equal(msg.Timestamp) {
+			mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
+		}
+
+		return []*abstraction.CanonicalMessage{base, mutated}, nil
 	default:
 		return nil, fmt.Errorf("unsupported byzantine action: %s", action)
 	}
 }
 
-func (m *CometBFTMapper) doubleVoteMessages(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.RawConsensusMessage, error) {
-	if msg.Type != abstraction.MsgTypePrevote && msg.Type != abstraction.MsgTypePrecommit && msg.Type != abstraction.MsgTypeVote {
-		return nil, fmt.Errorf("double_vote action requires a vote canonical message")
-	}
-
-	baseRaw, err := m.rawFromCanonicalMessage(msg)
+// FromCanonicalByzantine converts a canonical message back to CometBFT format while applying a byzantine action.
+func (m *CometBFTMapper) FromCanonicalByzantine(msg *abstraction.CanonicalMessage, action ByzantineAction, opts ByzantineOptions) ([]*abstraction.RawConsensusMessage, error) {
+	canonicals, err := ApplyByzantineCanonical(msg, action, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	mutated := cloneCanonicalMessage(msg)
-	mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
-	if opts.AlternateSignature != "" {
-		mutated.Signature = opts.AlternateSignature
-	}
-	if mutated.Timestamp.Equal(msg.Timestamp) {
-		mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
-	}
-
-	mutatedRaw, err := m.rawFromCanonicalMessage(mutated)
-	if err != nil {
-		return nil, err
+	raws := make([]*abstraction.RawConsensusMessage, len(canonicals))
+	for i, canonical := range canonicals {
+		raw, err := m.FromCanonical(canonical)
+		if err != nil {
+			return nil, err
+		}
+		raws[i] = raw
 	}
 
-	return []*abstraction.RawConsensusMessage{baseRaw, mutatedRaw}, nil
-}
-
-func (m *CometBFTMapper) doubleProposalMessages(msg *abstraction.CanonicalMessage, opts ByzantineOptions) ([]*abstraction.RawConsensusMessage, error) {
-	if msg.Type != abstraction.MsgTypeProposal {
-		return nil, fmt.Errorf("double_proposal action requires a proposal canonical message")
-	}
-
-	baseRaw, err := m.rawFromCanonicalMessage(msg)
-	if err != nil {
-		return nil, err
-	}
-
-	mutated := cloneCanonicalMessage(msg)
-	mutated.BlockHash = chooseAlternateHash(msg.BlockHash, opts.AlternateBlockHash)
-	if opts.AlternatePrevHash != "" {
-		mutated.PrevHash = opts.AlternatePrevHash
-	} else if mutated.PrevHash == msg.PrevHash {
-		mutated.PrevHash = chooseAlternateHash(msg.PrevHash, "")
-	}
-	if opts.AlternateSignature != "" {
-		mutated.Signature = opts.AlternateSignature
-	}
-	if mutated.Timestamp.Equal(msg.Timestamp) {
-		mutated.Timestamp = mutated.Timestamp.Add(1 * time.Millisecond)
-	}
-
-	mutatedRaw, err := m.rawFromCanonicalMessage(mutated)
-	if err != nil {
-		return nil, err
-	}
-
-	return []*abstraction.RawConsensusMessage{baseRaw, mutatedRaw}, nil
+	return raws, nil
 }
 
 func chooseAlternateHash(original, provided string) string {

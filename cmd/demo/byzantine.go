@@ -36,18 +36,27 @@ func runByzantineScenario(mapper *cometbftAdapter.CometBFTMapper, actionFlag, ca
 		AlternateSignature: alternateSig,
 	}
 
-	rawMessages, err := mapper.FromCanonicalByzantine(canonical, action, opts)
+	byzCanonicals, err := cometbftAdapter.ApplyByzantineCanonical(canonical, action, opts)
 	if err != nil {
 		fmt.Printf("byzantine conversion failed: %v\n", err)
 		return
 	}
 
-	for i, raw := range rawMessages {
+	for i, byzCanonical := range byzCanonicals {
+		fmt.Printf("\nByz-canonical #%d\n", i+1)
+		printCanonicalMessage(byzCanonical)
+
+		raw, err := mapper.FromCanonical(byzCanonical)
+		if err != nil {
+			fmt.Printf("failed to encode byz-canonical #%d: %v\n", i+1, err)
+			return
+		}
+
 		fmt.Printf("\nForged message #%d (%s)\n", i+1, strings.ToUpper(raw.MessageType))
 		printRawMessage(*raw)
 	}
 
-	fmt.Printf("\nGenerated %d CometBFT messages via action %s.\n", len(rawMessages), action)
+	fmt.Printf("\nGenerated %d CometBFT messages via action %s.\n", len(byzCanonicals), action)
 }
 
 func loadCanonicalForScenario(mapper *cometbftAdapter.CometBFTMapper, canonicalPath string) (*abstraction.CanonicalMessage, string, error) {
