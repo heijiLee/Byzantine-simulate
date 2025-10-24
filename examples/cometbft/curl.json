@@ -1,0 +1,241 @@
+
+{
+  "jsonrpc": "2.0",
+  "id": -1,
+  "result": {
+    "round_state": {
+      "height": "664",
+      "round": 0,
+      "step": 1,
+      "start_time": "2025-10-19T07:56:35.290749Z",
+      "commit_time": "2025-10-19T07:56:34.290749Z",
+      "validators": {
+        "validators": [
+          {
+            "address": "20CA1B3031F4FC0BAF83CE694B2623CFE79FEFAE",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "J8xtDzfAa4KuhflNTnDKi2iffISgFDOseF3HLxuZhDo="
+            },
+            "voting_power": "1",
+            "proposer_priority": "0"
+          },
+          {
+            "address": "29833B77421B622505188C8F9428D8D967636406",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "K8HBGiSqV3LuTmqawuIVzUVnkbh9gqpw4Bmd5hvYF9k="
+            },
+            "voting_power": "1",
+            "proposer_priority": "0"
+          },
+          {
+            "address": "97581FD6C96B392CB3929752142546D2DBCA6F6B",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "IRRxpVVpsXcL/9QCUaWZOWE1yQlm8hegOPW8du1SJ2k="
+            },
+            "voting_power": "1",
+            "proposer_priority": "0"
+          },
+          {
+            "address": "C4FA1D401918A6ED3EE7248EDA4D9780B2A741B0",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "+6ZPkj/R5WTNIzA2HTw/YJeYB9gEFOuamwXLYle20Lk="
+            },
+            "voting_power": "1",
+            "proposer_priority": "0"
+          }
+        ],
+        "proposer": {
+          "address": "C4FA1D401918A6ED3EE7248EDA4D9780B2A741B0",
+          "pub_key": {
+            "type": "tendermint/PubKeyEd25519",
+            "value": "+6ZPkj/R5WTNIzA2HTw/YJeYB9gEFOuamwXLYle20Lk="
+          },
+          "voting_power": "1",
+          "proposer_priority": "0"
+        }
+      },
+      "proposal": null,
+      "proposal_block": null,
+      "proposal_block_parts": null,
+      "locked_round": -1,
+      "locked_block": null,
+      "locked_block_parts": null,
+      "valid_round": -1,
+      "valid_block": null,
+      "valid_block_parts": null,
+      "votes": [
+        {
+          "round": 0,
+          "prevotes": [
+            "nil-Vote",
+            "nil-Vote",
+            "nil-Vote",
+            "nil-Vote"
+          ],
+          "prevotes_bit_array": "BA{4:____} 0/4 = 0.00",
+          "precommits": [
+            "nil-Vote",
+            "nil-Vote",
+            "nil-Vote",
+            "nil-Vote"
+          ],
+          "precommits_bit_array": "BA{4:____} 0/4 = 0.00"
+        }
+      ],
+      "commit_round": -1,
+      "last_commit": {
+        "votes": [
+          "Vote{0:20CA1B3031F4 663/00/SIGNED_MSG_TYPE_PRECOMMIT(Precommit) EC3CB9AB09FA 5F51D7880B8B 000000000000 @ 2025-10-19T07:56:34.202814Z}",
+          "Vote{1:29833B77421B 663/00/SIGNED_MSG_TYPE_PRECOMMIT(Precommit) EC3CB9AB09FA 8375FEE8E217 000000000000 @ 2025-10-19T07:56:34.195292Z}",
+          "Vote{2:97581FD6C96B 663/00/SIGNED_MSG_TYPE_PRECOMMIT(Precommit) EC3CB9AB09FA 4B70F8872DE9 000000000000 @ 2025-10-19T07:56:34.199434Z}",
+          "Vote{3:C4FA1D401918 663/00/SIGNED_MSG_TYPE_PRECOMMIT(Precommit) EC3CB9AB09FA 16E0D53F799F 000000000000 @ 2025-10-19T07:56:34.191446Z}"
+        ],
+        "votes_bit_array": "BA{4:xxxx} 4/4 = 1.00",
+        "peer_maj_23s": {}
+      },
+      "last_validators": {
+        "validators": [
+          {
+            "address": "20CA1B3031F4FC0BAF83CE694B2623CFE79FEFAE",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "J8xtDzfAa4KuhflNTnDKi2iffISgFDOseF3HLxuZhDo="
+            },
+            "voting_power": "1",
+            "proposer_priority": "-1"
+          },
+          {
+            "address": "29833B77421B622505188C8F9428D8D967636406",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "K8HBGiSqV3LuTmqawuIVzUVnkbh9gqpw4Bmd5hvYF9k="
+            },
+            "voting_power": "1",
+            "proposer_priority": "-1"
+          },
+          {
+            "address": "97581FD6C96B392CB3929752142546D2DBCA6F6B",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "IRRxpVVpsXcL/9QCUaWZOWE1yQlm8hegOPW8du1SJ2k="
+            },
+            "voting_power": "1",
+            "proposer_priority": "-1"
+          },
+          {
+            "address": "C4FA1D401918A6ED3EE7248EDA4D9780B2A741B0",
+            "pub_key": {
+              "type": "tendermint/PubKeyEd25519",
+              "value": "+6ZPkj/R5WTNIzA2HTw/YJeYB9gEFOuamwXLYle20Lk="
+            },
+            "voting_power": "1",
+            "proposer_priority": "3"
+          }
+        ],
+        "proposer": {
+          "address": "97581FD6C96B392CB3929752142546D2DBCA6F6B",
+          "pub_key": {
+            "type": "tendermint/PubKeyEd25519",
+            "value": "IRRxpVVpsXcL/9QCUaWZOWE1yQlm8hegOPW8du1SJ2k="
+          },
+          "voting_power": "1",
+          "proposer_priority": "-1"
+        }
+      },
+      "triggered_timeout_precommit": false
+    },
+    "peers": [
+      {
+        "node_address": "4b3ee219326b90ba70a808590c5d65342699a323@127.0.0.1:64757",
+        "peer_state": {
+          "round_state": {
+            "height": "664",
+            "round": 0,
+            "step": 1,
+            "start_time": "2025-10-19T07:56:34.390982Z",
+            "proposal": false,
+            "proposal_block_part_set_header": {
+              "total": 0,
+              "hash": ""
+            },
+            "proposal_block_parts": null,
+            "proposal_pol_round": -1,
+            "proposal_pol": "____",
+            "prevotes": "____",
+            "precommits": "____",
+            "last_commit_round": 0,
+            "last_commit": "xxxx",
+            "catchup_commit_round": -1,
+            "catchup_commit": "____"
+          },
+          "stats": {
+            "votes": "1205",
+            "block_parts": "152"
+          }
+        }
+      },
+      {
+        "node_address": "d5c9288b93a0493b66ac1937c7e96492b36c4659@127.0.0.1:64763",
+        "peer_state": {
+          "round_state": {
+            "height": "664",
+            "round": 0,
+            "step": 1,
+            "start_time": "2025-10-19T07:56:34.403372Z",
+            "proposal": false,
+            "proposal_block_part_set_header": {
+              "total": 0,
+              "hash": ""
+            },
+            "proposal_block_parts": null,
+            "proposal_pol_round": -1,
+            "proposal_pol": "____",
+            "prevotes": "____",
+            "precommits": "____",
+            "last_commit_round": 0,
+            "last_commit": "xxxx",
+            "catchup_commit_round": -1,
+            "catchup_commit": "____"
+          },
+          "stats": {
+            "votes": "1125",
+            "block_parts": "149"
+          }
+        }
+      },
+      {
+        "node_address": "01ff1c2dbb8f8d865d6629db0aa7874718d3af0d@127.0.0.1:64765",
+        "peer_state": {
+          "round_state": {
+            "height": "664",
+            "round": 0,
+            "step": 1,
+            "start_time": "2025-10-19T07:56:34.410667Z",
+            "proposal": false,
+            "proposal_block_part_set_header": {
+              "total": 0,
+              "hash": ""
+            },
+            "proposal_block_parts": null,
+            "proposal_pol_round": -1,
+            "proposal_pol": "____",
+            "prevotes": "____",
+            "precommits": "____",
+            "last_commit_round": 0,
+            "last_commit": "xxxx",
+            "catchup_commit_round": -1,
+            "catchup_commit": "____"
+          },
+          "stats": {
+            "votes": "1279",
+            "block_parts": "153"
+          }
+        }
+      }
+    ]
+  }
+}
