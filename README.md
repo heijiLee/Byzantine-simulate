@@ -41,12 +41,14 @@ cd Byzantine-simulate
 go mod tidy
 ```
 
-### 3. Run the CometBFT demo
+### 3. Explore the CometBFT demo CLI
 ```bash
 go run cmd/demo/main.go
 ```
-- Streams real CometBFT proposal, prevote, and precommit messages through the `CanonicalMessage` transformer.
-- Demonstrates round-trip conversion (`original → canonical → original`) using artifacts such as `examples/cometbft/Vote.json`.
+- Lists the available scenarios (`simulation`, `vote-batch`, `byzantine`).
+- `-scenario=simulation` streams synthetic CometBFT messages through the canonical mapper.
+- `-scenario=vote-batch` replays fixtures from `examples/cometbft/Vote.json` and validates the round-trip.
+- `-scenario=byzantine` forges double votes or proposals from a canonical payload using the byzantine mapper.
 
 ### 4. Execute tests
 ```bash

@@ -142,6 +142,10 @@ func (m *CometBFTMapper) ToCanonical(raw abstraction.RawConsensusMessage) (*abst
 
 // FromCanonical converts a canonical message to CometBFT format
 func (m *CometBFTMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abstraction.RawConsensusMessage, error) {
+	return m.rawFromCanonicalMessage(msg)
+}
+
+func (m *CometBFTMapper) rawFromCanonicalMessage(msg *abstraction.CanonicalMessage) (*abstraction.RawConsensusMessage, error) {
 	if msg == nil {
 		return nil, &abstraction.MessageValidationError{
 			Field:   "message",
@@ -150,15 +154,22 @@ func (m *CometBFTMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abst
 		}
 	}
 
-	// Convert canonical message to CometBFT format
-	cometMsg := CometBFTConsensusMessage{
-		Height:    bigIntToString(msg.Height), // big.Int를 문자열로 변환
-		Round:     bigIntToString(msg.Round),  // big.Int를 문자열로 변환
-		Timestamp: msg.Timestamp,
-		Version:   "0.38.17", // Default version
+	cometMsg, err := m.canonicalToCometMessage(msg)
+	if err != nil {
+		return nil, err
 	}
 
-	// Set message type and specific fields
+	return m.encodeCometMessage(cometMsg)
+}
+
+func (m *CometBFTMapper) canonicalToCometMessage(msg *abstraction.CanonicalMessage) (CometBFTConsensusMessage, error) {
+	cometMsg := CometBFTConsensusMessage{
+		Height:    bigIntToString(msg.Height),
+		Round:     bigIntToString(msg.Round),
+		Timestamp: msg.Timestamp,
+		Version:   "0.38.17",
+	}
+
 	switch msg.Type {
 	case abstraction.MsgTypeProposal:
 		cometMsg.MessageType = "Proposal"
@@ -169,52 +180,62 @@ func (m *CometBFTMapper) FromCanonical(msg *abstraction.CanonicalMessage) (*abst
 		}
 		cometMsg.ProposerAddress = msg.Proposer
 		cometMsg.Signature = msg.Signature
-		if polRound, ok := msg.Extensions["pol_round"].(int32); ok {
-			cometMsg.POLRound = polRound
+		if msg.Extensions != nil {
+			if polRound, ok := msg.Extensions["pol_round"].(int32); ok {
+				cometMsg.POLRound = polRound
+			}
 		}
 
 	case abstraction.MsgTypePrevote:
 		cometMsg.MessageType = "Vote"
-		cometMsg.Type = 1 // Prevote 타입
+		cometMsg.Type = 1
 		cometMsg.BlockID = BlockID{Hash: msg.BlockHash}
 		cometMsg.ValidatorAddress = msg.Validator
 		cometMsg.Signature = msg.Signature
 
 	case abstraction.MsgTypePrecommit:
 		cometMsg.MessageType = "Vote"
-		cometMsg.Type = 2 // Precommit 타입
+		cometMsg.Type = 2
 		cometMsg.BlockID = BlockID{Hash: msg.BlockHash}
 		cometMsg.ValidatorAddress = msg.Validator
 		cometMsg.Signature = msg.Signature
-		if ext, ok := msg.Extensions["extension"].(string); ok {
-			cometMsg.Extension = ext
-		}
-		if extSig, ok := msg.Extensions["extension_signature"].(string); ok {
-			cometMsg.ExtensionSignature = extSig
+		if msg.Extensions != nil {
+			if ext, ok := msg.Extensions["extension"].(string); ok {
+				cometMsg.Extension = ext
+			}
+			if extSig, ok := msg.Extensions["extension_signature"].(string); ok {
+				cometMsg.ExtensionSignature = extSig
+			}
 		}
 
 	case abstraction.MsgTypeBlock:
 		cometMsg.MessageType = "BlockPart"
 		cometMsg.BlockID = BlockID{Hash: msg.BlockHash}
-		if partIndex, ok := msg.Extensions["part_index"].(uint32); ok {
-			cometMsg.PartIndex = partIndex
-		}
-		if partBytes, ok := msg.Extensions["part_bytes"].([]byte); ok {
-			cometMsg.PartBytes = partBytes
+		if msg.Extensions != nil {
+			if partIndex, ok := msg.Extensions["part_index"].(uint32); ok {
+				cometMsg.PartIndex = partIndex
+			}
+			if partBytes, ok := msg.Extensions["part_bytes"].([]byte); ok {
+				cometMsg.PartBytes = partBytes
+			}
 		}
 
 	default:
-		// Default to NewRoundStep for unknown types
 		cometMsg.MessageType = "NewRoundStep"
-		if step, ok := msg.Extensions["step"].(uint32); ok {
-			cometMsg.Step = step
-		}
-		if lastCommitRound, ok := msg.Extensions["last_commit_round"].(int32); ok {
-			cometMsg.LastCommitRound = lastCommitRound
+		if msg.Extensions != nil {
+			if step, ok := msg.Extensions["step"].(uint32); ok {
+				cometMsg.Step = step
+			}
+			if lastCommitRound, ok := msg.Extensions["last_commit_round"].(int32); ok {
+				cometMsg.LastCommitRound = lastCommitRound
+			}
 		}
 	}
 
-	// Serialize to JSON (default format)
+	return cometMsg, nil
+}
+
+func (m *CometBFTMapper) encodeCometMessage(cometMsg CometBFTConsensusMessage) (*abstraction.RawConsensusMessage, error) {
 	payload, err := json.Marshal(cometMsg)
 	if err != nil {
 		return nil, &abstraction.MessageValidationError{

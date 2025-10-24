@@ -1,92 +1,63 @@
-# CometBFT Demo
+# CometBFT Demo CLI
 
-CometBFT Byzantine Message Bridge 데모 프로그램입니다.
+This CLI showcases how the PBFT canonical mapper powers different kinds of CometBFT experiments. It exposes three scenarios:
 
-## 실행 방법
+1. **simulation** – Streams randomly generated CometBFT messages through the canonical mapper so you can inspect the round-trip flow.
+2. **vote-batch** – Replays fixtures from `examples/cometbft/Vote.json` and verifies that they survive a canonical round-trip.
+3. **byzantine** – Loads a canonical message (either from a file or derived from the fixtures) and emits forged CometBFT payloads using the byzantine pipeline.
+
+## Usage
 
 ```bash
-# 프로젝트 루트에서 실행
+# Show the available scenarios
 go run cmd/demo/main.go
+
+# Run the live simulator for 15 seconds
+go run cmd/demo/main.go -scenario=simulation -duration=15s
+
+# Replay and verify the bundled vote fixtures
+go run cmd/demo/main.go -scenario=vote-batch
+
+# Forge double proposals derived from the fixtures
+go run cmd/demo/main.go -scenario=byzantine -action=double-proposal
 ```
 
-## 기능
+You can provide your own canonical input for the byzantine scenario using `-canonical=/path/to/canonical.json`. Optional flags `-alternate-block`, `-alternate-prev`, and `-alternate-signature` override the forged fields when you need explicit values.
 
-1. **메시지 시뮬레이션**: CometBFT 합의 메시지를 실시간으로 생성하고 변환
-2. **Vote 변환 테스트**: Vote.json 파일의 예제들을 사용한 변환 테스트
-3. **설정 테스트**: 기본 타입들이 정상적으로 로드되는지 확인
-
-## 파일 구조
-
-- `main.go`: 통합된 CometBFT 데모 프로그램
-
-## 예제 파일
-
-`examples/cometbft/Vote.json` 파일이 있어야 Vote 변환 테스트가 정상 작동합니다.
-
-## 출력 예시
+## Output snapshot
 
 ```
-🎮 CometBFT Byzantine Message Bridge 데모
-=======================================
+PBFT Message Abstraction Demo
+============================
 
-📋 사용 가능한 데모:
-   1. 메시지 시뮬레이션
-   2. Vote 변환 테스트
-   3. WAL 파일 분석
-   4. 로컬넷 설정
-   5. 설정 테스트
+Scenarios:
+  - simulation: Stream randomly generated CometBFT messages through the canonical mapper.
+  - vote-batch: Replay vote samples from examples/cometbft/Vote.json and verify round-trips.
+  - byzantine:  Emit forged CometBFT payloads from a canonical message using the byzantine pipeline.
 
-🚀 CometBFT 메시지 시뮬레이션 시작...
+Example usage:
+  go run cmd/demo/main.go -scenario=simulation -duration=15s
+  go run cmd/demo/main.go -scenario=vote-batch
+  go run cmd/demo/main.go -scenario=byzantine -action=double-proposal
 
-🚀 CometBFT 실시간 메시지 시뮬레이션 시작
-=====================================
-⏱️  실행 시간: 10s
+🧪 CometBFT Vote Round-Trip
+===========================
+Loaded vote fixtures from examples/cometbft/Vote.json
 
-📨 메시지 #1: CometBFT proposal 메시지 생성
-   🔄 Canonical: height=1000, type=proposal
-   📤 변환 완료: proposal
-
-📨 메시지 #2: CometBFT prevote 메시지 생성
-   🔄 Canonical: height=1001, type=prevote
-   📤 변환 완료: prevote
-
-...
-
-✅ 시뮬레이션 완료! 총 5개 메시지 처리
-
-🧪 Vote 변환 테스트 실행...
-🧪 Vote 변환 테스트
-==================
-✅ Vote.json 파일 읽기 완료
-
-📦 테스트 1: Prevote for Block
-----------------------------------------
-   🔄 RawCometBFT → Canonical 변환 중...
-   🔄 Canonical → RawCometBFT 변환 중...
-   🔍 원본과 변환된 메시지 비교 중...
-   📊 변환 요약:
+Case 1 → Prevote for Block
+-----------
+   Fixture → Raw consensus message
+   Raw → Canonical
+   Canonical → Raw
+   Comparing original and converted payloads
+   Summary
       Type: prevote
-      Height: 1000
-      Round: 1
-      BlockHash: 0x1234567890abcdef...
-      Validator: validator1
-      Extensions: 0개
-✅ 변환 성공!
+      Height: 882281
+      Round: 0
+      Block hash: 6D895…
+      Validator: cosmosvalcons1...
+      Extension count: 0
+Result: success
 
-...
-
-📊 전체 결과: 6/6 성공 (100.0%)
-🎉 모든 Vote 변환 테스트 통과!
-
-🔧 설정 테스트 실행...
-🔧 Byzantine Message Bridge 설정 테스트
-=====================================
-✅ ChainTypeCometBFT: cometbft
-✅ ChainTypeHyperledger: hyperledger
-✅ ChainTypeKaia: kaia
-✅ MsgTypeProposal: proposal
-✅ MsgTypeVote: vote
-✅ MsgTypeBlock: block
-
-🎉 모든 기본 타입이 정상적으로 로드되었습니다!
+Summary: 6/6 cases succeeded (100.0%).
 ```

@@ -2,28 +2,27 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	cometbftAdapter "codec/cometbft/adapter"
 	"codec/message/abstraction"
 )
 
-func RunVoteConversionTest() {
-	fmt.Println("🧪 Vote 변환 테스트")
-	fmt.Println("==================")
+func runVoteBatchScenario(mapper *cometbftAdapter.CometBFTMapper) {
+	fmt.Println("🧪 CometBFT Vote Round-Trip")
+	fmt.Println("===========================")
 
-	// Vote.json 파일 읽기
 	voteData, err := readVoteJSON()
 	if err != nil {
-		fmt.Printf("❌ Vote.json 읽기 실패: %v\n", err)
+		fmt.Printf("failed to read examples/cometbft/Vote.json: %v\n", err)
 		return
 	}
-	fmt.Println("✅ Vote.json 파일 읽기 완료")
 
-	// 각 Vote 예제에 대해 변환 테스트
-	mapper := cometbftAdapter.NewCometBFTMapper("cosmos-hub-4")
+	fmt.Println("Loaded vote fixtures from examples/cometbft/Vote.json")
 
 	testCases := []struct {
 		name string
@@ -39,25 +38,53 @@ func RunVoteConversionTest() {
 
 	successCount := 0
 	for i, tc := range testCases {
-		fmt.Printf("\n📦 테스트 %d: %s\n", i+1, tc.name)
-		fmt.Println("----------------------------------------")
+		fmt.Printf("\nCase %d → %s\n", i+1, tc.name)
+		fmt.Println(strings.Repeat("-", len(tc.name)+10))
 
-		if testVoteConversionCase(voteData, tc.key, mapper) {
+		if runVoteCase(voteData, tc.key, mapper) {
 			successCount++
-			fmt.Println("✅ 변환 성공!")
+			fmt.Println("Result: success")
 		} else {
-			fmt.Println("❌ 변환 실패!")
+			fmt.Println("Result: failure")
 		}
 	}
 
-	fmt.Printf("\n📊 전체 결과: %d/%d 성공 (%.1f%%)\n",
-		successCount, len(testCases), float64(successCount)/float64(len(testCases))*100)
+	fmt.Printf("\nSummary: %d/%d cases succeeded (%.1f%%).\n", successCount, len(testCases), float64(successCount)/float64(len(testCases))*100)
+}
 
-	if successCount == len(testCases) {
-		fmt.Println("🎉 모든 Vote 변환 테스트 통과!")
-	} else {
-		fmt.Printf("⚠️  %d개 테스트 실패\n", len(testCases)-successCount)
+func runVoteCase(voteData map[string]interface{}, key string, mapper *cometbftAdapter.CometBFTMapper) bool {
+	rawVote, err := createRawVoteFromFixtures(voteData, key)
+	if err != nil {
+		fmt.Printf("   unable to prepare vote fixture: %v\n", err)
+		return false
 	}
+
+	fmt.Println("   Fixture → Raw consensus message")
+	printRawMessage(rawVote)
+
+	fmt.Println("   Raw → Canonical")
+	canonical, err := mapper.ToCanonical(rawVote)
+	if err != nil {
+		fmt.Printf("   canonical conversion failed: %v\n", err)
+		return false
+	}
+	printCanonicalMessage(canonical)
+
+	fmt.Println("   Canonical → Raw")
+	rawConverted, err := mapper.FromCanonical(canonical)
+	if err != nil {
+		fmt.Printf("   reverse conversion failed: %v\n", err)
+		return false
+	}
+	printRawMessage(*rawConverted)
+
+	fmt.Println("   Comparing original and converted payloads")
+	if compareVoteMessages(rawVote, *rawConverted) {
+		printConversionSummary(canonical)
+		return true
+	}
+
+	return false
 }
 
 func readVoteJSON() (map[string]interface{}, error) {
@@ -69,80 +96,26 @@ func readVoteJSON() (map[string]interface{}, error) {
 
 	var voteData map[string]interface{}
 	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&voteData)
-	return voteData, err
+	if err := decoder.Decode(&voteData); err != nil {
+		return nil, err
+	}
+	return voteData, nil
 }
 
-func testVoteConversionCase(voteData map[string]interface{}, key string, mapper *cometbftAdapter.CometBFTMapper) bool {
-	// 1. Vote 데이터 추출
+func createRawVoteFromFixtures(voteData map[string]interface{}, key string) (abstraction.RawConsensusMessage, error) {
 	vote, exists := voteData[key]
 	if !exists {
-		fmt.Printf("   ❌ Vote 데이터 없음: %s\n", key)
-		return false
+		return abstraction.RawConsensusMessage{}, fmt.Errorf("vote fixture %q not found", key)
 	}
 
-	// 2. RawCometBFT 메시지 생성
-	rawVote, err := createRawVoteFromData(vote)
-	if err != nil {
-		fmt.Printf("   ❌ Raw Vote 생성 실패: %v\n", err)
-		return false
-	}
-
-	// 원본 RawCometBFT 메시지 출력
-	fmt.Printf("   📋 원본 RawCometBFT 메시지:\n")
-	printRawMessage(rawVote)
-
-	// 3. RawCometBFT → Canonical 변환
-	fmt.Println("   🔄 RawCometBFT → Canonical 변환 중...")
-	canonical, err := mapper.ToCanonical(rawVote)
-	if err != nil {
-		fmt.Printf("   ❌ Canonical 변환 실패: %v\n", err)
-		return false
-	}
-
-	// Canonical 메시지 출력
-	fmt.Printf("   📋 Canonical 메시지:\n")
-	printCanonicalMessage(canonical)
-
-	// 4. Canonical → RawCometBFT 변환
-	fmt.Println("   🔄 Canonical → RawCometBFT 변환 중...")
-	rawConverted, err := mapper.FromCanonical(canonical)
-	if err != nil {
-		fmt.Printf("   ❌ RawCometBFT 변환 실패: %v\n", err)
-		return false
-	}
-
-	// 변환된 RawCometBFT 메시지 출력
-	fmt.Printf("   📋 변환된 RawCometBFT 메시지:\n")
-	printRawMessage(*rawConverted)
-
-	// 5. 결과 비교
-	fmt.Println("   🔍 원본과 변환된 메시지 비교 중...")
-	if compareVoteMessages(rawVote, *rawConverted) {
-		printConversionSummary(canonical)
-		return true
-	}
-
-	return false
-}
-
-func createRawVoteFromData(voteData interface{}) (abstraction.RawConsensusMessage, error) {
-	// Vote 데이터를 JSON으로 변환
-	jsonPayload, err := json.Marshal(voteData)
+	jsonPayload, err := json.Marshal(vote)
 	if err != nil {
 		return abstraction.RawConsensusMessage{}, err
 	}
 
-	// 원본 타임스탬프 추출
-	var timestamp time.Time
-	if voteMap, ok := voteData.(map[string]interface{}); ok {
-		if timestampStr, exists := voteMap["timestamp"]; exists {
-			if timestampStr, ok := timestampStr.(string); ok {
-				if parsedTime, err := time.Parse(time.RFC3339Nano, timestampStr); err == nil {
-					timestamp = parsedTime
-				}
-			}
-		}
+	timestamp, err := extractTimestamp(vote)
+	if err != nil {
+		return abstraction.RawConsensusMessage{}, err
 	}
 
 	return abstraction.RawConsensusMessage{
@@ -151,48 +124,59 @@ func createRawVoteFromData(voteData interface{}) (abstraction.RawConsensusMessag
 		MessageType: "Vote",
 		Payload:     jsonPayload,
 		Encoding:    "json",
-		Timestamp:   timestamp, // 원본 타임스탬프 사용
+		Timestamp:   timestamp,
 		Metadata: map[string]interface{}{
-			"source": "vote_test",
+			"source": key,
 		},
 	}, nil
 }
 
+func extractTimestamp(vote interface{}) (time.Time, error) {
+	voteMap, ok := vote.(map[string]interface{})
+	if !ok {
+		return time.Time{}, errors.New("vote payload is not an object")
+	}
+
+	timestampStr, ok := voteMap["timestamp"].(string)
+	if !ok || timestampStr == "" {
+		return time.Time{}, nil
+	}
+
+	ts, err := time.Parse(time.RFC3339Nano, timestampStr)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return ts, nil
+}
+
 func compareVoteMessages(original, converted abstraction.RawConsensusMessage) bool {
-	// 1. 기본 필드 비교
 	if original.ChainType != converted.ChainType {
-		fmt.Printf("   ❌ ChainType 불일치: %s != %s\n", original.ChainType, converted.ChainType)
+		fmt.Printf("      chain type mismatch: %s != %s\n", original.ChainType, converted.ChainType)
 		return false
 	}
 	if original.MessageType != converted.MessageType {
-		fmt.Printf("   ❌ MessageType 불일치: %s != %s\n", original.MessageType, converted.MessageType)
+		fmt.Printf("      message type mismatch: %s != %s\n", original.MessageType, converted.MessageType)
 		return false
 	}
 
-	// 2. Payload 비교
 	var origPayload, convPayload map[string]interface{}
 	if err := json.Unmarshal(original.Payload, &origPayload); err != nil {
-		fmt.Printf("   ❌ 원본 Payload 파싱 실패: %v\n", err)
+		fmt.Printf("      failed to decode original payload: %v\n", err)
 		return false
 	}
 	if err := json.Unmarshal(converted.Payload, &convPayload); err != nil {
-		fmt.Printf("   ❌ 변환된 Payload 파싱 실패: %v\n", err)
+		fmt.Printf("      failed to decode converted payload: %v\n", err)
 		return false
 	}
 
-	// 3. 핵심 필드 비교
 	keyFields := []string{"type", "height", "round", "validator_address", "signature"}
 	for _, field := range keyFields {
-		origVal := origPayload[field]
-		convVal := convPayload[field]
-
-		if fmt.Sprintf("%v", origVal) != fmt.Sprintf("%v", convVal) {
-			fmt.Printf("   ❌ %s 불일치: %v != %v\n", field, origVal, convVal)
+		if fmt.Sprintf("%v", origPayload[field]) != fmt.Sprintf("%v", convPayload[field]) {
+			fmt.Printf("      field mismatch for %s: %v != %v\n", field, origPayload[field], convPayload[field])
 			return false
 		}
 	}
 
-	// 4. BlockID 비교
 	if !compareBlockID(origPayload["block_id"], convPayload["block_id"]) {
 		return false
 	}
@@ -205,42 +189,39 @@ func compareBlockID(orig, conv interface{}) bool {
 		return true
 	}
 	if orig == nil || conv == nil {
-		// nil과 빈 문자열은 동일하게 처리
-		if orig == nil && conv == "" {
+		origStr := fmt.Sprintf("%v", orig)
+		convStr := fmt.Sprintf("%v", conv)
+		if origStr == "<nil>" {
+			origStr = ""
+		}
+		if convStr == "<nil>" {
+			convStr = ""
+		}
+		if origStr == convStr {
 			return true
 		}
-		if orig == "" && conv == nil {
-			return true
-		}
-		fmt.Printf("   ❌ BlockID nil 불일치: %v != %v\n", orig, conv)
+		fmt.Printf("      block ID mismatch: %v != %v\n", orig, conv)
 		return false
 	}
 
 	origMap, origOk := orig.(map[string]interface{})
 	convMap, convOk := conv.(map[string]interface{})
-
 	if !origOk || !convOk {
-		fmt.Printf("   ❌ BlockID 타입 불일치: %T != %T\n", orig, conv)
+		fmt.Printf("      block ID type mismatch: %T != %T\n", orig, conv)
 		return false
 	}
 
-	// Hash 비교
-	origHash := origMap["hash"]
-	convHash := convMap["hash"]
-
-	// nil과 빈 문자열을 동일하게 처리
-	origHashStr := fmt.Sprintf("%v", origHash)
-	convHashStr := fmt.Sprintf("%v", convHash)
-
-	if origHashStr == "<nil>" {
-		origHashStr = ""
+	origHash := fmt.Sprintf("%v", origMap["hash"])
+	convHash := fmt.Sprintf("%v", convMap["hash"])
+	if origHash == "<nil>" {
+		origHash = ""
 	}
-	if convHashStr == "<nil>" {
-		convHashStr = ""
+	if convHash == "<nil>" {
+		convHash = ""
 	}
 
-	if origHashStr != convHashStr {
-		fmt.Printf("   ❌ BlockID hash 불일치: '%s' != '%s'\n", origHashStr, convHashStr)
+	if origHash != convHash {
+		fmt.Printf("      block hash mismatch: %s != %s\n", origHash, convHash)
 		return false
 	}
 
@@ -248,13 +229,13 @@ func compareBlockID(orig, conv interface{}) bool {
 }
 
 func printConversionSummary(canonical *abstraction.CanonicalMessage) {
-	fmt.Printf("   📊 변환 요약:\n")
+	fmt.Println("   Summary")
 	fmt.Printf("      Type: %s\n", canonical.Type)
 	fmt.Printf("      Height: %v\n", canonical.Height)
 	fmt.Printf("      Round: %v\n", canonical.Round)
 	if canonical.BlockHash != "" {
-		fmt.Printf("      BlockHash: %s...\n", canonical.BlockHash[:min(20, len(canonical.BlockHash))])
+		fmt.Printf("      Block hash: %s\n", canonical.BlockHash[:min(32, len(canonical.BlockHash))])
 	}
 	fmt.Printf("      Validator: %s\n", canonical.Validator)
-	fmt.Printf("      Extensions: %d개\n", len(canonical.Extensions))
+	fmt.Printf("      Extension count: %d\n", len(canonical.Extensions))
 }
