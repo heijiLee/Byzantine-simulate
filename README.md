@@ -48,7 +48,9 @@ go run cmd/demo/main.go
 - Lists the available scenarios (`simulation`, `vote-batch`, `byzantine`).
 - `-scenario=simulation` streams synthetic CometBFT messages through the canonical mapper.
 - `-scenario=vote-batch` replays fixtures from `examples/cometbft/Vote.json` and validates the round-trip.
-- `-scenario=byzantine` forges double votes or proposals from a canonical payload using the byzantine mapper.
+- `-scenario=byzantine` forges double votes or proposals via the **canonical → byz-canonical → byzcomet** pipeline and prints each stage of the mutation.
+
+To script the same pipeline, use `cmd/byzantine` which emits JSON containing both the byz-canonical mutations and their encoded CometBFT counterparts.
 
 ### 4. Execute tests
 ```bash

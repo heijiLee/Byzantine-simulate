@@ -4,7 +4,7 @@ This CLI showcases how the PBFT canonical mapper powers different kinds of Comet
 
 1. **simulation** – Streams randomly generated CometBFT messages through the canonical mapper so you can inspect the round-trip flow.
 2. **vote-batch** – Replays fixtures from `examples/cometbft/Vote.json` and verifies that they survive a canonical round-trip.
-3. **byzantine** – Loads a canonical message (either from a file or derived from the fixtures) and emits forged CometBFT payloads using the byzantine pipeline.
+3. **byzantine** – Loads a canonical message (either from a file or derived from the fixtures), materializes one or more **byz-canonical** mutations, and then re-encodes them into forged CometBFT payloads.
 
 ## Usage
 
@@ -22,7 +22,15 @@ go run cmd/demo/main.go -scenario=vote-batch
 go run cmd/demo/main.go -scenario=byzantine -action=double-proposal
 ```
 
-You can provide your own canonical input for the byzantine scenario using `-canonical=/path/to/canonical.json`. Optional flags `-alternate-block`, `-alternate-prev`, and `-alternate-signature` override the forged fields when you need explicit values.
+You can provide your own canonical input for the byzantine scenario using `-canonical=/path/to/canonical.json`. Optional flags `-alternate-block`, `-alternate-prev`, and `-alternate-signature` override the forged fields when you need explicit values. During execution the CLI prints the **canonical → byz-canonical → byzcomet** progression so you can inspect each stage of the mutation.
+
+### Understanding the byzantine pipeline
+
+1. Start with a canonical vote or proposal (from fixtures or your own data).
+2. Call `ApplyByzantineCanonical` to emit one or more mutated **byz-canonical** payloads.
+3. Feed each byz-canonical payload through `mapper.FromCanonical` to obtain the forged CometBFT (`byzcomet`) messages.
+
+The `cmd/demo` byzantine scenario prints each step, while `cmd/byzantine` can serialize the same structure as JSON for scripting or archival.
 
 ## Output snapshot
 

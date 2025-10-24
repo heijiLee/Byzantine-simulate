@@ -9,13 +9,100 @@ import (
 	"codec/message/abstraction"
 )
 
-func TestDoubleVoteMessages(t *testing.T) {
+func TestApplyByzantineCanonicalDoubleVote(t *testing.T) {
+	timestamp := time.Unix(1700000000, 0).UTC()
+	canonical := &abstraction.CanonicalMessage{
+		ChainID:   "test-chain",
+		Height:    big.NewInt(5),
+		Round:     big.NewInt(1),
+		Timestamp: timestamp,
+		Type:      abstraction.MsgTypePrevote,
+		BlockHash: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+		Validator: "validator-1",
+		Signature: "sig-1",
+	}
+
+	opts := ByzantineOptions{AlternateBlockHash: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", AlternateSignature: "sig-2"}
+	canonicals, err := ApplyByzantineCanonical(canonical, ByzantineActionDoubleVote, opts)
+	if err != nil {
+		t.Fatalf("apply byzantine canonical failed: %v", err)
+	}
+	if len(canonicals) != 2 {
+		t.Fatalf("expected 2 canonical messages, got %d", len(canonicals))
+	}
+	if canonicals[0] == canonical {
+		t.Fatalf("expected cloned canonical message, not the original pointer")
+	}
+	if canonicals[0].BlockHash != canonical.BlockHash {
+		t.Fatalf("expected original block hash, got %s", canonicals[0].BlockHash)
+	}
+
+	mutated := canonicals[1]
+	if mutated.BlockHash != opts.AlternateBlockHash {
+		t.Fatalf("expected alternate hash in mutated vote, got %s", mutated.BlockHash)
+	}
+	if mutated.Signature != opts.AlternateSignature {
+		t.Fatalf("expected alternate signature, got %s", mutated.Signature)
+	}
+	if !mutated.Timestamp.After(canonical.Timestamp) {
+		t.Fatalf("expected mutated timestamp to advance beyond the original")
+	}
+
+	if canonical.BlockHash != "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" {
+		t.Fatalf("original canonical message should remain unchanged")
+	}
+}
+
+func TestApplyByzantineCanonicalDoubleProposal(t *testing.T) {
+	timestamp := time.Unix(1700005000, 0).UTC()
+	canonical := &abstraction.CanonicalMessage{
+		ChainID:   "test-chain",
+		Height:    big.NewInt(10),
+		Round:     big.NewInt(0),
+		Timestamp: timestamp,
+		Type:      abstraction.MsgTypeProposal,
+		BlockHash: "1111111111111111111111111111111111111111111111111111111111111111",
+		PrevHash:  "2222222222222222222222222222222222222222222222222222222222222222",
+		Proposer:  "proposer-1",
+		Signature: "sig-1",
+	}
+
+	opts := ByzantineOptions{
+		AlternateBlockHash: "3333333333333333333333333333333333333333333333333333333333333333",
+		AlternatePrevHash:  "4444444444444444444444444444444444444444444444444444444444444444",
+		AlternateSignature: "sig-2",
+	}
+
+	canonicals, err := ApplyByzantineCanonical(canonical, ByzantineActionDoubleProposal, opts)
+	if err != nil {
+		t.Fatalf("apply byzantine canonical failed: %v", err)
+	}
+	if len(canonicals) != 2 {
+		t.Fatalf("expected 2 canonical messages, got %d", len(canonicals))
+	}
+
+	mutated := canonicals[1]
+	if mutated.BlockHash != opts.AlternateBlockHash {
+		t.Fatalf("expected alternate block hash, got %s", mutated.BlockHash)
+	}
+	if mutated.PrevHash != opts.AlternatePrevHash {
+		t.Fatalf("expected alternate prev hash, got %s", mutated.PrevHash)
+	}
+	if mutated.Signature != opts.AlternateSignature {
+		t.Fatalf("expected alternate signature, got %s", mutated.Signature)
+	}
+	if !mutated.Timestamp.After(canonical.Timestamp) {
+		t.Fatalf("expected mutated timestamp to advance beyond the original")
+	}
+}
+
+func TestFromCanonicalByzantineDoubleVoteEncoding(t *testing.T) {
 	mapper := NewCometBFTMapper("test-chain")
 	canonical := &abstraction.CanonicalMessage{
 		ChainID:   "test-chain",
 		Height:    big.NewInt(5),
 		Round:     big.NewInt(1),
-		Timestamp: time.Now().UTC(),
+		Timestamp: time.Unix(1700000000, 0).UTC(),
 		Type:      abstraction.MsgTypePrevote,
 		BlockHash: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 		Validator: "validator-1",
@@ -53,13 +140,13 @@ func TestDoubleVoteMessages(t *testing.T) {
 	}
 }
 
-func TestDoubleProposalMessages(t *testing.T) {
+func TestFromCanonicalByzantineDoubleProposalEncoding(t *testing.T) {
 	mapper := NewCometBFTMapper("test-chain")
 	canonical := &abstraction.CanonicalMessage{
 		ChainID:   "test-chain",
 		Height:    big.NewInt(10),
 		Round:     big.NewInt(0),
-		Timestamp: time.Now().UTC(),
+		Timestamp: time.Unix(1700005000, 0).UTC(),
 		Type:      abstraction.MsgTypeProposal,
 		BlockHash: "1111111111111111111111111111111111111111111111111111111111111111",
 		PrevHash:  "2222222222222222222222222222222222222222222222222222222222222222",
@@ -110,16 +197,15 @@ func TestDoubleProposalMessages(t *testing.T) {
 }
 
 func TestInvalidByzantineActionOnProposal(t *testing.T) {
-	mapper := NewCometBFTMapper("test-chain")
 	canonical := &abstraction.CanonicalMessage{
 		ChainID:   "test-chain",
 		Height:    big.NewInt(10),
 		Round:     big.NewInt(0),
-		Timestamp: time.Now().UTC(),
+		Timestamp: time.Unix(1700005000, 0).UTC(),
 		Type:      abstraction.MsgTypeProposal,
 	}
 
-	if _, err := mapper.FromCanonicalByzantine(canonical, ByzantineActionDoubleVote, ByzantineOptions{}); err == nil {
+	if _, err := ApplyByzantineCanonical(canonical, ByzantineActionDoubleVote, ByzantineOptions{}); err == nil {
 		t.Fatalf("expected error when applying double vote to a proposal message")
 	}
 }

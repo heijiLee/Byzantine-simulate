@@ -22,6 +22,11 @@ type outputMessage struct {
 	Metadata    map[string]interface{} `json:"metadata,omitempty"`
 }
 
+type pipelineOutput struct {
+	Canonical *abstraction.CanonicalMessage `json:"byz_canonical"`
+	Raw       outputMessage                 `json:"byz_comet"`
+}
+
 func main() {
 	inputPath := flag.String("input", "", "Path to a canonical message JSON file")
 	actionFlag := flag.String("action", string(cometbftAdapter.ByzantineActionDoubleVote), "Byzantine action to apply (double-vote|double-proposal|none)")
@@ -57,22 +62,31 @@ func main() {
 		AlternateSignature: *alternateSig,
 	}
 
-	rawMessages, err := mapper.FromCanonicalByzantine(canonical, action, opts)
+	byzCanonicals, err := cometbftAdapter.ApplyByzantineCanonical(canonical, action, opts)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "conversion failed: %v\n", err)
 		os.Exit(1)
 	}
 
-	outputs := make([]outputMessage, len(rawMessages))
-	for i, raw := range rawMessages {
-		outputs[i] = outputMessage{
-			ChainType:   raw.ChainType,
-			ChainID:     raw.ChainID,
-			MessageType: raw.MessageType,
-			Encoding:    raw.Encoding,
-			Timestamp:   raw.Timestamp.Format(time.RFC3339Nano),
-			Payload:     json.RawMessage(raw.Payload),
-			Metadata:    raw.Metadata,
+	outputs := make([]pipelineOutput, len(byzCanonicals))
+	for i, byzCanonical := range byzCanonicals {
+		raw, err := mapper.FromCanonical(byzCanonical)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed to encode byzantine canonical message %d: %v\n", i+1, err)
+			os.Exit(1)
+		}
+
+		outputs[i] = pipelineOutput{
+			Canonical: byzCanonical,
+			Raw: outputMessage{
+				ChainType:   raw.ChainType,
+				ChainID:     raw.ChainID,
+				MessageType: raw.MessageType,
+				Encoding:    raw.Encoding,
+				Timestamp:   raw.Timestamp.Format(time.RFC3339Nano),
+				Payload:     json.RawMessage(raw.Payload),
+				Metadata:    raw.Metadata,
+			},
 		}
 	}
 
