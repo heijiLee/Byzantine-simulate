@@ -1,613 +1,87 @@
-# Byzantine Message Bridge
+# PBFT Message Abstraction Playground
 
-A comprehensive message transformation and routing system for blockchain consensus protocols, supporting CometBFT, Hyperledger Fabric/Besu, and Kaia networks.
+## Overview
+This project explores how to consolidate PBFT-family consensus messages into a single **canonical representation** and then re-materialize them into the original wire format of each blockchain client. The current implementation centers on the **CometBFT** pipeline, and we are extending the same canonical model to cover **Kaia IBFT** and **Hyperledger Besu (IBFT/QBFT)** so that messages can be translated across engines without losing intent.
 
-## 🎯 Overview
+## Objectives
+1. Convert PBFT-style consensus messages from multiple engines into a common `CanonicalMessage` format.
+2. Inspect, mutate, or simulate the canonical data for research and fault-injection experiments.
+3. Serialize the modified canonical messages back into chain-specific vote or proposal objects for validation or reinjection.
 
-The Byzantine Message Bridge provides bidirectional message transformation between different blockchain consensus protocols through a standardized `CanonicalMessage` format, enabling:
+## Key Features
+- **Canonical message model**: The `message/abstraction` package defines the shared structure that captures proposal, vote, precommit, and related PBFT semantics.
+- **Chain-specific mappers**: Adapters in `cometbft/`, `kaia/`, and `hyperledger/besu/` implement the `Mapper` interface (`ToCanonical` / `FromCanonical`) to bridge native data structures with the canonical model.
+- **Raw message wrappers**: On-chain WAL entries, RPC responses, or network packets can be wrapped into `RawConsensusMessage` for uniform processing.
+- **Conversion simulators**: Utilities under `cmd/demo` demonstrate how real CometBFT messages round-trip through the canonical bridge.
+- **Codec experiments**: The `message/codec` package contains JSON, Protobuf, RLP, and other serialization experiments that stress-test interoperability.
 
-- **Protocol normalization**: Convert chain-specific messages to a unified `CanonicalMessage` format
-- **Independent chain mapping**: Each blockchain has its own independent mapper (Chain ↔ Canonical)
-- **Message validation**: Ensure message integrity and apply chain-specific constraints
-- **Extensible architecture**: Easy integration of new blockchain protocols
-- **Real message simulation**: Generate and test with realistic blockchain message patterns
-
-## 🏗️ Architecture
-
-### Core Components
-
-| Component | Description |
-|-----------|-------------|
-| **Chain Adapters** | Protocol-specific mappers (`cometbft/`, `hyperledger/`, `kaia/`) |
-| **Message Abstraction** | Unified message format (`CanonicalMessage`) and validation |
-| **Message Examples** | Real blockchain message patterns for testing |
-| **Message Parser** | JSON-based message file parsing and conversion |
-| **Configuration** | YAML-based chain and routing configuration |
-
-### Supported Protocols
-
-- **CometBFT**: Tendermint consensus with Proposal/Prevote/Precommit messages
-- **Hyperledger Besu**: IBFT2.0/QBFT consensus with RLP + devp2p + ECDSA signatures
-- **Kaia**: Istanbul BFT consensus with IBFT 3-phase protocol (Preprepare/Prepare/Commit)
-
-## 🔄 Message Flow Architecture
-
+## Repository Layout
 ```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│  CometBFT   │    │ Hyperledger │    │ Hyperledger │    │    Kaia     │
-│             │    │   Fabric    │    │    Besu     │    │             │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-       │                   │                   │                   │
-       │                   │                   │                   │
-       ▼                   ▼                   ▼                   ▼
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ CometBFT    │    │ Fabric      │    │ Besu        │    │ Kaia        │
-│ Mapper      │    │ Mapper      │    │ Mapper      │    │ Mapper      │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-       │                   │                   │                   │
-       │                   │                   │                   │
-       ▼                   ▼                   ▼                   ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        Canonical Message                                │
-│  ┌─────────────────────────────────────────────────────────────────┐   │
-│  │ • ChainID: string                                               │   │
-│  │ • Height: int64                                                 │   │
-│  │ • Round: int32                                                  │   │
-│  │ • Type: MsgType                                                 │   │
-│  │ • Proposer/Validator: string                                     │   │
-│  │ • BlockHash: string                                             │   │
-│  │ • Extensions: map[string]interface{} (체인별 특화 데이터)        │   │
-│  └─────────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────────┘
+.
+├── cmd/                # CLI tools and conversion demos
+│   └── demo/           # CometBFT message simulator and round-trip checker
+├── cometbft/           # CometBFT mapper and consensus adapters
+├── hyperledger/besu/   # Besu IBFT/QBFT mapper (work in progress)
+├── kaia/               # Kaia IBFT mapper (work in progress)
+├── message/            # Canonical models, codecs, and protobuf definitions
+└── examples/           # Sample WAL-derived consensus messages
 ```
 
-### Core Principles
-
-1. **Independent Mappers**: Each blockchain has its own independent mapper
-   - CometBFT Mapper: CometBFT ↔ Canonical
-   - Fabric Mapper: Fabric ↔ Canonical
-   - Besu Mapper: Besu ↔ Canonical
-   - Kaia Mapper: Kaia ↔ Canonical
-
-2. **Canonical Message Centric**: All transformations go through Canonical Message
-   - Canonical Message is the standardized intermediate format
-   - Extensions field preserves chain-specific data
-
-3. **Simple Conversion Logic**: Each mapper implements only two methods
-   - `ToCanonical()`: Chain message → Canonical
-   - `FromCanonical()`: Canonical → Chain message
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Go 1.23.6+
-- Protocol Buffers compiler (`protoc`)
-
-### Installation
-
+## Quick Start
+### 1. Verify prerequisites
 ```bash
-# Clone the repository
+go version    # Go 1.21 or later is recommended
+protoc --version
+```
+
+### 2. Install dependencies
+```bash
 git clone <repository-url>
 cd Byzantine-simulate
-
-# Install dependencies
 go mod tidy
 ```
 
-### Step-by-Step Usage Guide
-
-#### 1. Generate Message Examples
+### 3. Run the CometBFT demo
 ```bash
-# Create realistic CometBFT message examples
-go run cmd/demo/message_example_generator.go
+go run cmd/demo/main.go
 ```
-This creates:
-- `examples/cometbft/samples.json` - 6 sample messages
-- `examples/cometbft/all_messages.json` - 15 complete messages
-- `examples/cometbft/[MessageType].json` - Type-specific files
+- Streams real CometBFT proposal, prevote, and precommit messages through the `CanonicalMessage` transformer.
+- Demonstrates round-trip conversion (`original → canonical → original`) using artifacts such as `examples/cometbft/Vote.json`.
 
-#### 2. Test Message Conversion
+### 4. Execute tests
 ```bash
-# Test sample messages (recommended for beginners)
-go run cmd/demo/message_file_parser.go examples/cometbft/samples.json
-
-# Test specific message type
-go run cmd/demo/message_file_parser.go examples/cometbft/Vote.json
-
-# Test all messages
-go run cmd/demo/message_file_parser.go examples/cometbft/all_messages.json
+go test ./...
 ```
+- Validates transformation logic, verification helpers, and simulator behaviors.
 
-#### 3. Run Integration Tests
+### 5. (Optional) Regenerate protobuf descriptors
 ```bash
-# CometBFT advanced mapper tests
-go test -v cometbft_advanced_test.go
-
-# CometBFT integration tests
-go test -v cometbft_integration_test.go
-
-# Performance benchmarks
-go test -bench=. -benchmem benchmark_test.go
+protoc \
+  --proto_path=message/proto \
+  --descriptor_set_out=message/proto/abstraction.protoset \
+  --include_imports --include_source_info \
+  message/proto/abstraction.proto
 ```
 
-#### 4. Simulate Real Consensus Flow
-```bash
-# Simulate real CometBFT consensus process
-go run cmd/demo/real_message_simulator.go
-```
-
-## 💡 Practical Usage Examples
-
-### Example 1: Convert CometBFT Message to Canonical
-```go
-package main
-
-import (
-    "fmt"
-    "codec/message/abstraction"
-    cometbftAdapter "codec/cometbft/adapter"
-)
-
-func main() {
-    // Create CometBFT mapper
-    mapper := cometbftAdapter.NewCometBFTMapper("cosmos-hub-4")
-    
-    // Create a CometBFT raw message
-    rawMsg := abstraction.RawConsensusMessage{
-        ChainType:   abstraction.ChainTypeCometBFT,
-        ChainID:     "cosmos-hub-4",
-        MessageType: "Proposal",
-        Payload:     []byte(`{"height":1000000,"round":0,"proposer_address":"cosmos1abc123..."}`),
-        Encoding:    "json",
-    }
-    
-    // Convert to Canonical
-    canonical, err := mapper.ToCanonical(rawMsg)
-    if err != nil {
-        panic(err)
-    }
-    
-    fmt.Printf("Height: %v\n", canonical.Height)
-    fmt.Printf("Proposer: %s\n", canonical.Proposer)
-    fmt.Printf("Type: %s\n", canonical.Type)
-}
-```
-
-### Example 2: Convert Canonical to Fabric
-```go
-package main
-
-import (
-    "fmt"
-    "codec/message/abstraction"
-    fabricAdapter "codec/hyperledger/fabric/adapter"
-)
-
-func main() {
-    // Create Fabric mapper
-    mapper := fabricAdapter.NewFabricMapper("channel1")
-    
-    // Create a Canonical message
-    canonical := &abstraction.CanonicalMessage{
-        ChainID:    "channel1",
-        Height:     big.NewInt(1000000),
-        Round:      big.NewInt(0),
-        Type:       abstraction.MsgTypeProposal,
-        Proposer:   "peer0.org1.example.com",
-        BlockHash:  "0x1234567890abcdef",
-        Extensions: map[string]interface{}{
-            "channel_id": "channel1",
-        },
-    }
-    
-    // Convert to Fabric
-    fabricMsg, err := mapper.FromCanonical(canonical)
-    if err != nil {
-        panic(err)
-    }
-    
-    fmt.Printf("Fabric Message Type: %s\n", fabricMsg.MessageType)
-    fmt.Printf("Channel: %s\n", fabricMsg.ChainID)
-}
-```
-
-### Example 3: Cross-Chain Message Bridge
-```go
-package main
-
-import (
-    "fmt"
-    "codec/message/abstraction"
-    cometbftAdapter "codec/cometbft/adapter"
-    fabricAdapter "codec/hyperledger/fabric/adapter"
-)
-
-func main() {
-    // Create mappers
-    cometbftMapper := cometbftAdapter.NewCometBFTMapper("cosmos-hub-4")
-    fabricMapper := fabricAdapter.NewFabricMapper("channel1")
-    
-    // Step 1: CometBFT → Canonical
-    cometbftMsg := createCometBFTMessage()
-    canonical, err := cometbftMapper.ToCanonical(cometbftMsg)
-    if err != nil {
-        panic(err)
-    }
-    
-    // Step 2: Canonical → Fabric
-    fabricMsg, err := fabricMapper.FromCanonical(canonical)
-    if err != nil {
-        panic(err)
-    }
-    
-    fmt.Printf("Successfully converted CometBFT → Fabric\n")
-    fmt.Printf("Original: %s\n", cometbftMsg.MessageType)
-    fmt.Printf("Target: %s\n", fabricMsg.MessageType)
-}
-```
-
-### Configuration
-
-Edit `configs/bridge.yaml` to configure chains and routing rules:
-
-```yaml
-chains:
-  - name: cometbft
-    enabled: true
-    endpoint: grpc://localhost:9090
-    ingress:
-      type: collector
-      decoder: proto
-    egress:
-      targets:
-        - type: kafka
-          topic: cometbft.consensus
-
-router:
-  rules:
-    - match: {chain: cometbft, message_type: vote}
-      forward:
-        - chain: fabric
-        - sink: kafka://consensus.vote
-```
-
-## 📁 Project Structure
-
-```
-Byzantine-simulate/
-├── cometbft/
-│   ├── adapter/              # CometBFT message mapper
-│   └── consensus_engine.go   # CometBFT consensus simulation
-├── hyperledger/
-│   ├── fabric/adapter/       # Fabric message mapper
-│   └── besu/adapter/         # Besu message mapper
-├── kaia/adapter/             # Kaia message mapper
-├── message/
-│   └── abstraction/          # Core message types and validation
-├── cmd/demo/                 # Demo applications
-│   ├── message_example_generator.go  # Generate message examples
-│   ├── message_file_parser.go       # Parse message files
-│   ├── real_message_simulator.go    # Real message simulation
-│   └── wal_reader.go                # WAL file reader
-├── examples/
-│   ├── cometbft/             # CometBFT message examples
-│   │   ├── samples.json      # Sample messages
-│   │   ├── all_messages.json # All message types
-│   │   └── [MessageType].json # Type-specific messages
-│   ├── besu/                 # Hyperledger Besu IBFT examples
-│   │   ├── samples.json      # Sample IBFT messages
-│   │   ├── all_messages.json # All IBFT message types
-│   │   └── [MessageType].json # IBFT type-specific messages
-│   └── kaia/                 # Kaia IBFT message examples
-│       ├── samples.json      # Sample IBFT messages
-│       ├── all_messages.json # All IBFT message types
-│       └── [MessageType].json # IBFT type-specific messages
-└── configs/
-    └── bridge.yaml           # Configuration file
-```
-
-## 🚀 Quick Demo (5 minutes)
-
-Want to see it in action? Follow these steps:
-
-```bash
-# 1. Generate realistic message examples
-go run cmd/demo/message_example_generator.go
-
-# 2. Test message conversion (you'll see 100% success rate!)
-go run cmd/demo/message_file_parser.go examples/cometbft/samples.json
-
-# 3. Run integration tests
-go test -v cometbft_integration_test.go
-
-# 4. Simulate real consensus flow
-go run cmd/demo/real_message_simulator.go
-```
-
-Expected output:
-- ✅ 6/6 messages successfully converted to Canonical format
-- ✅ All CometBFT message types supported
-- ✅ Cross-chain conversion working
-- ✅ Real consensus protocol simulation
-
-## 📦 Message Examples & Testing
-
-### Generate Message Examples
-```bash
-# Generate realistic CometBFT message examples
-go run cmd/demo/message_example_generator.go
-```
-
-This creates JSON files with realistic blockchain message patterns:
-- `examples/cometbft/samples.json` - 6 sample messages (one per type)
-- `examples/cometbft/all_messages.json` - 15 complete messages
-- `examples/cometbft/[MessageType].json` - Type-specific messages
-
-### Parse and Test Messages
-```bash
-# Test sample messages
-go run cmd/demo/message_file_parser.go examples/cometbft/samples.json
-
-# Test specific message type
-go run cmd/demo/message_file_parser.go examples/cometbft/Vote.json
-
-# Test all messages
-go run cmd/demo/message_file_parser.go examples/cometbft/all_messages.json
-```
-
-### Real Message Simulation
-```bash
-# Simulate real CometBFT consensus flow
-go run cmd/demo/real_message_simulator.go
-
-# Generate Kaia IBFT message examples
-go run cmd/demo/kaia_message_generator.go
-
-# Parse Kaia IBFT messages
-go run cmd/demo/kaia_message_parser.go examples/kaia/samples.json
-
-# Generate Hyperledger Besu IBFT message examples
-go run cmd/demo/besu_message_generator.go
-```
-
-## 🔄 Message Flow
-
-1. **Message Generation**: Create realistic blockchain message patterns
-2. **Normalization**: Convert to `CanonicalMessage` format using chain-specific mappers
-3. **Validation**: Apply chain-specific validation rules
-4. **Testing**: Verify conversion accuracy and data preservation
-5. **Cross-chain**: Convert Canonical messages to other blockchain formats
-
-## 📋 Message Types
-
-### CanonicalMessage
-```go
-type CanonicalMessage struct {
-    ChainID    string                 // Chain identifier
-    Height     *big.Int              // Block height
-    Round      *big.Int              // Consensus round
-    Type       MsgType               // Message type
-    Timestamp  time.Time             // Creation time
-    BlockHash  string                // Block hash
-    Proposer   string                // Proposer ID
-    Validator  string                // Validator ID
-    Signature  string                // Message signature
-    Extensions map[string]interface{} // Chain-specific data
-}
-```
-
-### Supported Message Types
-- `proposal` - Block proposals
-- `vote` - Consensus votes
-- `prepare` - PBFT prepare messages
-- `commit` - PBFT commit messages
-- `view_change` - View change messages
-- `block` - Block data
-
-## 🛠️ Development
-
-### Adding a New Chain
-
-1. **Create adapter**: Implement `Mapper` interface in `{chain}/adapter/`
-2. **Define message types**: Add chain-specific message structures
-3. **Add validation**: Create validation rules in `validator/`
-4. **Update configuration**: Add chain config to `bridge.yaml`
-5. **Test**: Run integration tests
-
-### Example: Adding Ethereum
-
-```go
-// ethereum/adapter/mapper.go
-type EthereumMapper struct {
-    chainID string
-}
-
-func (m *EthereumMapper) ToCanonical(raw RawConsensusMessage) (*CanonicalMessage, error) {
-    // Convert Ethereum message to canonical format
-}
-
-func (m *EthereumMapper) FromCanonical(msg *CanonicalMessage) (*RawConsensusMessage, error) {
-    // Convert canonical message to Ethereum format
-}
-```
-
-## 🧪 Testing & Experiments
-
-### Integration Tests
-```bash
-# CometBFT advanced mapper tests
-go test -v cometbft_advanced_test.go
-
-# CometBFT integration tests
-go test -v cometbft_integration_test.go
-
-# Performance benchmarks
-go test -bench=. -benchmem benchmark_test.go
-```
-
-### Real Message Testing
-```bash
-# Generate and test realistic messages
-go run cmd/demo/message_example_generator.go
-go run cmd/demo/message_file_parser.go examples/cometbft/samples.json
-
-# Generate and test Kaia IBFT messages
-go run cmd/demo/kaia_message_generator.go
-go run cmd/demo/kaia_message_parser.go examples/kaia/samples.json
-
-# Generate and test Hyperledger Besu IBFT messages
-go run cmd/demo/besu_message_generator.go
-
-# Simulate real consensus flow
-go run cmd/demo/real_message_simulator.go
-```
-
-### CometBFT Protocol Implementation
-
-This project implements real CometBFT protocol buffer structures:
-
-#### Supported Message Types
-- **NewRoundStep**: Consensus round step transitions
-- **Proposal**: Block proposals
-- **Vote**: Prevote/Precommit votes
-- **BlockPart**: Block part transmission
-- **NewValidBlock**: Valid block notifications
-- **VoteSetBits**: Vote bitmap messages
-- **HasVote**: Vote receipt confirmations
-- **ProposalPOL**: Proposal POL evidence
-
-#### Real CometBFT Structures
-- **BlockID**: Hash and PartSetHeader inclusion
-- **PartSetHeader**: Block part information
-- **SignedMsgType**: Prevote/Precommit distinction
-- **ValidatorSet**: Validator list and voting power
-- **ConsensusState**: Height, round, step state
-
-#### Consensus Engine Simulation
-- Real CometBFT consensus protocol flow implementation
-- Validator voting power-based consensus simulation
-- Round-robin proposer selection
-- Block finalization process
-
-### Kaia IBFT Protocol Implementation
-
-This project implements real Kaia IBFT (Istanbul BFT) protocol structures:
-
-#### Supported IBFT Message Types
-- **Preprepare**: IBFT 3-phase 1단계 (제안자 → 검증자들)
-- **Prepare**: IBFT 3-phase 2단계 (검증자들 → 모든 검증자들)
-- **Commit**: IBFT 3-phase 3단계 (검증자들 → 모든 검증자들)
-- **RoundChange**: 라운드 변경 메시지
-
-#### Real Kaia IBFT Structures
-- **View**: Round + Sequence (블록 높이)
-- **Subject**: Prepare/Commit/RoundChange 공통 페이로드
-- **Proposal**: 블록 헤더 기반 제안물
-- **ConsensusMsg**: PrevHash + Payload 래퍼
-- **RLP Encoding**: 실제 Kaia에서 사용하는 직렬화 방식
-
-#### IBFT 3-Phase Consensus Flow
-```
-1. Preprepare (제안자)
-   View{Round, Sequence} + Proposal{BlockHeader}
-   ↓
-2. Prepare (검증자들)
-   Subject{View, Digest, PrevHash}
-   ↓
-3. Commit (검증자들)
-   Subject{View, Digest, PrevHash} + CommittedSeal
-   ↓
-4. RoundChange (필요시)
-   Subject{View, "", PrevHash}
-```
-
-### Hyperledger Besu IBFT2.0/QBFT Protocol Implementation
-
-This project implements real Hyperledger Besu IBFT2.0/QBFT consensus structures:
-
-#### Supported IBFT Message Types
-- **Proposal**: IBFT2.0 block proposals with (h,r,H) structure
-- **Prepare**: IBFT2.0 prepare messages with block hash commitment
-- **Commit**: IBFT2.0 commit messages with ECDSA commit seals
-- **RoundChange**: IBFT2.0 round change messages for timeout handling
-
-#### Real Besu IBFT Structures
-- **BesuIBFTMessage**: (Code, Height, Round, BlockHash, Signature)
-- **BesuCommitPayload**: Body + CommitSeal (65-byte ECDSA signature)
-- **BesuBlockExtraData**: RLP([Vanity, Validators, Vote, Round, Seals])
-- **RLP Encoding**: Actual Besu serialization format
-
-#### IBFT2.0 Consensus Flow
-```
-1. Proposal (Proposer)
-   (h, r, H) + Block Data
-   ↓
-2. Prepare (Validators)
-   (h, r, H) + ECDSA Signature
-   ↓
-3. Commit (Validators)
-   (h, r, H) + Commit Seal
-   ↓
-4. RoundChange (Timeout)
-   (h, r+1, 0) + Round Change Evidence
-```
-
-### What You Can Verify in Tests
-
-1. **Message Conversion Accuracy**: Each chain's messages correctly convert to Canonical format
-2. **Cross-chain Compatibility**: CometBFT messages can be converted to Fabric, Besu, Kaia
-3. **Data Preservation**: Core data like height, round, timestamp are preserved
-4. **Validation System**: Invalid messages are properly rejected
-5. **Performance**: Conversion speed and memory usage
-6. **Real-time Processing**: Continuous message stream processing capability
-7. **CometBFT Protocol**: Real consensus protocol flow simulation
-8. **Validator Management**: Voting power-based consensus simulation
-
-## 📊 Monitoring
-
-The bridge provides metrics for:
-- Message processing rates
-- Validation failures
-- Cross-chain routing success/failure
-- Chain connectivity status
-
-## 🔧 Configuration Reference
-
-### Chain Configuration
-- `name`: Chain identifier
-- `enabled`: Enable/disable chain
-- `endpoint`: Connection endpoint
-- `ingress`: Input configuration
-- `egress`: Output targets
-
-### Routing Rules
-- `match`: Message matching criteria
-- `forward`: Target destinations
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Implement changes with tests
-4. Submit a pull request
-
-## 📄 License
-
-[License information]
-
-## 🎉 Key Benefits
-
-1. **Simplicity**: Each mapper handles only one blockchain
-2. **Scalability**: Easy to add new blockchains with independent mappers
-3. **Maintainability**: Chain-specific logic is separated for easy management
-4. **Testability**: Each mapper can be tested independently
-5. **Performance**: Direct conversion minimizes intermediate steps
-6. **Real-world Testing**: Uses realistic blockchain message patterns
-
-## 🆘 Support
-
-For issues and questions:
-- Create an issue in the repository
-- Check the documentation
-- Review test cases for examples
-- Use message examples for testing: `examples/cometbft/`
+## Canonical Flow
+1. **Collect raw data**: Read WAL entries, RPC responses, or network packets and wrap them as `RawConsensusMessage` objects.
+2. **Normalize**: Use a chain-specific mapper to convert the raw data into `CanonicalMessage` instances.
+3. **Analyze or mutate**: Apply filtering, field edits, or re-signing steps against the canonical representation.
+4. **Rehydrate**: Serialize the modified canonical messages back into the original chain-specific structures.
+5. **Inject or simulate**: Feed the resulting messages into the consensus engine or exercise them on a controlled test network.
+
+The CometBFT pipeline is production-ready, while Kaia and Besu adapters are being aligned with the canonical schema, signature semantics, and codec expectations.
+
+## Additional Documentation
+- `verify_vote_conversion.md`: Walkthrough of the CometBFT vote conversion experiment.
+- `verify_conversion.md`: Canonical conversion rules and testing strategy overview.
+- `message/README.md`: Usage notes for the codec experimentation tools.
+
+## Contributing
+1. Open an issue to discuss new ideas or report a bug.
+2. Create a feature branch for your changes.
+3. Run `go test ./...` to ensure the core suites pass.
+4. Submit a pull request summarizing the change and test results.
+
+## License
+Refer to the repository's license file for detailed terms.
