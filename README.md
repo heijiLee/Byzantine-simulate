@@ -41,7 +41,30 @@ cd Byzantine-simulate
 go mod tidy
 ```
 
-### 3. Explore the CometBFT demo CLI
+### 3. Run the Byzantine proxy
+
+```bash
+go run cmd/byzproxy/main.go \
+  --listen tcp://0.0.0.0:26656 \
+  --upstream tcp://127.0.0.1:26657 \
+  --node-key /path/to/node_key.json \
+  --attack double_vote \
+  --trigger-height 100 \
+  --trigger-step prevote
+```
+- Bridges external peers with an upstream CometBFT validator over a secure P2P connection.
+- Decodes consensus messages into their canonical form, applies the configured byzantine mutation, and re-encodes them before forwarding.
+- Supports hooks to delay, drop, or duplicate envelopes once the trigger height/round/step matches.
+- Exposes structured JSON logs describing each forwarded or mutated message.
+
+Additional useful flags:
+
+- `--duplicate` duplicates each triggered envelope after mutation.
+- `--delay=2s` delays forwarding of triggered envelopes by two seconds.
+- `--mutate-direction=downstream` applies mutations to traffic heading towards external peers (default is upstream).
+- `--timestamp-skew=250ms`, `--round-offset=1`, and other canonical offsets reshape forged consensus data.
+
+### 4. Explore the CometBFT demo CLI
 ```bash
 go run cmd/demo/main.go
 ```
@@ -67,13 +90,13 @@ go run cmd/demo/main.go -scenario=byzantine -action=double_vote -alternate-signa
 
 To script the same pipeline, use `cmd/byzantine` which emits JSON containing both the byz-canonical mutations and their encoded CometBFT counterparts.
 
-### 4. Execute tests
+### 5. Execute tests
 ```bash
 go test ./...
 ```
 - Validates transformation logic, verification helpers, and simulator behaviors.
 
-### 5. (Optional) Regenerate protobuf descriptors
+### 6. (Optional) Regenerate protobuf descriptors
 ```bash
 protoc \
   --proto_path=message/proto \

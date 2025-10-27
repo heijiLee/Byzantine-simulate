@@ -27,6 +27,30 @@ go run cmd/demo/main.go -scenario=byzantine -action=alter_validator -alternate-v
 
 You can provide your own canonical input for the byzantine scenario using `-canonical=/path/to/canonical.json`. Optional flags `-alternate-block`, `-alternate-prev`, `-alternate-signature`, `-alternate-validator`, `-round-offset`, `-height-offset`, and `-timestamp-skew` override the forged fields when you need explicit values. During execution the CLI prints the **canonical → byz-canonical → byzcomet** progression so you can inspect each stage of the mutation.
 
+## Demonstrating the byzantine proxy
+
+The `cmd/byzproxy` CLI reuses the same canonical-byzantine pipeline to mutate **live** consensus traffic. A lightweight way to observe the behaviour without a full network is to wire two local CometBFT nodes together through the proxy.
+
+```bash
+# Terminal 1 – start an upstream validator (or use the localnet harness)
+cometbft start --home $HOME/.cometbft-upstream
+
+# Terminal 2 – launch the proxy with a mutation that triggers on the next prevote
+go run cmd/byzproxy/main.go \
+  --listen tcp://0.0.0.0:36656 \
+  --upstream tcp://127.0.0.1:26656 \
+  --node-key $HOME/.byzproxy/config/node_key.json \
+  --attack double_prevote \
+  --trigger-height 1 \
+  --trigger-step prevote \
+  --duplicate
+
+# Terminal 3 – run a peer that dials the proxy instead of the validator
+cometbft start --home $HOME/.cometbft-peer --p2p.laddr tcp://0.0.0.0:46656 --proxy_app tcp://127.0.0.1:36656
+```
+
+The proxy logs every consensus envelope, highlighting when a trigger fired, how the canonical message was mutated, and whether the packet travelled upstream (towards the validator) or downstream (towards external peers). Adjust the `--delay`, `--drop`, `--mutate-direction`, and canonical override flags to experiment with different failure scenarios.
+
 ### Understanding the byzantine pipeline
 
 1. Start with a canonical vote or proposal (from fixtures or your own data).
